@@ -536,6 +536,190 @@ def _plant_duplicate_key(
     )
 
 
+# Fill-ladder planted groups. Support N=5 is the connector's floor (brief §7.6):
+# the high-spread group has n>5 but wide weights (fails dispersion), the sparse
+# group has n<5 (fails support). Both then fall through to the reference constant.
+MISSINGNESS_RATE = 0.35
+_HIGH_SPREAD_WEIGHTS = (40, 9, 66, 16, 92, 27)
+_SPARSE_WEIGHTS = (31, 34)
+
+
+def _distinct_style_donors(rows: list[dict[str, str]], code: str, n: int) -> list[dict[str, str]]:
+    """Return one row per distinct style of an archetype, to lend style-level identity."""
+    donors: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for row in rows:
+        if not row["style_id"].startswith(f"{code}-") or row["style_id"] in seen:
+            continue
+        seen.add(row["style_id"])
+        donors.append(row)
+        if len(donors) == n:
+            break
+    return donors
+
+
+def _clone_line(
+    rng: random.Random,
+    donor: dict[str, str],
+    *,
+    source_row_id: int,
+    component: str,
+    material: str,
+    composition: str,
+    net_weight: str,
+) -> dict[str, str]:
+    """Add a planted component line to an existing style, borrowing its identity."""
+    line = dict(donor)
+    line.update(
+        source_row_id=str(source_row_id),
+        component=component,
+        material=material,
+        composition=composition,
+        net_weight=net_weight,
+        unit_price=f"{rng.uniform(0.5, 25.0):.2f}",
+    )
+    return line
+
+
+def _plant_high_spread_group(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """A group with support but wide weights: the median fails the dispersion guard."""
+    donors = _distinct_style_donors(rows, "TRO", len(_HIGH_SPREAD_WEIGHTS) + 1)
+    for donor, grams in zip(donors[:-1], _HIGH_SPREAD_WEIGHTS, strict=True):
+        line = _clone_line(
+            rng,
+            donor,
+            source_row_id=_next_id(rows),
+            component="webbing strap",
+            material="nylon",
+            composition="100% nylon",
+            net_weight=f"{grams} g",
+        )
+        rows.append(line)
+        used.add(line["source_row_id"])
+    blank = _clone_line(
+        rng,
+        donors[-1],
+        source_row_id=_next_id(rows),
+        component="webbing strap",
+        material="nylon",
+        composition="100% nylon",
+        net_weight="",
+    )
+    rows.append(blank)
+    used.add(blank["source_row_id"])
+    _record(
+        ground_truth,
+        source_row_id=blank["source_row_id"],
+        column="component_weight_g",
+        true_value="45",
+        case="blank_weight_high_spread",
+        expected="fails dispersion -> reference constant",
+    )
+
+
+def _plant_sparse_group(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """A group with too few observations: the median fails the support guard."""
+    donors = _distinct_style_donors(rows, "DRS", len(_SPARSE_WEIGHTS) + 1)
+    for donor, grams in zip(donors[:-1], _SPARSE_WEIGHTS, strict=True):
+        line = _clone_line(
+            rng,
+            donor,
+            source_row_id=_next_id(rows),
+            component="sequin panel",
+            material="polyester",
+            composition="100% polyester",
+            net_weight=f"{grams} g",
+        )
+        rows.append(line)
+        used.add(line["source_row_id"])
+    blank = _clone_line(
+        rng,
+        donors[-1],
+        source_row_id=_next_id(rows),
+        component="sequin panel",
+        material="polyester",
+        composition="100% polyester",
+        net_weight="",
+    )
+    rows.append(blank)
+    used.add(blank["source_row_id"])
+    _record(
+        ground_truth,
+        source_row_id=blank["source_row_id"],
+        column="component_weight_g",
+        true_value="32",
+        case="blank_weight_sparse",
+        expected="fails support -> reference constant",
+    )
+
+
+def _plant_implausible_weight(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """An observed weight far outside the reference band: flagged, not accepted."""
+    predicate = lambda r: (  # noqa: E731 - a local row predicate reads clearest inline
+        r["style_id"].startswith("TSH-") and r["component"] == "shell fabric" and r["material"] == "cotton"
+    )
+    for row in _pick(rng, rows, used, predicate, 1):
+        grams = _parse_grams(row["net_weight"])
+        row["net_weight"] = "5000 g"
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="component_weight_g",
+            true_value=str(grams),
+            case="implausible_weight",
+            expected="trips plausibility band -> rejected/flagged",
+        )
+
+
+def _plant_dense_tight_blanks(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """Blank a few weights in a dense, tight group: they fill cleanly at the median tier."""
+    predicate = lambda r: (  # noqa: E731 - a local row predicate reads clearest inline
+        r["style_id"].startswith("TSH-")
+        and r["component"] == "shell fabric"
+        and r["material"] == "cotton"
+        and r["net_weight"].endswith(" g")
+    )
+    for row in _pick(rng, rows, used, predicate, 3):
+        grams = _parse_grams(row["net_weight"])
+        row["net_weight"] = ""
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="component_weight_g",
+            true_value=str(grams),
+            case="blank_weight_dense_tight",
+            expected="GROUPED_MEDIAN fill",
+        )
+
+
+def _plant_missingness_band(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """Blank ~35% of the remaining gram weights: enough gaps to make filling matter."""
+    eligible = [r for r in rows if r["source_row_id"] not in used and r["net_weight"].endswith(" g")]
+    count = round(MISSINGNESS_RATE * len(eligible))
+    for row in rng.sample(eligible, count):
+        grams = _parse_grams(row["net_weight"])
+        row["net_weight"] = ""
+        used.add(row["source_row_id"])
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="component_weight_g",
+            true_value=str(grams),
+            case="blank_weight",
+            expected="grouped-median fill where the group clears guards, else reference constant",
+        )
+
+
 def generate(seed: int = SEED) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
     """Generate the raw BOM rows and the ground-truth rows for the fixture."""
     rng = random.Random(seed)
@@ -551,6 +735,11 @@ def generate(seed: int = SEED) -> tuple[list[dict[str, str]], list[dict[str, str
     _plant_malformed_dates(rng, rows, ground_truth, used)
     _plant_extreme_price(rng, rows, ground_truth, used)
     _plant_duplicate_key(rng, rows, ground_truth, used)
+    _plant_high_spread_group(rng, rows, ground_truth, used)
+    _plant_sparse_group(rng, rows, ground_truth, used)
+    _plant_implausible_weight(rng, rows, ground_truth, used)
+    _plant_dense_tight_blanks(rng, rows, ground_truth, used)
+    _plant_missingness_band(rng, rows, ground_truth, used)
     return rows, ground_truth
 
 
