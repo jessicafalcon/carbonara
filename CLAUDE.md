@@ -86,10 +86,11 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
   atomic commit, made once it is green (`uv run pytest` + `uv run pre-commit run
   --all-files` clean). Never bundle a whole phase into one commit; never commit
   red or unrelated changes together.
-- **Stop at the exit gate.** When the brief §16 exit gate is green, **stop and
-  report it. Do not push, and do not open or finalize the PR, without an explicit
-  instruction. Never merge — pushing, the PR, and the merge to `main` are the
-  user's calls.** Update **Current status** below when told a phase is merged.
+- **At the exit gate.** When the brief §16 exit gate is green, push the branch
+  and open/finalize the PR (`carbonara-voice`), then **stop — do not merge. The
+  merge to `main` is the user's call.** Push and PRs are fine at any point;
+  only the merge waits for the user. Update **Current status** once told it's
+  merged.
 - Confirm before force-push, history rewrite, or anything else hard to undo.
 
 ### Commit best practices
@@ -115,8 +116,8 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
    `carbonara-tests` as you go; the PostToolUse hooks run on every `.py` edit.
 4. Each step, once green (`uv run pytest`, then `uv run pre-commit run
    --all-files`): one atomic commit.
-5. At the exit gate: stop and report. Push and open the PR only on the user's
-   instruction; the user merges. Update Current status once told it's merged.
+5. At the exit gate: push the branch, open/finalize the PR, and stop — the user
+   merges. Update Current status once told it's merged.
 
 ## Project tooling
 
