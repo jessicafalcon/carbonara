@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+
+# Tooling caches
+.ruff_cache/
+.pytest_cache/
+.ty_cache/
+
+# Local caches for external reference data (fetched, not versioned)
+.cache/
+
+# DuckDB working files
+*.duckdb
+*.duckdb.wal
+
+# OS
+.DS_Store

@@ -1,0 +1,59 @@
+[project]
+name = "carbonara"
+version = "0.1.0"
+description = "Deterministic, auditable apparel-BOM carbon connector"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">= 3.11"
+dependencies = [
+  "pandas>=2.3.3",
+  "duckdb>=1.1.0",
+  "bloodline>=0.2.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.0,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # Pyflakes
+  "I",   # isort
+  "B",   # flake8-bugbear
+  "UP",  # pyupgrade
+]
+
+[tool.ty.rules]
+unresolved-import = "ignore"
+
+[tool.uv]
+package = true
+default-groups = "all"
+
+[tool.uv.build-backend]
+module-name = "carbonara"
+module-root = ""
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "carbonara"]
+addopts = [
+  "-v",
+  "--tb=short",
+  "--strict-markers",
+  "--disable-warnings",
+  "--doctest-modules",
+  "--doctest-glob=*.md",
+]
+
+[dependency-groups]
+dev = [
+  "pre-commit>=4.0.0",
+  "pytest>=7.0.0",
+  "ruff>=0.14.6",
+  "ty>=0.0.1a27",
+]
