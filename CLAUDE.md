@@ -39,6 +39,15 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
    typed, one runnable check per non-trivial unit, small green commits. This is
    the house baseline, not a nice-to-have.
 
+## Communication
+
+- **Result first:** what changed / passed / failed, then the details.
+- Plain English, short sentences. No task restatement, no "I will now…", no
+  closing summary that repeats the middle.
+- One sentence if it fits; explanations ≤ 4 sentences.
+- **Report after a task:** files touched, commands run, result, open risks, next
+  step — nothing else.
+
 ## The build harness
 
 ### Skills — launch the matching one *before* the work
