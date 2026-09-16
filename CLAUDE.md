@@ -81,7 +81,9 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
 - **Spec first, as actionable steps.** Break the phase into an ordered list of
   actionable steps in `specs/phase-<n>-<slug>.md` (mirrors brief §16, authored
   with `carbonara-voice`), before implementation. The spec is the first step and
-  its own commit.
+  its own commit. **Write it as a senior data architect:** choose the simplest,
+  most elegant solution that meets the contract — boring over clever — and cut
+  anything speculative. No overengineering.
 - **One step = one commit.** Work the phase step by step; each step is a single
   atomic commit, made once it is green (`uv run pytest` + `uv run pre-commit run
   --all-files` clean). Never bundle a whole phase into one commit; never commit
@@ -89,8 +91,10 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
 - **At the exit gate.** When the brief §16 exit gate is green, push the branch
   and open/finalize the PR (`carbonara-voice`), then **stop — do not merge. The
   merge to `main` is the user's call.** Push and PRs are fine at any point;
-  only the merge waits for the user. Update **Current status** once told it's
-  merged.
+  only the merge waits for the user.
+- **Update Current status after every PR and every merge** (in the same change) —
+  the phase, branch, open PR, and the next spec step. A new session resumes from
+  it, so it must be current.
 - Confirm before force-push, history rewrite, or anything else hard to undo.
 
 ### Commit best practices
@@ -134,9 +138,10 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
 
 ## Current status
 
-- **Phase 0 — build harness + repo skeleton: done** (on `main`). Exit gate green:
-  `uv run pytest`, `pre-commit run --all-files`, determinism guard all verified.
-- **Next: Phase 1 — contract + fixture generator** (brief §16). Branch
-  `phase-1-contract-and-fixture`; spec at `specs/phase-1-contract-and-fixture.md`.
+- **Phase 0 — build harness + repo skeleton: done** (on `main`).
+- **Phase 1 — contract + fixture generator: in progress.** Branch
+  `phase-1-contract-and-fixture`; spec `specs/phase-1-contract-and-fixture.md`
+  (merged via PR #1). **Next: step 1 — the contract.** Implementation needs a new
+  PR (#1 is closed).
 
-_Update this section at the end of every phase._
+_Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
