@@ -92,21 +92,21 @@ tight comprehension. Thresholds are named config, never magic numbers in the bod
 
 ## Testing: the check that doubles as documentation
 
-Non-trivial logic leaves exactly **one runnable check** behind. No frameworks
-beyond pytest, no fixture pyramids unless the logic demands them.
+Non-trivial logic leaves exactly **one runnable check** behind — prefer a
+doctest, which proves the behavior *and* documents usage:
 
-- **Prefer a doctest** — it proves the behavior *and* shows a reader how to use the thing. Fixtures seed with a fixed `random.seed(42)` so the output is stable. Test-function bodies are often a pure `>>>` narrative:
-  ```python
-  def test_parse_composition():
-      """
-      >>> from carbonara.normalize import parse_composition
-      >>> parse_composition("70/30 CO/PL")
-      {'cotton': 0.7, 'polyester': 0.3}
-      """
-  ```
-- **README doctests are real tests.** `pytest` runs them via `--doctest-glob=*.md`; a `tests/test_readme.py` wires it up with `doctest.ELLIPSIS | NORMALIZE_WHITESPACE`. Keep every `>>>` block in the README executable and correct.
-- Reach for a plain `test_*.py` only when a doctest would be contorted (large frames, error paths, parametrized cases). Test names describe behavior: `test_high_spread_group_falls_through_to_reference_constant`.
-- Every planted fixture case ([§6](../../../PROJECT-BRIEF.md), [§12](../../../PROJECT-BRIEF.md)) has a test asserting its specified outcome.
+```python
+def test_parse_composition():
+    """
+    >>> from carbonara.normalize import parse_composition
+    >>> parse_composition("70/30 CO/PL")
+    {'cotton': 0.7, 'polyester': 0.3}
+    """
+```
+
+Reach for a plain `test_*.py` only when a doctest would be contorted. The full
+testing standard — taxonomy, determinism tests, the §12 fixture cases, and the
+fill-accuracy metric — lives in `carbonara-tests`; read it before writing tests.
 
 ## Tooling (the deterministic backbone)
 

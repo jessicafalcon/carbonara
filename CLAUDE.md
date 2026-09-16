@@ -1,0 +1,113 @@
+# CLAUDE.md
+
+Session instructions for the carbonara connector. Read this first, every session.
+The full design and the phase plan live in [PROJECT-BRIEF.md](PROJECT-BRIEF.md)
+(§16 is the phase-by-phase build plan); this file is *how we work*, not *what we
+build*.
+
+## Repo map
+
+```text
+carbonara/        the connector package (the data path — kept deterministic)
+tests/            cross-module + README/behavior tests
+references/       versioned reference/factor CSVs, one citation per row
+fixtures/         generated fixtures + retained ground truth
+specs/            one spec per phase, named after its branch (specs/<branch>.md)
+PROJECT-BRIEF.md  the design + phased build plan (§16)
+CLAUDE.md         this file — the session workflow
+.claude/skills/   the build-standard skills (below)
+.claude/hooks/    determinism guard + ruff-on-edit (fire automatically)
+pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
+```
+
+## Core principles (in priority order)
+
+1. **Determinism first.** Same input + same rule versions ⇒ byte-identical
+   output, lineage, and ledger. No LLM, no unseeded randomness, no wall-clock, no
+   env reads in `carbonara/`. This outranks everything else — a faster or shorter
+   change that breaks it does not land. (`carbonara-correctness` §1; the
+   determinism guard enforces it on edit.)
+2. **Portability.** Runs on any machine with `uv` and Python ≥ 3.11, offline.
+   Deps pinned in `uv.lock`; reference data versioned in-repo; no absolute paths,
+   no machine-specific config, no network in the data path or the tests. Prefer
+   stdlib and already-installed deps over new ones.
+3. **Results backed by data.** Every published number traces to a rule, a source
+   row, and a factor version (ledger + Bloodline spine). Filled values carry an
+   uncertainty range; fill accuracy is *measured* against ground truth, never
+   claimed. Stay inside the claims boundaries (brief §15).
+4. **Clean code, tested, version-controlled.** Small single-concern modules,
+   typed, one runnable check per non-trivial unit, small green commits. This is
+   the house baseline, not a nice-to-have.
+
+## The build harness
+
+### Skills — launch the matching one *before* the work
+
+| Skill | Launch before… |
+|---|---|
+| `carbonara-craft` | writing/refactoring any Python, choosing a dependency |
+| `carbonara-correctness` | landing anything in the data path, adding a rule, reviewing |
+| `carbonara-tests` | writing or changing any test |
+| `carbonara-voice` | writing a commit, PR, comment/docstring, or any `.md` file |
+| `carbonara-efficiency` | fan-out reads, wiring an external source, long multi-turn work |
+
+### Hooks — fire automatically, no action needed
+
+- **ruff-on-edit** (PostToolUse, any `*.py`): formats + lint-fixes the edited file.
+- **determinism-guard** (PostToolUse, `carbonara/*.py`): blocks LLM calls,
+  unseeded randomness, wall-clock, `uuid4`, and env reads in the connector
+  package. If it fires on legitimately non-deterministic code, that code belongs
+  *outside* `carbonara/` (a generator or script), or the value should be injected.
+
+## Git workflow — one branch + one PR per phase
+
+- **Phase 0 was committed directly to `main`** (repo bootstrap). From **Phase 1
+  on, every phase gets its own branch and one PR.**
+- Branch name: `phase-<n>-<slug>` (e.g. `phase-1-contract-and-fixture`).
+- **Start a phase:**
+  ```sh
+  git switch main && git pull --ff-only
+  git switch -c phase-<n>-<slug>
+  ```
+- **Write the spec first:** `specs/phase-<n>-<slug>.md` — the phase's contract,
+  tasks, and acceptance (mirrors brief §16) — authored with `carbonara-voice`,
+  before implementation. Commit it, then open the phase PR (it tracks the phase).
+- **Commit cadence:** commit each time a unit is green — `uv run pytest` passes
+  and `uv run pre-commit run --all-files` is clean. Never commit red. Small,
+  focused commits in house voice (`carbonara-voice`); each names its change.
+- **Finish a phase:** confirm the brief §16 exit gate passes, finalize the PR
+  body (`carbonara-voice`), merge into `main`, delete the branch, and update
+  **Current status** below.
+- Confirm before force-push, history rewrite, or anything else hard to undo.
+
+## How the tooling fires across a phase
+
+1. Read this file + the brief's phase section; recall project memory.
+2. Branch off `main`; write `specs/<branch>.md` (launch `carbonara-voice`).
+3. Implement in small units — launch `carbonara-craft` / `carbonara-correctness`
+   / `carbonara-tests` as you go; the PostToolUse hooks run on every `.py` edit.
+4. On each green unit: `uv run pytest`, then `uv run pre-commit run --all-files`;
+   commit.
+5. At the exit gate: finish the PR, merge to `main`, update Current status.
+
+## Project tooling
+
+```sh
+uv sync                              # install deps + dev tools (ruff, ty, pytest, pre-commit)
+uv run pytest                        # unit tests + doctests (incl. README)
+uv run ruff format . && uv run ruff check --fix .
+uv run ty check .
+uv run pre-commit run --all-files    # uv-lock, ruff, ty
+pre-commit install --hook-type pre-push   # run the gate on push (once, local)
+```
+
+Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
+
+## Current status
+
+- **Phase 0 — build harness + repo skeleton: done** (on `main`). Exit gate green:
+  `uv run pytest`, `pre-commit run --all-files`, determinism guard all verified.
+- **Next: Phase 1 — contract + fixture generator** (brief §16). Branch
+  `phase-1-contract-and-fixture`; spec at `specs/phase-1-contract-and-fixture.md`.
+
+_Update this section at the end of every phase._
