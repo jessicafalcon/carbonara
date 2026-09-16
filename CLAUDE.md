@@ -64,31 +64,50 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
 - **Phase 0 was committed directly to `main`** (repo bootstrap). From **Phase 1
   on, every phase gets its own branch and one PR.**
 - Branch name: `phase-<n>-<slug>` (e.g. `phase-1-contract-and-fixture`).
-- **Start a phase:**
+- **Start a phase (local):**
   ```sh
   git switch main && git pull --ff-only
   git switch -c phase-<n>-<slug>
   ```
-- **Write the spec first:** `specs/phase-<n>-<slug>.md` — the phase's contract,
-  tasks, and acceptance (mirrors brief §16) — authored with `carbonara-voice`,
-  before implementation. Commit it, then open the phase PR (it tracks the phase).
-- **Commit cadence:** commit each time a unit is green — `uv run pytest` passes
-  and `uv run pre-commit run --all-files` is clean. Never commit red. Small,
-  focused commits in house voice (`carbonara-voice`); each names its change.
-- **Finish a phase:** confirm the brief §16 exit gate passes, finalize the PR
-  body (`carbonara-voice`), merge into `main`, delete the branch, and update
-  **Current status** below.
+- **Spec first, as actionable steps.** Break the phase into an ordered list of
+  actionable steps in `specs/phase-<n>-<slug>.md` (mirrors brief §16, authored
+  with `carbonara-voice`), before implementation. The spec is the first step and
+  its own commit.
+- **One step = one commit.** Work the phase step by step; each step is a single
+  atomic commit, made once it is green (`uv run pytest` + `uv run pre-commit run
+  --all-files` clean). Never bundle a whole phase into one commit; never commit
+  red or unrelated changes together.
+- **Stop at the exit gate.** When the brief §16 exit gate is green, **stop and
+  report it. Do not push, and do not open or finalize the PR, without an explicit
+  instruction. Never merge — pushing, the PR, and the merge to `main` are the
+  user's calls.** Update **Current status** below when told a phase is merged.
 - Confirm before force-push, history rewrite, or anything else hard to undo.
+
+### Commit best practices
+
+- **Atomic.** One logical change per commit — the step, nothing bundled in.
+- **Commit often**, each time a step is green; small commits are easier to read,
+  review, and revert.
+- **Never commit broken or unrelated code.**
+- **Subject:** imperative, present tense, ≤ 50 characters, no trailing period —
+  "Add contract dataclass", not "Added…" or "Fixes bug…". The house
+  `type(scope): summary` form and the `Co-Authored-By` trailer are in
+  `carbonara-voice`.
+- **Body (only when it adds something):** a blank line, then *what* changed and
+  *why* (and any side effects) — not *how*; the diff already shows how.
+- **Footer:** reference the phase PR or issue when relevant (`Refs #<n>`).
 
 ## How the tooling fires across a phase
 
 1. Read this file + the brief's phase section; recall project memory.
-2. Branch off `main`; write `specs/<branch>.md` (launch `carbonara-voice`).
-3. Implement in small units — launch `carbonara-craft` / `carbonara-correctness`
-   / `carbonara-tests` as you go; the PostToolUse hooks run on every `.py` edit.
-4. On each green unit: `uv run pytest`, then `uv run pre-commit run --all-files`;
-   commit.
-5. At the exit gate: finish the PR, merge to `main`, update Current status.
+2. Branch off `main` (local); write `specs/<branch>.md` as an ordered list of
+   actionable steps (launch `carbonara-voice`) — the spec is the first commit.
+3. Work step by step — launch `carbonara-craft` / `carbonara-correctness` /
+   `carbonara-tests` as you go; the PostToolUse hooks run on every `.py` edit.
+4. Each step, once green (`uv run pytest`, then `uv run pre-commit run
+   --all-files`): one atomic commit.
+5. At the exit gate: stop and report. Push and open the PR only on the user's
+   instruction; the user merges. Update Current status once told it's merged.
 
 ## Project tooling
 
