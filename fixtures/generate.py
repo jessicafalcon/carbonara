@@ -398,6 +398,31 @@ def _plant_renamed_header(ground_truth: list[dict[str, str]]) -> None:
     )
 
 
+def _plant_file_level_cases(ground_truth: list[dict[str, str]]) -> None:
+    """Record the §12 behaviors that are file/pipeline scope, not a single cell.
+
+    Both are exercised by later phases against this same file — re-importing its
+    bytes (Phase 2) and revising a reference factor (Phase 5) — but their
+    expected outcomes are registered here so the §12 table is fully covered.
+    """
+    _record(
+        ground_truth,
+        source_row_id="0",
+        column="",
+        true_value="",
+        case="duplicate_file_upload",
+        expected="idempotent rerun, no duplicate rows",
+    )
+    _record(
+        ground_truth,
+        source_row_id="0",
+        column="",
+        true_value="",
+        case="factor_table_revision",
+        expected="recalculated metrics + factor-version diff",
+    )
+
+
 def _plant_supplier_variants(
     rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
 ) -> None:
@@ -740,6 +765,7 @@ def generate(seed: int = SEED) -> tuple[list[dict[str, str]], list[dict[str, str
     _plant_implausible_weight(rng, rows, ground_truth, used)
     _plant_dense_tight_blanks(rng, rows, ground_truth, used)
     _plant_missingness_band(rng, rows, ground_truth, used)
+    _plant_file_level_cases(ground_truth)
     return rows, ground_truth
 
 
@@ -760,18 +786,30 @@ def _write_bom(path: pathlib.Path, rows: list[dict[str, str]]) -> None:
         writer.writerows([row[column] for column in SOURCE_COLUMNS] for row in rows)
 
 
-def _check_ground_truth(ground_truth: list[dict[str, str]]) -> None:
-    """Every ground-truth row must target a real canonical column (brief §6)."""
+def _check_ground_truth(rows: list[dict[str, str]], ground_truth: list[dict[str, str]]) -> None:
+    """Ground truth must be well-formed and retain every blanked weight cell.
+
+    Row-level entries target a real canonical column (brief §6); file-level
+    entries (source_row_id 0) carry no column. Every blanked ``component_weight_g``
+    cell must have its true value retained, so fill accuracy stays measurable.
+    """
     canonical = set(CANONICAL_COLUMNS)
     for row in ground_truth:
+        if row["source_row_id"] == "0":
+            continue
         if row["column"] not in canonical:
             raise ValueError(f"ground truth targets unknown column: {row['column']!r}")
+
+    retained_weights = {row["source_row_id"] for row in ground_truth if row["column"] == "component_weight_g"}
+    for row in rows:
+        if row["net_weight"] == "" and row["source_row_id"] not in retained_weights:
+            raise ValueError(f"blanked weight has no retained truth: row {row['source_row_id']}")
 
 
 def write_fixtures(out_dir: pathlib.Path, seed: int = SEED) -> None:
     """Generate and write ``bom_v1.csv`` and ``ground_truth_v1.csv`` into ``out_dir``."""
     rows, ground_truth = generate(seed)
-    _check_ground_truth(ground_truth)
+    _check_ground_truth(rows, ground_truth)
     _write_bom(out_dir / "bom_v1.csv", rows)
     _write_csv(out_dir / "ground_truth_v1.csv", GROUND_TRUTH_COLUMNS, ground_truth)
 
