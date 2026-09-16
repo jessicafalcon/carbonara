@@ -15,6 +15,7 @@ import csv
 import dataclasses
 import pathlib
 import random
+from collections.abc import Callable
 
 from carbonara.contract import CANONICAL_COLUMNS
 
@@ -334,11 +335,222 @@ def _select_components(rng: random.Random, archetype: ArchetypeSpec) -> list[Com
     return core + kept_optional
 
 
+# One header is renamed from the connector's expected source name, so a first
+# import trips the schema-drift gate (brief §12) rather than mapping silently.
+RENAMED_HEADERS: dict[str, str] = {"supplier": "vendor"}
+
+
+def _record(
+    ground_truth: list[dict[str, str]],
+    *,
+    source_row_id: str,
+    column: str,
+    true_value: str,
+    case: str,
+    expected: str,
+) -> None:
+    """Append one ground-truth row: the true value of a corrupted/blanked cell."""
+    ground_truth.append(
+        {
+            "source_row_id": source_row_id,
+            "column": column,
+            "true_value": true_value,
+            "case": case,
+            "expected": expected,
+        }
+    )
+
+
+def _next_id(rows: list[dict[str, str]]) -> int:
+    """The next free source_row_id (ids are the 1-based file row order)."""
+    return max(int(r["source_row_id"]) for r in rows) + 1
+
+
+def _parse_grams(net_weight: str) -> int:
+    """Read the integer grams out of a clean ``'<n> g'`` cell."""
+    return int(net_weight.split()[0])
+
+
+def _pick(
+    rng: random.Random,
+    rows: list[dict[str, str]],
+    used: set[str],
+    predicate: Callable[[dict[str, str]], bool],
+    n: int,
+) -> list[dict[str, str]]:
+    """Deterministically choose up to ``n`` unused rows matching ``predicate``."""
+    candidates = [r for r in rows if r["source_row_id"] not in used and predicate(r)]
+    chosen = rng.sample(candidates, min(n, len(candidates)))
+    for row in chosen:
+        used.add(row["source_row_id"])
+    return chosen
+
+
+def _plant_renamed_header(ground_truth: list[dict[str, str]]) -> None:
+    """A vendor renamed one column; source_row_id 0 marks a file/header-level case."""
+    _record(
+        ground_truth,
+        source_row_id="0",
+        column="supplier_raw",
+        true_value="supplier",
+        case="renamed_header",
+        expected="schema-drift warning, review required",
+    )
+
+
+def _plant_supplier_variants(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """Swap a few of each supplier's rows to a messy spelling variant, keeping truth."""
+    for supplier in SUPPLIERS:
+        for spelling in supplier.spellings:
+            if spelling == supplier.canonical:
+                continue
+            for row in _pick(rng, rows, used, lambda r, s=supplier: r["supplier"] == s.canonical, 2):
+                row["supplier"] = spelling
+                _record(
+                    ground_truth,
+                    source_row_id=row["source_row_id"],
+                    column="supplier_normalized",
+                    true_value=supplier.canonical,
+                    case="supplier_variant",
+                    expected="fuzzy match to canonical supplier above threshold",
+                )
+
+
+def _plant_material_typo(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """`Organic cottn`: a material misspelling that must be proposed, not auto-fixed."""
+    for row in _pick(rng, rows, used, lambda r: r["material"] == "cotton", 3):
+        row["material"] = "Organic cottn"
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="material_normalized",
+            true_value="organic cotton",
+            case="material_typo",
+            expected="proposed alias, not silent correction",
+        )
+
+
+def _plant_composition_shorthand(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """`70/30 CO/PL`: shorthand composition to parse and check sums to 100%."""
+    for row in _pick(rng, rows, used, lambda r: r["component"] == "shell fabric", 3):
+        row["composition"] = "70/30 CO/PL"
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="composition",
+            true_value="70% cotton / 30% polyester",
+            case="composition_shorthand",
+            expected="composition parsed, sums to 100%",
+        )
+
+
+def _plant_mixed_units(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """Weights given in kg on heavy components: normalize to grams, preserve the raw."""
+    for row in _pick(rng, rows, used, lambda r: _parse_grams(r["net_weight"]) >= 200, 4):
+        grams = _parse_grams(row["net_weight"])
+        row["net_weight"] = f"{grams / 1000:.2f} kg"
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="component_weight_g",
+            true_value=str(grams),
+            case="mixed_units_kg",
+            expected="normalized value + preserved raw value/unit",
+        )
+
+
+def _plant_zero_weight(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """Zero weight beside a positive quantity/value: a high-severity anomaly, not a fill."""
+    for row in _pick(rng, rows, used, lambda r: _parse_grams(r["net_weight"]) >= 50, 1):
+        grams = _parse_grams(row["net_weight"])
+        row["net_weight"] = "0 g"
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="component_weight_g",
+            true_value=str(grams),
+            case="zero_weight_positive_value",
+            expected="high-severity anomaly",
+        )
+
+
+def _plant_malformed_dates(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """Unparseable order dates: a validity anomaly; the true date is retained."""
+    malformed = ("2024-13-07", "2024/02/31")
+    for row, bad in zip(_pick(rng, rows, used, lambda r: True, len(malformed)), malformed, strict=True):
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="order_date",
+            true_value=row["order_date"],
+            case="malformed_date",
+            expected="validity anomaly (invalid date)",
+        )
+        row["order_date"] = bad
+
+
+def _plant_extreme_price(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """An implausible unit price: a distribution anomaly flagged for review."""
+    for row in _pick(rng, rows, used, lambda r: True, 1):
+        _record(
+            ground_truth,
+            source_row_id=row["source_row_id"],
+            column="unit_price",
+            true_value=row["unit_price"],
+            case="extreme_price",
+            expected="distribution anomaly (extreme price)",
+        )
+        row["unit_price"] = "9999.00"
+
+
+def _plant_duplicate_key(
+    rng: random.Random, rows: list[dict[str, str]], ground_truth: list[dict[str, str]], used: set[str]
+) -> None:
+    """Re-emit a row under a new file id but the same business key: must not double-count."""
+    (original,) = _pick(rng, rows, used, lambda r: True, 1)
+    duplicate = dict(original)
+    duplicate["source_row_id"] = str(_next_id(rows))
+    rows.append(duplicate)
+    used.add(duplicate["source_row_id"])
+    _record(
+        ground_truth,
+        source_row_id=duplicate["source_row_id"],
+        column="record_id",
+        true_value=original["source_row_id"],
+        case="duplicate_key",
+        expected="finding, no double counting",
+    )
+
+
 def generate(seed: int = SEED) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
     """Generate the raw BOM rows and the ground-truth rows for the fixture."""
     rng = random.Random(seed)
     rows = _clean_rows(rng)
     ground_truth: list[dict[str, str]] = []
+    used: set[str] = set()
+    _plant_renamed_header(ground_truth)
+    _plant_supplier_variants(rng, rows, ground_truth, used)
+    _plant_material_typo(rng, rows, ground_truth, used)
+    _plant_composition_shorthand(rng, rows, ground_truth, used)
+    _plant_mixed_units(rng, rows, ground_truth, used)
+    _plant_zero_weight(rng, rows, ground_truth, used)
+    _plant_malformed_dates(rng, rows, ground_truth, used)
+    _plant_extreme_price(rng, rows, ground_truth, used)
+    _plant_duplicate_key(rng, rows, ground_truth, used)
     return rows, ground_truth
 
 
@@ -348,6 +560,15 @@ def _write_csv(path: pathlib.Path, columns: tuple[str, ...], rows: list[dict[str
         writer = csv.DictWriter(handle, fieldnames=list(columns), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
+
+
+def _write_bom(path: pathlib.Path, rows: list[dict[str, str]]) -> None:
+    """Write the BOM with the planted header rename applied to the emitted header row."""
+    headers = [RENAMED_HEADERS.get(column, column) for column in SOURCE_COLUMNS]
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(headers)
+        writer.writerows([row[column] for column in SOURCE_COLUMNS] for row in rows)
 
 
 def _check_ground_truth(ground_truth: list[dict[str, str]]) -> None:
@@ -362,7 +583,7 @@ def write_fixtures(out_dir: pathlib.Path, seed: int = SEED) -> None:
     """Generate and write ``bom_v1.csv`` and ``ground_truth_v1.csv`` into ``out_dir``."""
     rows, ground_truth = generate(seed)
     _check_ground_truth(ground_truth)
-    _write_csv(out_dir / "bom_v1.csv", SOURCE_COLUMNS, rows)
+    _write_bom(out_dir / "bom_v1.csv", rows)
     _write_csv(out_dir / "ground_truth_v1.csv", GROUND_TRUTH_COLUMNS, ground_truth)
 
 
