@@ -68,6 +68,32 @@ Each case is planted deliberately and its true value kept in `ground_truth_v1`:
 Regenerating twice yields byte-identical `bom_v1.csv` and `ground_truth_v1.csv`.
 No wall-clock, no unseeded randomness; ordering is stable before serialization.
 
+## Steps (one commit each)
+
+Work these in order; each is a single atomic commit, made once green.
+
+1. **Contract** — `carbonara/contract.py` (record dataclass, column order,
+   `quality_status` enum) + `tests/test_contract.py`.
+   `feat(contract): add canonical record and quality_status`
+2. **Generator base** — `fixtures/generate.py`: seeded generator emitting clean,
+   valid rows across the archetypes/styles/suppliers.
+   `feat(fixture): generate clean base BOM rows`
+3. **Messy conditions** — plant renamed headers, `Organic cottn`, `70/30 CO/PL`,
+   mixed g/kg, blank vs. zero, duplicate keys, malformed dates, extreme values.
+   `feat(fixture): plant messy parsing conditions`
+4. **Ladder cases** — plant dense-tight, high-spread, and sparse groups, an
+   implausible outlier, and the ~30–40% weight-missingness band.
+   `feat(fixture): plant fill-ladder group cases`
+5. **Ground truth** — emit `ground_truth_v1.csv` with the true value of every
+   corrupted/blanked cell.
+   `feat(fixture): retain ground truth for planted cases`
+6. **Tests** — generation determinism (byte-identical re-run) + presence and
+   labeling of every planted case + missingness band.
+   `test(fixture): determinism and planted-case coverage`
+7. **Artifacts** — commit the generated `fixtures/bom_v1.csv` and
+   `fixtures/ground_truth_v1.csv`.
+   `chores(fixture): add generated bom_v1 and ground truth`
+
 ## Tests
 
 - `test_contract.py`: the record has the specified fields in order; `quality_status`
