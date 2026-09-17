@@ -49,7 +49,12 @@ class FillResult:
 
 
 def _pools(records: list[SourceRecord]) -> list[tuple[str, _KeyFn, dict[_Key, list[float]]]]:
-    """Index observed positive weights by each back-off level's group key."""
+    """Index observed positive weights by each back-off level's group key.
+
+    Implausible observations are kept in the pool: the median is robust to a lone
+    outlier, dropping them would push a tight group below the support floor, and
+    the plausibility guard already protects the *result*, not the inputs.
+    """
     observed = [r for r in records if r.record.component_weight_g and r.record.component_weight_g > 0]
     pools: list[tuple[str, _KeyFn, dict[_Key, list[float]]]] = []
     for name, key_fn in _BACKOFF:
