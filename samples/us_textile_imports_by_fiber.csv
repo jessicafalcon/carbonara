@@ -1,0 +1,1333 @@
+table_num,table_name,Item,fiber,period,period_name,value,unit
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1989,calendar year,1435545444,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1990,calendar year,1508727517,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1991,calendar year,1580062034,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1992,calendar year,1980945043,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1993,calendar year,2244206079,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1994,calendar year,2539924168,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1995,calendar year,2795603235,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1996,calendar year,2947247753,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1997,calendar year,3549469421,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1998,calendar year,4255178323,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,1999,calendar year,4789067173,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2000,calendar year,5311405456,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2001,calendar year,5311586241,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2002,calendar year,5841612975,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2003,calendar year,6426609309,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2004,calendar year,6581354943,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2005,calendar year,7283147292,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2006,calendar year,7568697868,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2007,calendar year,7640358461,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2008,calendar year,7239941661,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2009,calendar year,6537531558,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2010,calendar year,7259145546,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2011,calendar year,6415290668,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2012,calendar year,6074085455,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2013,calendar year,6240754244,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2014,calendar year,6116651791,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2015,calendar year,6344006691,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2016,calendar year,6087621941,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2017,calendar year,6098658091,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2018,calendar year,6365546579,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2019,calendar year,6362147293,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2020,calendar year,5238083901,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2021,calendar year,7045513647,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2022,calendar year,7273414091,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2023,calendar year,5657096997,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2024,calendar year,6172818329,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Cotton,2025,calendar year,6200523617,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1989,calendar year,163619438,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1990,calendar year,151288314,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1991,calendar year,155820440,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1992,calendar year,166689206,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1993,calendar year,164351929,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1994,calendar year,163548428,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1995,calendar year,130254257,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1996,calendar year,109709758,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1997,calendar year,112003277,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1998,calendar year,125971888,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,1999,calendar year,116610019,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2000,calendar year,135006555,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2001,calendar year,139647600,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2002,calendar year,149348165,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2003,calendar year,232285305,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2004,calendar year,323641521,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2005,calendar year,283814852,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2006,calendar year,253243637,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2007,calendar year,201633960,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2008,calendar year,177881157,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2009,calendar year,118102720,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2010,calendar year,119142376,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2011,calendar year,123581519,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2012,calendar year,109855292,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2013,calendar year,100613984,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2014,calendar year,101927244,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2015,calendar year,100029463,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2016,calendar year,100215425,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2017,calendar year,93483355,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2018,calendar year,91694547,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2019,calendar year,100426655,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2020,calendar year,85769208,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2021,calendar year,103990126,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2022,calendar year,140307451,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2023,calendar year,166197640,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2024,calendar year,201924744,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Linen,2025,calendar year,187654635,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1989,calendar year,131975844,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1990,calendar year,117942796,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1991,calendar year,118917758,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1992,calendar year,130083097,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1993,calendar year,144270964,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1994,calendar year,177103553,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1995,calendar year,184211200,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1996,calendar year,193225540,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1997,calendar year,227042249,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1998,calendar year,248080575,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,1999,calendar year,233502362,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2000,calendar year,269168335,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2001,calendar year,284500344,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2002,calendar year,286882220,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2003,calendar year,284424803,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2004,calendar year,290707758,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2005,calendar year,287238554,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2006,calendar year,274814177,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2007,calendar year,297063213,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2008,calendar year,278562542,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2009,calendar year,252708155,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2010,calendar year,288345342,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2011,calendar year,293706117,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2012,calendar year,290829070,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2013,calendar year,290569179,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2014,calendar year,321165926,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2015,calendar year,334869703,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2016,calendar year,324827275,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2017,calendar year,319839885,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2018,calendar year,332136347,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2019,calendar year,334582526,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2020,calendar year,230797047,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2021,calendar year,288286180,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2022,calendar year,333688625,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2023,calendar year,283718310,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2024,calendar year,276126702,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Wool,2025,calendar year,269807364,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1989,calendar year,79166971,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1990,calendar year,70812369,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1991,calendar year,78266795,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1992,calendar year,108427208,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1993,calendar year,168980494,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1994,calendar year,171037247,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1995,calendar year,134712200,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1996,calendar year,131741743,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1997,calendar year,142301266,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1998,calendar year,144308364,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,1999,calendar year,151101968,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2000,calendar year,173456785,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2001,calendar year,170234794,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2002,calendar year,167587858,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2003,calendar year,194471801,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2004,calendar year,245124690,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2005,calendar year,214197988,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2006,calendar year,191328874,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2007,calendar year,171130861,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2008,calendar year,143761687,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2009,calendar year,102894395,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2010,calendar year,110865980,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2011,calendar year,110094930,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2012,calendar year,101826542,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2013,calendar year,101071184,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2014,calendar year,106222303,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2015,calendar year,103501431,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2016,calendar year,98829047,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2017,calendar year,98863447,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2018,calendar year,104570765,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2019,calendar year,117780909,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2020,calendar year,122196667,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2021,calendar year,136470878,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2022,calendar year,190839418,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2023,calendar year,211048643,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2024,calendar year,264026823,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Silk,2025,calendar year,257194019,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1989,calendar year,1199929910,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1990,calendar year,1200409121,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1991,calendar year,1199129517,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1992,calendar year,1343348356,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1993,calendar year,1425436953,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1994,calendar year,1599975123,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1995,calendar year,1688249332,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1996,calendar year,1751192953,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1997,calendar year,2110651844,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1998,calendar year,2402466604,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,1999,calendar year,2595293378,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2000,calendar year,2982807537,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2001,calendar year,3072548603,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2002,calendar year,3193532042,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2003,calendar year,3559524295,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2004,calendar year,3682524084,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2005,calendar year,3917582991,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2006,calendar year,4013749375,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2007,calendar year,4135419159,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2008,calendar year,3885035859,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2009,calendar year,3643891615,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2010,calendar year,4207364017,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2011,calendar year,4217941318,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2012,calendar year,4255999174,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2013,calendar year,4438550206,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2014,calendar year,4769417337,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2015,calendar year,5253882093,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2016,calendar year,5170791895,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2017,calendar year,5344680229,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2018,calendar year,5700157795,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2019,calendar year,5838515157,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2020,calendar year,5149091014,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2021,calendar year,6139746300,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2022,calendar year,6393633609,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2023,calendar year,5234755853,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2024,calendar year,5569543253,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Synthetic,2025,calendar year,5362393051,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1989,calendar year,3010237607,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1990,calendar year,3049180117,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1991,calendar year,3132196544,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1992,calendar year,3729492910,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1993,calendar year,4147246419,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1994,calendar year,4651588519,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1995,calendar year,4933030224,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1996,calendar year,5133117747,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1997,calendar year,6141468057,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1998,calendar year,7176005754,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,1999,calendar year,7885574900,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2000,calendar year,8871844668,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2001,calendar year,8978517582,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2002,calendar year,9638963260,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2003,calendar year,10697315512,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2004,calendar year,11123352995,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2005,calendar year,11985981676,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2006,calendar year,12301833932,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2007,calendar year,12445605654,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2008,calendar year,11725182906,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2009,calendar year,10655128443,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2010,calendar year,11984863261,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2011,calendar year,11160614551,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2012,calendar year,10832595534,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2013,calendar year,11171558798,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2014,calendar year,11415384601,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2015,calendar year,12136289381,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2016,calendar year,11782285583,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2017,calendar year,11955525008,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2018,calendar year,12594106034,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2019,calendar year,12753452538,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2020,calendar year,10825937837,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2021,calendar year,13714007130,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2022,calendar year,14331883195,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2023,calendar year,11552817444,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2024,calendar year,12484439851,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Apparel,Total,2025,calendar year,12277572686,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1989,calendar year,29047132,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1990,calendar year,28701512,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1991,calendar year,32177520,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1992,calendar year,42266436,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1993,calendar year,47393596,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1994,calendar year,51767902,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1995,calendar year,47283749,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1996,calendar year,43671756,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1997,calendar year,49740332,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1998,calendar year,46572558,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,1999,calendar year,54735255,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2000,calendar year,57578514,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2001,calendar year,58045035,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2002,calendar year,73274152,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2003,calendar year,87433338,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2004,calendar year,103056083,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2005,calendar year,93375511,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2006,calendar year,104133227,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2007,calendar year,105015020,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2008,calendar year,95803361,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2009,calendar year,91934575,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2010,calendar year,101099230,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2011,calendar year,85333344,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2012,calendar year,86986263,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2013,calendar year,93667371,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2014,calendar year,105752408,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2015,calendar year,113411555,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2016,calendar year,122062473,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2017,calendar year,130540696,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2018,calendar year,147417690,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2019,calendar year,150692418,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2020,calendar year,162549992,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2021,calendar year,222891551,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2022,calendar year,168638667,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2023,calendar year,153222355,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2024,calendar year,170233523,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Cotton,2025,calendar year,162403395,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1989,calendar year,12208952,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1990,calendar year,12679830,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1991,calendar year,13780981,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1992,calendar year,26158321,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1993,calendar year,30220273,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1994,calendar year,36920509,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1995,calendar year,35029128,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1996,calendar year,31911733,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1997,calendar year,36845742,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1998,calendar year,44994663,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,1999,calendar year,55636418,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2000,calendar year,76960548,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2001,calendar year,77603619,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2002,calendar year,96615072,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2003,calendar year,115817447,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2004,calendar year,142013459,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2005,calendar year,156571682,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2006,calendar year,162211462,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2007,calendar year,159070400,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2008,calendar year,137965508,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2009,calendar year,131672794,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2010,calendar year,176040206,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2011,calendar year,167951538,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2012,calendar year,174564958,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2013,calendar year,191599653,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2014,calendar year,220363874,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2015,calendar year,243986313,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2016,calendar year,298073532,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2017,calendar year,355546170,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2018,calendar year,402926739,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2019,calendar year,467549955,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2020,calendar year,549716609,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2021,calendar year,669840016,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2022,calendar year,485456080,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2023,calendar year,422898652,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2024,calendar year,458850062,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Linen,2025,calendar year,451265401,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1989,calendar year,56934377,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1990,calendar year,53493103,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1991,calendar year,51752600,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1992,calendar year,65774318,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1993,calendar year,66290700,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1994,calendar year,72774623,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1995,calendar year,83332141,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1996,calendar year,69535891,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1997,calendar year,83251659,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1998,calendar year,104116413,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,1999,calendar year,115919386,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2000,calendar year,138772588,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2001,calendar year,137969959,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2002,calendar year,154456629,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2003,calendar year,165522898,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2004,calendar year,170938805,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2005,calendar year,175852863,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2006,calendar year,187309350,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2007,calendar year,169281476,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2008,calendar year,142599977,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2009,calendar year,100947849,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2010,calendar year,120459611,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2011,calendar year,115662079,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2012,calendar year,106429422,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2013,calendar year,114609626,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2014,calendar year,132371975,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2015,calendar year,130780392,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2016,calendar year,133808101,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2017,calendar year,127039848,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2018,calendar year,132359970,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2019,calendar year,116679225,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2020,calendar year,102077857,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2021,calendar year,130797285,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2022,calendar year,135606950,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2023,calendar year,116635481,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2024,calendar year,129254706,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Wool,2025,calendar year,141277237,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1989,calendar year,938203,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1990,calendar year,876761,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1991,calendar year,1215499,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1992,calendar year,1467885,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1993,calendar year,2188648,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1994,calendar year,3965693,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1995,calendar year,5098204,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1996,calendar year,4025386,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1997,calendar year,4822831,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1998,calendar year,5979146,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,1999,calendar year,7566110,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2000,calendar year,8192670,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2001,calendar year,10505153,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2002,calendar year,12042804,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2003,calendar year,19273136,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2004,calendar year,20345440,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2005,calendar year,18516348,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2006,calendar year,22067656,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2007,calendar year,21786501,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2008,calendar year,19827518,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2009,calendar year,22154392,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2010,calendar year,23459048,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2011,calendar year,19275033,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2012,calendar year,19699855,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2013,calendar year,20940929,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2014,calendar year,26785557,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2015,calendar year,29363246,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2016,calendar year,31365993,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2017,calendar year,34160777,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2018,calendar year,36358162,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2019,calendar year,30214933,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2020,calendar year,34624760,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2021,calendar year,54004654,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2022,calendar year,41593220,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2023,calendar year,44030324,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2024,calendar year,46999275,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Silk,2025,calendar year,47772237,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1989,calendar year,62103752,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1990,calendar year,60442127,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1991,calendar year,57364687,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1992,calendar year,60938563,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1993,calendar year,64012384,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1994,calendar year,88695956,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1995,calendar year,95632237,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1996,calendar year,112954655,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1997,calendar year,125079176,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1998,calendar year,131692305,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,1999,calendar year,165877929,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2000,calendar year,180480554,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2001,calendar year,195216596,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2002,calendar year,235454224,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2003,calendar year,239303311,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2004,calendar year,264614876,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2005,calendar year,284808511,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2006,calendar year,309841270,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2007,calendar year,309594756,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2008,calendar year,276835336,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2009,calendar year,245278804,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2010,calendar year,286771051,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2011,calendar year,295669551,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2012,calendar year,317723033,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2013,calendar year,350363945,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2014,calendar year,393532644,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2015,calendar year,416053590,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2016,calendar year,449230962,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2017,calendar year,474515774,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2018,calendar year,555246046,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2019,calendar year,485038398,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2020,calendar year,550744583,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2021,calendar year,706719552,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2022,calendar year,310630190,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2023,calendar year,290954067,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2024,calendar year,339582529,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Synthetic,2025,calendar year,308290885,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1989,calendar year,161232416,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1990,calendar year,156193333,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1991,calendar year,156291287,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1992,calendar year,196605523,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1993,calendar year,210105601,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1994,calendar year,254124683,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1995,calendar year,266375459,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1996,calendar year,262099421,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1997,calendar year,299739740,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1998,calendar year,333355085,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,1999,calendar year,399735098,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2000,calendar year,461984874,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2001,calendar year,479340362,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2002,calendar year,571842881,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2003,calendar year,627350130,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2004,calendar year,700968663,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2005,calendar year,729124915,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2006,calendar year,785562965,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2007,calendar year,764748153,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2008,calendar year,673031700,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2009,calendar year,591988415,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2010,calendar year,707829146,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2011,calendar year,683891544,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2012,calendar year,705403531,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2013,calendar year,771181525,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2014,calendar year,878806458,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2015,calendar year,933595096,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2016,calendar year,1034541060,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2017,calendar year,1121803264,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2018,calendar year,1274308607,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2019,calendar year,1250174929,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2020,calendar year,1399713802,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2021,calendar year,1784253058,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2022,calendar year,1141925107,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2023,calendar year,1027740881,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2024,calendar year,1144920095,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Floor coverings,Total,2025,calendar year,1111009155,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1989,calendar year,16304161,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1990,calendar year,13839077,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1991,calendar year,15431409,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1992,calendar year,24269488,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1993,calendar year,28532274,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1994,calendar year,30991767,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1995,calendar year,36823780,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1996,calendar year,42742724,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1997,calendar year,39731659,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1998,calendar year,44703940,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,1999,calendar year,48042399,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2000,calendar year,51264428,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2001,calendar year,49214851,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2002,calendar year,52423016,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2003,calendar year,60196899,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2004,calendar year,75010753,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2005,calendar year,71005859,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2006,calendar year,68184568,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2007,calendar year,63800781,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2008,calendar year,58359225,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2009,calendar year,43175126,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2010,calendar year,48870367,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2011,calendar year,48338122,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2012,calendar year,40422880,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2013,calendar year,38840903,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2014,calendar year,39755636,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2015,calendar year,40975919,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2016,calendar year,41520847,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2017,calendar year,45147039,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2018,calendar year,43594572,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2019,calendar year,35285999,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2020,calendar year,27223175,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2021,calendar year,36163972,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2022,calendar year,46346330,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2023,calendar year,31666140,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2024,calendar year,27931765,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Cotton,2025,calendar year,27602815,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1989,calendar year,160969,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1990,calendar year,617154,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1991,calendar year,1854763,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1992,calendar year,1235038,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1993,calendar year,757640,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1994,calendar year,1510351,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1995,calendar year,1283447,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1996,calendar year,424004,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1997,calendar year,380230,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1998,calendar year,599527,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,1999,calendar year,669315,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2000,calendar year,811611,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2001,calendar year,665412,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2002,calendar year,2445883,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2003,calendar year,3541774,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2004,calendar year,5019531,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2005,calendar year,8680957,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2006,calendar year,9229604,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2007,calendar year,10362254,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2008,calendar year,9122249,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2009,calendar year,6908396,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2010,calendar year,8942959,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2011,calendar year,8567500,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2012,calendar year,10945196,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2013,calendar year,11379927,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2014,calendar year,12077474,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2015,calendar year,13379511,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2016,calendar year,13027073,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2017,calendar year,13853042,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2018,calendar year,14104642,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2019,calendar year,12570622,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2020,calendar year,10154572,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2021,calendar year,13798700,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2022,calendar year,17061776,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2023,calendar year,12357582,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2024,calendar year,12579101,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Linen,2025,calendar year,10304945,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1989,calendar year,1239281,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1990,calendar year,1367659,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1991,calendar year,1682494,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1992,calendar year,3485221,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1993,calendar year,3631954,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1994,calendar year,2949495,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1995,calendar year,2538928,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1996,calendar year,1844585,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1997,calendar year,1827232,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1998,calendar year,1738044,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,1999,calendar year,2372156,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2000,calendar year,2575535,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2001,calendar year,5106462,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2002,calendar year,3472477,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2003,calendar year,4111704,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2004,calendar year,3981803,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2005,calendar year,5088311,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2006,calendar year,4892826,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2007,calendar year,4361592,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2008,calendar year,4513692,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2009,calendar year,5033255,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2010,calendar year,5842625,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2011,calendar year,7196168,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2012,calendar year,4893185,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2013,calendar year,3746812,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2014,calendar year,4163701,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2015,calendar year,5018509,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2016,calendar year,4099302,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2017,calendar year,3293097,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2018,calendar year,3472701,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2019,calendar year,3724853,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2020,calendar year,3259185,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2021,calendar year,5139433,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2022,calendar year,5185248,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2023,calendar year,3595037,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2024,calendar year,4008049,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Wool,2025,calendar year,4129753,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1989,calendar year,7930,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1990,calendar year,13220,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1991,calendar year,11438,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1992,calendar year,19668,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1993,calendar year,24114,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1994,calendar year,16146,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1995,calendar year,7025,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1996,calendar year,18372,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1997,calendar year,6422,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1998,calendar year,5755,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,1999,calendar year,6547,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2000,calendar year,14623,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2001,calendar year,10732,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2002,calendar year,23557,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2003,calendar year,19874,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2004,calendar year,34528,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2005,calendar year,83284,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2006,calendar year,20041,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2007,calendar year,16758,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2008,calendar year,13336,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2009,calendar year,16537,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2010,calendar year,24270,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2011,calendar year,46036,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2012,calendar year,28221,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2013,calendar year,16438,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2014,calendar year,15434,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2015,calendar year,32219,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2016,calendar year,21533,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2017,calendar year,22372,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2018,calendar year,43929,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2019,calendar year,24109,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2020,calendar year,15992,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2021,calendar year,56213,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2022,calendar year,88882,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2023,calendar year,185430,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2024,calendar year,152148,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Silk,2025,calendar year,173955,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1989,calendar year,15190900,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1990,calendar year,26539725,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1991,calendar year,33352298,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1992,calendar year,36061566,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1993,calendar year,42567177,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1994,calendar year,40013317,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1995,calendar year,40361024,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1996,calendar year,38029747,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1997,calendar year,39566035,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1998,calendar year,41351439,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,1999,calendar year,40673058,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2000,calendar year,46219252,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2001,calendar year,48265328,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2002,calendar year,51306446,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2003,calendar year,53657864,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2004,calendar year,58603129,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2005,calendar year,69223432,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2006,calendar year,73035249,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2007,calendar year,77758943,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2008,calendar year,73625676,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2009,calendar year,66364719,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2010,calendar year,87227359,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2011,calendar year,93108160,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2012,calendar year,90948734,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2013,calendar year,90906750,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2014,calendar year,101100254,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2015,calendar year,119842136,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2016,calendar year,120041314,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2017,calendar year,126729038,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2018,calendar year,135994629,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2019,calendar year,133257415,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2020,calendar year,120975806,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2021,calendar year,148887005,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2022,calendar year,188265115,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2023,calendar year,153016744,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2024,calendar year,144302299,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Synthetic,2025,calendar year,147927439,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1989,calendar year,32903241,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1990,calendar year,42376835,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1991,calendar year,52332402,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1992,calendar year,65070981,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1993,calendar year,75513159,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1994,calendar year,75481076,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1995,calendar year,81014204,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1996,calendar year,83059432,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1997,calendar year,81511578,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1998,calendar year,88398705,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,1999,calendar year,91763475,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2000,calendar year,100885449,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2001,calendar year,103262785,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2002,calendar year,109671379,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2003,calendar year,121528114,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2004,calendar year,142649744,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2005,calendar year,154081843,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2006,calendar year,155362289,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2007,calendar year,156300327,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2008,calendar year,145634178,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2009,calendar year,121498033,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2010,calendar year,150907581,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2011,calendar year,157255987,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2012,calendar year,147238217,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2013,calendar year,144890830,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2014,calendar year,157112499,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2015,calendar year,179248293,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2016,calendar year,178710069,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2017,calendar year,189044589,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2018,calendar year,197210473,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2019,calendar year,184862997,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2020,calendar year,161628730,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2021,calendar year,204045323,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2022,calendar year,256947350,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2023,calendar year,200820933,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2024,calendar year,188973361,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Headgear,Total,2025,calendar year,190138908,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1989,calendar year,177605743,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1990,calendar year,193198128,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1991,calendar year,194057488,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1992,calendar year,229204155,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1993,calendar year,262606464,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1994,calendar year,291875359,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1995,calendar year,301840527,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1996,calendar year,305799455,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1997,calendar year,370228195,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1998,calendar year,454301061,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,1999,calendar year,526772592,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2000,calendar year,603524009,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2001,calendar year,653991434,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2002,calendar year,829991862,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2003,calendar year,978973648,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2004,calendar year,1094915620,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2005,calendar year,1430693521,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2006,calendar year,1630927912,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2007,calendar year,1753559374,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2008,calendar year,1705126577,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2009,calendar year,1573616893,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2010,calendar year,1761303275,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2011,calendar year,1395642865,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2012,calendar year,1426030581,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2013,calendar year,1513117330,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2014,calendar year,1519388946,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2015,calendar year,1646419696,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2016,calendar year,1671775998,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2017,calendar year,1780237564,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2018,calendar year,1806165283,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2019,calendar year,1868542936,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2020,calendar year,1839263318,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2021,calendar year,2328500630,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2022,calendar year,1857049733,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2023,calendar year,1750013297,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2024,calendar year,1936899707,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Cotton,2025,calendar year,1891592277,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1989,calendar year,1810219,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1990,calendar year,1205860,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1991,calendar year,2190474,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1992,calendar year,1099597,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1993,calendar year,1187015,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1994,calendar year,1797303,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1995,calendar year,3594215,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1996,calendar year,2287650,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1997,calendar year,1834989,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1998,calendar year,1953865,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,1999,calendar year,5330276,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2000,calendar year,15564664,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2001,calendar year,17046904,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2002,calendar year,16855321,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2003,calendar year,16907929,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2004,calendar year,14845315,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2005,calendar year,15983782,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2006,calendar year,19172217,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2007,calendar year,14357524,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2008,calendar year,13997920,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2009,calendar year,8795478,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2010,calendar year,9856900,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2011,calendar year,10108885,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2012,calendar year,11001983,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2013,calendar year,13106924,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2014,calendar year,14401692,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2015,calendar year,13887876,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2016,calendar year,13984817,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2017,calendar year,17930037,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2018,calendar year,22618865,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2019,calendar year,27892034,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2020,calendar year,32437616,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2021,calendar year,44939752,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2022,calendar year,159587102,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2023,calendar year,127047542,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2024,calendar year,205011039,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Linen,2025,calendar year,261284445,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1989,calendar year,702383,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1990,calendar year,942086,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1991,calendar year,658437,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1992,calendar year,726727,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1993,calendar year,1053069,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1994,calendar year,1363391,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1995,calendar year,1957848,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1996,calendar year,1396328,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1997,calendar year,2037057,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1998,calendar year,1884851,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,1999,calendar year,2098325,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2000,calendar year,4867063,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2001,calendar year,5705053,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2002,calendar year,5347068,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2003,calendar year,5508008,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2004,calendar year,4606917,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2005,calendar year,4835652,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2006,calendar year,5045130,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2007,calendar year,4291571,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2008,calendar year,4411163,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2009,calendar year,3469591,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2010,calendar year,3700945,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2011,calendar year,3749730,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2012,calendar year,3641270,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2013,calendar year,4248365,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2014,calendar year,3979414,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2015,calendar year,3714431,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2016,calendar year,5218317,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2017,calendar year,5775870,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2018,calendar year,5842721,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2019,calendar year,7836261,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2020,calendar year,5812008,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2021,calendar year,9008289,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2022,calendar year,9949034,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2023,calendar year,10777844,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2024,calendar year,12613376,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Wool,2025,calendar year,12640707,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1989,calendar year,637415,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1990,calendar year,842592,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1991,calendar year,1673450,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1992,calendar year,387612,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1993,calendar year,168623,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1994,calendar year,286037,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1995,calendar year,375189,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1996,calendar year,411546,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1997,calendar year,488136,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1998,calendar year,498613,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,1999,calendar year,861237,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2000,calendar year,1859135,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2001,calendar year,2340842,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2002,calendar year,3480037,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2003,calendar year,5268198,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2004,calendar year,4971761,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2005,calendar year,7024264,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2006,calendar year,12020113,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2007,calendar year,9462545,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2008,calendar year,5234036,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2009,calendar year,2743959,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2010,calendar year,2672402,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2011,calendar year,1955687,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2012,calendar year,2035509,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2013,calendar year,3038365,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2014,calendar year,1991474,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2015,calendar year,1929516,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2016,calendar year,2016999,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2017,calendar year,2327745,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2018,calendar year,2657141,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2019,calendar year,4552482,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2020,calendar year,6428860,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2021,calendar year,7108766,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2022,calendar year,17951897,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2023,calendar year,12143943,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2024,calendar year,17197848,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Silk,2025,calendar year,19919200,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1989,calendar year,80049038,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1990,calendar year,75192502,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1991,calendar year,68656067,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1992,calendar year,72106453,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1993,calendar year,81996922,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1994,calendar year,92417864,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1995,calendar year,105925772,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1996,calendar year,111549898,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1997,calendar year,128937510,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1998,calendar year,157603432,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,1999,calendar year,190696276,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2000,calendar year,245328436,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2001,calendar year,257483739,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2002,calendar year,466163002,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2003,calendar year,657605277,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2004,calendar year,814447533,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2005,calendar year,937287677,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2006,calendar year,1039747121,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2007,calendar year,1064097899,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2008,calendar year,975801259,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2009,calendar year,973346201,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2010,calendar year,1172606304,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2011,calendar year,1093363466,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2012,calendar year,1129425726,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2013,calendar year,1262095127,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2014,calendar year,1340353566,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2015,calendar year,1482718120,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2016,calendar year,1531264342,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2017,calendar year,1655828898,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2018,calendar year,1733836301,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2019,calendar year,1997900444,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2020,calendar year,2078601498,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2021,calendar year,2585273430,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2022,calendar year,2106640468,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2023,calendar year,2100099721,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2024,calendar year,2418162420,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Synthetic,2025,calendar year,2312917970,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1989,calendar year,260804798,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1990,calendar year,271381168,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1991,calendar year,267235916,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1992,calendar year,303524544,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1993,calendar year,347012093,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1994,calendar year,387739954,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1995,calendar year,413693551,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1996,calendar year,421444877,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1997,calendar year,503525887,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1998,calendar year,616241822,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,1999,calendar year,725758706,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2000,calendar year,871143307,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2001,calendar year,936567972,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2002,calendar year,1321837290,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2003,calendar year,1664263061,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2004,calendar year,1933787145,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2005,calendar year,2395824895,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2006,calendar year,2706912493,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2007,calendar year,2845768913,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2008,calendar year,2704570955,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2009,calendar year,2561972122,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2010,calendar year,2950139825,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2011,calendar year,2504820633,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2012,calendar year,2572135070,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2013,calendar year,2795606110,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2014,calendar year,2880115091,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2015,calendar year,3148669639,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2016,calendar year,3224260473,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2017,calendar year,3462100113,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2018,calendar year,3571120311,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2019,calendar year,3906724158,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2020,calendar year,3962543299,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2021,calendar year,4974830867,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2022,calendar year,4151178234,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2023,calendar year,4000082347,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2024,calendar year,4589884391,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",Home furnishings,Total,2025,calendar year,4498354598,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1989,calendar year,688019120,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1990,calendar year,663977024,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1991,calendar year,756906319,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1992,calendar year,882807702,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1993,calendar year,974868066,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1994,calendar year,895376498,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1995,calendar year,861579596,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1996,calendar year,830967277,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1997,calendar year,1001066623,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1998,calendar year,1081204985,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,1999,calendar year,1146763633,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2000,calendar year,1277769521,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2001,calendar year,1153158127,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2002,calendar year,1334465113,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2003,calendar year,1214715320,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2004,calendar year,1181617051,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2005,calendar year,1085455462,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2006,calendar year,1018830663,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2007,calendar year,842066317,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2008,calendar year,745687441,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2009,calendar year,591374810,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2010,calendar year,711339534,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2011,calendar year,646104946,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2012,calendar year,624196517,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2013,calendar year,638349230,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2014,calendar year,671728064,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2015,calendar year,698879229,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2016,calendar year,696200752,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2017,calendar year,678190029,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2018,calendar year,729199898,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2019,calendar year,671346034,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2020,calendar year,739684991,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2021,calendar year,795423777,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2022,calendar year,730687447,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2023,calendar year,584970541,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2024,calendar year,615495779,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Cotton,2025,calendar year,556822408,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1989,calendar year,390229015,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1990,calendar year,409330014,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1991,calendar year,368001390,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1992,calendar year,320474157,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1993,calendar year,322268830,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1994,calendar year,342583464,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1995,calendar year,373897317,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1996,calendar year,252752728,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1997,calendar year,335859239,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1998,calendar year,260690041,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,1999,calendar year,246963788,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2000,calendar year,277048990,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2001,calendar year,226614642,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2002,calendar year,245886149,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2003,calendar year,282128458,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2004,calendar year,293317157,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2005,calendar year,254756502,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2006,calendar year,265787311,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2007,calendar year,252021518,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2008,calendar year,259240790,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2009,calendar year,194443893,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2010,calendar year,196865554,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2011,calendar year,200774728,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2012,calendar year,226764233,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2013,calendar year,217808682,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2014,calendar year,232305284,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2015,calendar year,261319856,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2016,calendar year,250092330,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2017,calendar year,257206861,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2018,calendar year,272752756,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2019,calendar year,265173936,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2020,calendar year,268381159,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2021,calendar year,303105380,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2022,calendar year,299035238,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2023,calendar year,262613819,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2024,calendar year,316711207,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Linen,2025,calendar year,288022434,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1989,calendar year,37334938,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1990,calendar year,35864759,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1991,calendar year,37778137,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1992,calendar year,38494836,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1993,calendar year,44034928,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1994,calendar year,48845618,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1995,calendar year,38040264,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1996,calendar year,38471167,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1997,calendar year,53277154,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1998,calendar year,48445199,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,1999,calendar year,46309949,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2000,calendar year,55325392,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2001,calendar year,47145969,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2002,calendar year,44818288,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2003,calendar year,45355536,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2004,calendar year,45830247,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2005,calendar year,46979092,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2006,calendar year,46940181,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2007,calendar year,47101040,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2008,calendar year,46432835,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2009,calendar year,35338388,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2010,calendar year,42042505,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2011,calendar year,43598081,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2012,calendar year,44708847,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2013,calendar year,44991469,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2014,calendar year,49829677,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2015,calendar year,50262992,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2016,calendar year,47528649,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2017,calendar year,47722842,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2018,calendar year,50481810,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2019,calendar year,47840881,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2020,calendar year,46469231,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2021,calendar year,55196512,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2022,calendar year,51297022,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2023,calendar year,47075198,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2024,calendar year,51869182,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Wool,2025,calendar year,51740771,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1989,calendar year,8719485,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1990,calendar year,7137716,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1991,calendar year,7197144,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1992,calendar year,7534353,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1993,calendar year,8822080,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1994,calendar year,9159681,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1995,calendar year,8445796,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1996,calendar year,9753506,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1997,calendar year,9706618,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1998,calendar year,9913384,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,1999,calendar year,10529463,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2000,calendar year,11865508,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2001,calendar year,10570063,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2002,calendar year,11920583,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2003,calendar year,13654761,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2004,calendar year,16120386,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2005,calendar year,15363748,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2006,calendar year,15910640,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2007,calendar year,16180398,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2008,calendar year,15539271,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2009,calendar year,7733277,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2010,calendar year,8315069,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2011,calendar year,7981332,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2012,calendar year,7124805,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2013,calendar year,6538232,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2014,calendar year,6641682,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2015,calendar year,7090829,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2016,calendar year,7825918,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2017,calendar year,7681397,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2018,calendar year,7852570,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2019,calendar year,6347308,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2020,calendar year,5952837,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2021,calendar year,6750291,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2022,calendar year,7030280,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2023,calendar year,6054698,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2024,calendar year,5723747,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Silk,2025,calendar year,6509419,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1989,calendar year,433049257,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1990,calendar year,485369993,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1991,calendar year,533300258,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1992,calendar year,628258083,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1993,calendar year,760601487,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1994,calendar year,841098319,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1995,calendar year,818060300,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1996,calendar year,910443729,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1997,calendar year,1115662655,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1998,calendar year,1211247708,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,1999,calendar year,1327908934,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2000,calendar year,1452796575,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2001,calendar year,1372848438,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2002,calendar year,1648072451,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2003,calendar year,1632310311,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2004,calendar year,1774386593,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2005,calendar year,1924195650,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2006,calendar year,1921030938,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2007,calendar year,1837509463,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2008,calendar year,1696758705,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2009,calendar year,1538709334,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2010,calendar year,1882092904,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2011,calendar year,1928615710,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2012,calendar year,1957274293,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2013,calendar year,2009202330,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2014,calendar year,2148901070,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2015,calendar year,2288932840,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2016,calendar year,2249732000,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2017,calendar year,2233550001,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2018,calendar year,2422218799,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2019,calendar year,2292297477,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2020,calendar year,2188135219,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2021,calendar year,2561466927,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2022,calendar year,2489256776,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2023,calendar year,2064901272,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2024,calendar year,2201409058,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Synthetic,2025,calendar year,2033193290,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1989,calendar year,1557351815,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1990,calendar year,1601679506,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1991,calendar year,1703183248,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1992,calendar year,1877569131,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1993,calendar year,2110595391,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1994,calendar year,2137063580,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1995,calendar year,2100023273,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1996,calendar year,2042388407,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1997,calendar year,2515572289,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1998,calendar year,2611501317,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,1999,calendar year,2778475767,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2000,calendar year,3074805986,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2001,calendar year,2810337239,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2002,calendar year,3285162584,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2003,calendar year,3188164387,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2004,calendar year,3311271434,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2005,calendar year,3326750454,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2006,calendar year,3268499733,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2007,calendar year,2994878736,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2008,calendar year,2763659042,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2009,calendar year,2367599702,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2010,calendar year,2840655566,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2011,calendar year,2827074797,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2012,calendar year,2860068694,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2013,calendar year,2916889944,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2014,calendar year,3109405777,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2015,calendar year,3306485747,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2016,calendar year,3251379648,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2017,calendar year,3224351132,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2018,calendar year,3482505834,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2019,calendar year,3283005636,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2020,calendar year,3248623437,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2021,calendar year,3721942886,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2022,calendar year,3577306762,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2023,calendar year,2965615527,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2024,calendar year,3191208974,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber","Yarn, thread, and fabric",Total,2025,calendar year,2936288322,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1989,calendar year,2346521597,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1990,calendar year,2408443245,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1991,calendar year,2578634769,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1992,calendar year,3159492819,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1993,calendar year,3557606477,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1994,calendar year,3809935689,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1995,calendar year,4043130895,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1996,calendar year,4170428971,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1997,calendar year,5010236235,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1998,calendar year,5881960863,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,1999,calendar year,6565381055,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2000,calendar year,7301541935,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2001,calendar year,7225995682,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2002,calendar year,8131767113,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2003,calendar year,8767928514,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2004,calendar year,9035954451,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2005,calendar year,9963677645,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2006,calendar year,10390774238,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2007,calendar year,10404799954,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2008,calendar year,9844918265,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2009,calendar year,8837632962,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2010,calendar year,9881757951,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2011,calendar year,8590709944,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2012,calendar year,8251721697,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2013,calendar year,8524729078,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2014,calendar year,8453276845,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2015,calendar year,8843693089,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2016,calendar year,8619182012,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2017,calendar year,8732773420,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2018,calendar year,9091924022,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2019,calendar year,9088014680,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2020,calendar year,8006805378,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2021,calendar year,10428493576,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2022,calendar year,10076136268,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2023,calendar year,8176969330,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2024,calendar year,8923379103,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Cotton,2025,calendar year,8838944512,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1989,calendar year,568028589,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1990,calendar year,575121168,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1991,calendar year,541648038,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1992,calendar year,515656317,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1993,calendar year,518785677,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1994,calendar year,546360044,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1995,calendar year,544058349,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1996,calendar year,397085872,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1997,calendar year,486923479,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1998,calendar year,434209982,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,1999,calendar year,425209810,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2000,calendar year,505392369,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2001,calendar year,461578166,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2002,calendar year,511150577,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2003,calendar year,650680914,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2004,calendar year,778836982,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2005,calendar year,719807775,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2006,calendar year,709644231,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2007,calendar year,637445655,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2008,calendar year,598207624,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2009,calendar year,459923281,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2010,calendar year,510847996,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2011,calendar year,510984169,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2012,calendar year,533131662,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2013,calendar year,534509171,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2014,calendar year,581075567,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2015,calendar year,632603019,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2016,calendar year,675393176,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2017,calendar year,738019465,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2018,calendar year,804097550,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2019,calendar year,873613202,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2020,calendar year,946459164,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2021,calendar year,1135673975,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2022,calendar year,1101447646,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2023,calendar year,991115235,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2024,calendar year,1195076153,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Linen,2025,calendar year,1198531860,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1989,calendar year,228186819,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1990,calendar year,209610404,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1991,calendar year,210789414,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1992,calendar year,238564194,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1993,calendar year,259281610,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1994,calendar year,303036676,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1995,calendar year,310080377,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1996,calendar year,304473504,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1997,calendar year,367435334,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1998,calendar year,404265075,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,1999,calendar year,400202178,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2000,calendar year,470708904,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2001,calendar year,480427785,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2002,calendar year,494976681,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2003,calendar year,504922949,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2004,calendar year,516065529,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2005,calendar year,519994471,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2006,calendar year,519001664,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2007,calendar year,522098891,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2008,calendar year,476520209,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2009,calendar year,397497239,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2010,calendar year,460391028,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2011,calendar year,463912176,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2012,calendar year,450501795,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2013,calendar year,458165451,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2014,calendar year,511510693,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2015,calendar year,524646026,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2016,calendar year,515481644,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2017,calendar year,503671542,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2018,calendar year,524293550,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2019,calendar year,510663746,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2020,calendar year,388415328,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2021,calendar year,488427699,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2022,calendar year,535726879,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2023,calendar year,461801870,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2024,calendar year,473872016,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Wool,2025,calendar year,479595832,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1989,calendar year,89470004,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1990,calendar year,79682654,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1991,calendar year,88364326,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1992,calendar year,117836737,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1993,calendar year,180183950,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1994,calendar year,184464803,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1995,calendar year,148638407,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1996,calendar year,145950544,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1997,calendar year,157325274,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1998,calendar year,160705259,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,1999,calendar year,170065314,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2000,calendar year,195388724,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2001,calendar year,193661587,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2002,calendar year,195054834,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2003,calendar year,232687770,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2004,calendar year,286596804,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2005,calendar year,255185632,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2006,calendar year,241347326,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2007,calendar year,218577063,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2008,calendar year,184375848,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2009,calendar year,135542560,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2010,calendar year,145336769,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2011,calendar year,139353017,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2012,calendar year,130714932,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2013,calendar year,131605148,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2014,calendar year,141656450,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2015,calendar year,141917242,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2016,calendar year,140059490,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2017,calendar year,143055737,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2018,calendar year,151482567,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2019,calendar year,158919741,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2020,calendar year,169219116,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2021,calendar year,204390801,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2022,calendar year,257503697,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2023,calendar year,273463040,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2024,calendar year,334099841,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Silk,2025,calendar year,331568830,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1989,calendar year,1790322859,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1990,calendar year,1847953469,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1991,calendar year,1891802817,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1992,calendar year,2140713018,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1993,calendar year,2374614927,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1994,calendar year,2662200576,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1995,calendar year,2748228657,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1996,calendar year,2924170972,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1997,calendar year,3519897217,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1998,calendar year,3944361478,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,1999,calendar year,4320449580,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2000,calendar year,4907632351,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2001,calendar year,4946362706,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2002,calendar year,5594528151,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2003,calendar year,6142401058,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2004,calendar year,6594576216,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2005,calendar year,7133098261,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2006,calendar year,7357403954,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2007,calendar year,7424380220,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2008,calendar year,6908056834,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2009,calendar year,6467590674,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2010,calendar year,7636061635,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2011,calendar year,7628698206,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2012,calendar year,7751370960,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2013,calendar year,8151118358,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2014,calendar year,8753304871,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2015,calendar year,9561428779,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2016,calendar year,9521060512,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2017,calendar year,9835303941,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2018,calendar year,10547453570,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2019,calendar year,10747008890,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2020,calendar year,10087548120,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2021,calendar year,12142093214,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2022,calendar year,11488426157,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2023,calendar year,9843727657,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2024,calendar year,10672999559,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Synthetic,2025,calendar year,10164722635,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1989,calendar year,5022529868,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1990,calendar year,5120810940,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1991,calendar year,5311239364,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1992,calendar year,6172263085,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1993,calendar year,6890472641,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1994,calendar year,7505997788,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1995,calendar year,7794136685,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1996,calendar year,7942109863,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1997,calendar year,9541817539,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1998,calendar year,10825502657,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,1999,calendar year,11881307937,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2000,calendar year,13380664283,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2001,calendar year,13308025926,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2002,calendar year,14927477356,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2003,calendar year,16298621205,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2004,calendar year,17212029982,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2005,calendar year,18591763784,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2006,calendar year,19218171412,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2007,calendar year,19207301783,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2008,calendar year,18012078781,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2009,calendar year,16298186715,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2010,calendar year,18634395379,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2011,calendar year,17333657511,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2012,calendar year,17117441046,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2013,calendar year,17800127206,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2014,calendar year,18440824427,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2015,calendar year,19704288155,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2016,calendar year,19471176833,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2017,calendar year,19952824106,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2018,calendar year,21119251259,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2019,calendar year,21378220259,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2020,calendar year,19598447106,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2021,calendar year,24399079265,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2022,calendar year,23459240648,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2023,calendar year,19747077132,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2024,calendar year,21599426672,raw fiber equivalent pounds
+1,"U.S. textile imports, by fiber",All textiles,Total,2025,calendar year,21013363669,raw fiber equivalent pounds
