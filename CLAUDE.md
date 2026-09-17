@@ -216,8 +216,8 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   carries a two-entry lineage (original + approval); re-run byte-identical; empty
   approvals reproduces the single-pass output. `pytest` (203) + `pre-commit` pass.
   Phase 8 was the last §16 phase — **the build is complete.**
-- **Post-project audit follow-ups: open (PR #10).** Branch `chore/audit-followups`
-  off `main`, no connector behavior change. Corrects three stale spec claims
+- **Post-project audit follow-ups: done** (merged, PR #10). Branch
+  `chore/audit-followups` off `main`, no connector behavior change. Corrects three stale spec claims
   against the shipped code (Phase 1 row count ~300 not ~500; Phase 5 excludes
   plausibility-`FLAGGED` weights from headline totals; Phase 6 ground-truth
   validation is direction-only with the ~10% gap reported as QA), labels the
@@ -229,5 +229,19 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   findings the live pipeline never surfaces) + a view stage-boundary caption; and
   input-boundary hardening (crashes → reviewable findings). **Merge is the user's
   call.**
+- **Wire the anomaly net into the pipeline: at exit gate, awaiting merge.** Branch
+  `feat/wire-anomaly-net` off `main`; spec `specs/feat-wire-anomaly-net.md` + steps
+  committed. Closes the resilience-audit gap: `detect_anomalies` (validity,
+  completeness, duplicate-key, cross-field, distribution) was called only from
+  tests, so `pipeline.run` surfaced 7 findings on the fixture while ~119 planted
+  anomalies passed through silently — against §7.3. `run` now calls it on the
+  pre-fill records (missing-weight must fire before the ladder fills the cell) and
+  folds the findings in after the normalize findings; additive and deterministic
+  (categories disjoint from mapping/plausibility so ids can't collide, `run_id`
+  unaffected, re-run reproduces). The view gains a by-severity summary (§10) and
+  the material-stage caption; the demo names the split (`6 mappings + 120
+  anomalies`); a new test proves the §12 cases surface through `run()`, not only
+  `detect_anomalies`. `pytest` (209) + `pre-commit` pass. Deferred to its own
+  branch: input-boundary hardening. **Open: PR to push; merge is the user's call.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
