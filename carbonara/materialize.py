@@ -7,7 +7,7 @@ from collections.abc import Mapping, Sequence
 
 from carbonara.contract import CanonicalRecord
 
-__all__ = ["SourceRecord", "SourceSchemaError", "materialize"]
+__all__ = ["SourceRecord", "SourceSchemaError", "derive_category", "materialize"]
 
 #: Source columns materialize needs present (post-mapping) to build a record.
 _REQUIRED_COLUMNS = ("source_row_id", "style_id", "sku", "component", "material", "supplier")
@@ -41,6 +41,20 @@ def _apply_mapping(row: Mapping[str, str], mapping: Mapping[str, str]) -> dict[s
     return {mapping.get(key, key): value for key, value in row.items()}
 
 
+def derive_category(style_id: str) -> str:
+    """Derive the garment archetype from a style id — the code before the first ``-``.
+
+    The fill ladder backs off across this dimension (§7.6), so it is resolved once
+    here into a named cell rather than re-split at each use.
+
+    >>> derive_category("TSH-001")
+    'TSH'
+    >>> derive_category("DRS-12")
+    'DRS'
+    """
+    return style_id.split("-")[0]
+
+
 def materialize(rows: Sequence[Mapping[str, str]], mapping: Mapping[str, str]) -> list[SourceRecord]:
     """Turn accepted raw rows into canonical records, applying the confirmed mapping.
 
@@ -51,8 +65,8 @@ def materialize(rows: Sequence[Mapping[str, str]], mapping: Mapping[str, str]) -
     >>> rows = [{"source_row_id": "7", "style_id": "TSH-1", "sku": "S", "component": "shell",
     ...          "material": "cotton", "vendor": "Acme"}]
     >>> [sr] = materialize(rows, {"vendor": "supplier"})
-    >>> sr.record.record_id, sr.record.material_raw, sr.record.supplier_raw
-    ('r0007', 'cotton', 'Acme')
+    >>> sr.record.record_id, sr.record.category, sr.record.material_raw, sr.record.supplier_raw
+    ('r0007', 'TSH', 'cotton', 'Acme')
     >>> sr.record.material_normalized is None
     True
     """
@@ -72,6 +86,7 @@ def materialize(rows: Sequence[Mapping[str, str]], mapping: Mapping[str, str]) -
             record_id=f"r{row_number:04d}",
             source_row_id=raw["source_row_id"],
             style_id=raw["style_id"],
+            category=derive_category(raw["style_id"]),
             sku=raw["sku"],
             component=raw["component"],
             material_raw=raw["material"],

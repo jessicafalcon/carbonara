@@ -54,7 +54,7 @@ far lower than a full-lifecycle one from the same source.
 >>> from carbonara.materialize import SourceRecord
 >>> from carbonara.footprint import compute_footprint
 >>> rec = CanonicalRecord(
-...     record_id="r0001", source_row_id="1", style_id="TSH-1", sku="S",
+...     record_id="r0001", source_row_id="1", style_id="TSH-1", category="TSH", sku="S",
 ...     component="shell fabric", material_raw="cotton",
 ...     material_normalized="cotton", component_weight_g=200.0, supplier_raw="Acme",
 ... )

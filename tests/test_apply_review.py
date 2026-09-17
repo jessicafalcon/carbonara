@@ -15,6 +15,7 @@ def _record(record_id: str, *, material_raw: str, material_normalized: str | Non
             record_id=record_id,
             source_row_id=record_id.lstrip("r").lstrip("0") or "0",
             style_id="TSH-11",
+            category="TSH",
             sku=f"{record_id}-WHT-XS",
             component="shell fabric",
             material_raw=material_raw,

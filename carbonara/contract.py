@@ -33,6 +33,7 @@ CANONICAL_COLUMNS: tuple[str, ...] = (
     "record_id",
     "source_row_id",
     "style_id",
+    "category",
     "sku",
     "component",
     "material_raw",
@@ -54,7 +55,10 @@ class CanonicalRecord:
     """One BOM component line: raw source values beside their normalized forms.
 
     Identity and raw fields are set at ingest; the normalized and parsed fields
-    default to ``None`` and are populated as later rules run. The record is
+    default to ``None`` and are populated as later rules run. ``category`` is
+    derived from ``style_id`` (the garment archetype the fill ladder backs off
+    across, §7.6) and resolved once at materialize, so it is set at construction
+    like the identity fields rather than left for a later rule. The record is
     frozen — a rule never mutates it in place; it emits a new record and records
     the change in the ledger (governance, brief §8).
 
@@ -62,11 +66,14 @@ class CanonicalRecord:
     ...     record_id="r0001",
     ...     source_row_id="7",
     ...     style_id="TSH-001",
+    ...     category="TSH",
     ...     sku="TSH-001-BLK-M",
     ...     component="shell fabric",
     ...     material_raw="Organic cottn",
     ...     supplier_raw="Acme Textiles Ltd.",
     ... )
+    >>> rec.category
+    'TSH'
     >>> rec.material_normalized is None
     True
     >>> rec.quality_status
@@ -76,6 +83,7 @@ class CanonicalRecord:
     record_id: str
     source_row_id: str
     style_id: str
+    category: str
     sku: str
     component: str
     material_raw: str

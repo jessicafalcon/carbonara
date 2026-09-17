@@ -135,8 +135,8 @@ def compute_footprint(
     ``DERIVED_FORMULA`` event.
 
     >>> from carbonara.contract import CanonicalRecord
-    >>> rec = CanonicalRecord(record_id="r0001", source_row_id="1", style_id="TSH-1", sku="S",
-    ...     component="shell fabric", material_raw="cotton", material_normalized="cotton",
+    >>> rec = CanonicalRecord(record_id="r0001", source_row_id="1", style_id="TSH-1", category="TSH",
+    ...     sku="S", component="shell fabric", material_raw="cotton", material_normalized="cotton",
     ...     component_weight_g=200.0, supplier_raw="Acme")
     >>> result = compute_footprint([SourceRecord(record=rec, raw={})], [])
     >>> round(result.components[0].estimated_kgco2e, 3)  # 0.2 kg × 3.4151
