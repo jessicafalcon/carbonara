@@ -139,8 +139,8 @@ def compute_footprint(
     ...     component="shell fabric", material_raw="cotton", material_normalized="cotton",
     ...     component_weight_g=200.0, supplier_raw="Acme")
     >>> result = compute_footprint([SourceRecord(record=rec, raw={})], [])
-    >>> round(result.components[0].estimated_kgco2e, 3)  # 0.2 kg × 8.3
-    1.66
+    >>> round(result.components[0].estimated_kgco2e, 3)  # 0.2 kg × 3.4151
+    0.683
     >>> result.components[0].status
     <FootprintStatus.COSTED: 'costed'>
     """

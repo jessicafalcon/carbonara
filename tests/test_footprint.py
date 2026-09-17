@@ -37,7 +37,7 @@ def test_costed_component_derives_weight_kg_times_factor():
     ).components
     assert rec.status is FootprintStatus.COSTED
     assert rec.estimated_kgco2e is not None
-    assert round(rec.estimated_kgco2e, 3) == 1.66  # 0.2 kg × 8.3
+    assert round(rec.estimated_kgco2e, 3) == 0.683  # 0.2 kg × 3.4151
     assert rec.mapping_confidence == 1.0
 
 
@@ -48,7 +48,7 @@ def test_costed_component_emits_a_derived_formula_event_with_factor_version():
     [event] = result.events
     assert event.source_type is SourceType.DERIVED_FORMULA
     assert event.column == "estimated_kgco2e"
-    assert event.method_params["factor_source_version"] == "ecobalyse-2024.1"
+    assert event.method_params["factor_source_version"] == "ecoinvent-3.9.1 via Ecobalyse"
     assert event.method_params["factor_table_version"] == "v1"
     assert event.method_params["weight_source"] == "observed"
 
@@ -86,7 +86,7 @@ def test_flagged_weight_is_derived_but_excluded_from_the_total():
     result = compute_footprint(records, [])
     summary = summarize(result)
     assert summary.costed_n == 1 and summary.flagged_n == 1
-    assert round(summary.total_kgco2e, 3) == 1.66  # the 5000 g flagged row is not summed
+    assert round(summary.total_kgco2e, 3) == 0.683  # the 5000 g flagged row is not summed
 
 
 def test_filled_weight_propagates_its_range_and_is_labeled_filled():
@@ -104,7 +104,7 @@ def test_filled_weight_propagates_its_range_and_is_labeled_filled():
         [_record("r0001", material_raw="cotton", material_normalized="cotton", component_weight_g=200.0)], [fill]
     ).components
     assert rec.weight_source == "filled"
-    assert rec.uncertainty_kgco2e == (180.0 / 1000 * 8.3, 220.0 / 1000 * 8.3)
+    assert rec.uncertainty_kgco2e == (180.0 / 1000 * 3.4151, 220.0 / 1000 * 3.4151)
 
 
 def test_summary_shares_split_observed_and_filled_by_kgco2e():

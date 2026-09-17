@@ -49,8 +49,8 @@ rules, the source row, and the factor version.
 ...     material_normalized="cotton", component_weight_g=200.0, supplier_raw="Acme",
 ... )
 >>> [component] = compute_footprint([SourceRecord(record=rec, raw={})], []).components
->>> round(component.estimated_kgco2e, 2)  # 0.2 kg × 8.3 kgCO₂e/kg
-1.66
+>>> round(component.estimated_kgco2e, 2)  # 0.2 kg × 3.4151 kgCO₂e/kg
+0.68
 
 ```
 

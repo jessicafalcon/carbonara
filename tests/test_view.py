@@ -57,7 +57,7 @@ def test_trace_carries_rules_source_row_and_factor_version(result):
     costed = next(c for c in result.footprint.components if c.estimated_kgco2e is not None)
     entry = trace[costed.record_id]
     assert entry["source_row_id"] == costed.record_id.lstrip("r").lstrip("0")
-    assert entry["factor_source_version"] == "ecobalyse-2024.1"
+    assert entry["factor_source_version"] == "ecoinvent-3.9.1 via Ecobalyse"
     assert any(e["source_type"] == "derived_formula" for e in entry["events"])
 
 

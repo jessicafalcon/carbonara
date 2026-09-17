@@ -48,7 +48,7 @@ def test_a_displayed_number_traces_to_rules_source_row_and_factor_version():
     weight_event = next(r for r in ledger_rows if r.column == "component_weight_g")
 
     assert footprint_event.source_type is SourceType.DERIVED_FORMULA
-    assert footprint_event.method_params["factor_source_version"] == "ecobalyse-2024.1"
+    assert footprint_event.method_params["factor_source_version"] == "ecoinvent-3.9.1 via Ecobalyse"
     assert footprint_event.method_params["factor_table_version"] == "v1"
     assert weight_event.source_type in _WEIGHT_TIERS  # the weight behind the estimate is itself traced
 

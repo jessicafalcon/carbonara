@@ -45,7 +45,7 @@ def test_ledger_holds_the_footprint_events(result):
     costed = next(c for c in result.footprint.components if c.estimated_kgco2e is not None)
     ledger_row = next(r for r in result.ledger.for_record(costed.record_id) if r.column == "estimated_kgco2e")
     assert ledger_row.source_type is SourceType.DERIVED_FORMULA
-    assert ledger_row.method_params["factor_source_version"] == "ecobalyse-2024.1"
+    assert ledger_row.method_params["factor_source_version"] == "ecoinvent-3.9.1 via Ecobalyse"
 
 
 def test_run_id_is_deterministic_and_factor_scoped():

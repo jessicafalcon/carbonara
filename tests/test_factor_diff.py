@@ -27,7 +27,7 @@ def test_only_the_revised_factor_moves_and_the_total_rises():
     diff = factor_diff(filled.records, filled.events, from_version="v1", to_version="v2")
     assert [r.material for r in diff.rows] == ["polyester"]  # only polyester's factor changed
     row = diff.rows[0]
-    assert row.factor_from == 5.5 and row.factor_to == 6.1
+    assert row.factor_from == 4.8288 and row.factor_to == 5.3
     assert row.delta_kgco2e > 0
     assert round(diff.delta_kgco2e, 6) == round(row.delta_kgco2e, 6)  # catalog delta == the one moved material
 

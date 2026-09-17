@@ -51,14 +51,17 @@ and uncertainty labels up with them.
 material, factor_kgco2e_per_kg, source, source_version, source_ref
 ```
 
-Values are the climate-change indicator (kgCO₂e per kg of material) from the
-Ecobalyse / ADEME Base Empreinte material library, pinned as a versioned in-repo
-snapshot so the data path stays offline and reproducible. The snapshot is built
-at author time from Ecobalyse's public material data; where a component material
-has no direct Ecobalyse entry (fixture hardware — `brass`, `metal`), the row cites
-its ADEME/representative basis explicitly. Loaded by `material_factors()` +
-a `MaterialFactor` record in `carbonara/references.py`, alongside the existing
-`reference_weights()` loader.
+Values are the climate-change indicator (kgCO₂e per kg of material), pinned as a
+versioned in-repo snapshot so the data path stays offline and reproducible. The
+snapshot is fetched at author time by `scripts/fetch_factors.py` (a build-time
+script outside the connector package): the per-indicator `cch` value is
+token-gated behind an Ecoinvent 3.9.1 license, so the script reads a secret token
+from a gitignored `.env` and derives each fibre's factor from the Ecobalyse
+simulator — 1 kg of the single material with every life-cycle step disabled
+except the material stage. Where a component material has no Ecobalyse entry
+(fixture hardware — `brass`, `metal`), the row cites a representative ADEME value
+explicitly. Loaded by `material_factors()` + a `MaterialFactor` record in
+`carbonara/references.py`, alongside the existing `reference_weights()` loader.
 
 The factor table is a labeled assumption set (§15): the footprint is an estimate
 with stated factor provenance, never claimed precise where it rests on filled
@@ -67,8 +70,8 @@ weights.
 ## Factor revision → recompute + version diff (§12)
 
 The footprint is parameterized by factor version. A revision ships as
-`references/material_factors_v2.csv` (one factor bumped, cited). Recomputing under
-v2:
+`references/material_factors_v2.csv` (a hypothetical polyester revision, cited as
+such — Ecobalyse serves one live snapshot). Recomputing under v2:
 
 - writes **new** `DERIVED_FORMULA` events under a new `run_id`
   (`run_id_for(content_hash, ruleset+factor_version)`) — the ledger is append-only,
@@ -140,8 +143,9 @@ committed.
 ## Ordered steps (one commit each)
 
 1. **Spec** — this file.
-2. **Material factors.** `references/material_factors_v1.csv` (+ README note) and
-   a `material_factors()` loader with a `MaterialFactor` record in
+2. **Material factors.** `references/material_factors_v1.csv` (+ README note),
+   fetched by the build-time `scripts/fetch_factors.py` (token-gated Ecobalyse
+   `cch`), and a `material_factors()` loader with a `MaterialFactor` record in
    `carbonara/references.py`. Tests.
 3. **Footprint.** `carbonara/footprint.py`: per-component
    `weight_kg × factor(material)`, emitting `DERIVED_FORMULA` events with factor
