@@ -48,13 +48,21 @@ class ReviewItem:
 
 @dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
 class ApprovedRule:
-    """A reusable rule minted from an approved mapping — a versioned alias."""
+    """A versioned correction minted from an approved finding.
+
+    A ``MAPPING`` approval is a reusable alias: ``key`` is the raw value it
+    matches, so one approval corrects every cell spelled that way. Any other
+    approved finding that carries a ``proposed_value`` is a per-cell correction
+    keyed to its ``record_id``, with ``key`` left ``None``.
+    """
 
     rule_id: str
     rule_version: str
     source_type: SourceType
-    key: str
+    record_id: str
+    column: str
     value: str
+    key: str | None = None
 
 
 class ReviewQueue:
@@ -110,18 +118,49 @@ class ReviewQueue:
         return self.decide(finding_id, status=ReviewStatus.REJECTED, actor=actor, note=note, at=at)
 
     def approved_rules(self) -> list[ApprovedRule]:
-        """Mint a versioned alias rule from each approved mapping proposal."""
+        """Mint a versioned correction from each approved finding that proposes a value.
+
+        A ``MAPPING`` approval becomes a reusable alias (matched by raw value); any
+        other approved finding carrying a ``proposed_value`` becomes a per-cell
+        correction. An approved flag with no ``proposed_value`` mints nothing — there
+        is no value to re-apply, and we never guess one (brief §15).
+        """
         rules: list[ApprovedRule] = []
         for item in self._items.values():
             finding = item.finding
-            if item.status is ReviewStatus.APPROVED and finding.category is AnomalyCategory.MAPPING:
-                rules.append(
-                    ApprovedRule(
-                        rule_id=f"alias:{finding.evidence['raw_value']}",
-                        rule_version="v1",
-                        source_type=SourceType.NORMALIZE_MATERIAL,
-                        key=str(finding.evidence["raw_value"]),
-                        value=str(finding.proposed_value),
-                    )
-                )
+            if item.status is not ReviewStatus.APPROVED:
+                continue
+            value, column = finding.proposed_value, finding.column
+            if value is None or column is None:
+                continue
+            rules.append(_rule_from_finding(finding, value=value, column=column))
         return rules
+
+
+def _rule_from_finding(finding: Finding, *, value: str, column: str) -> ApprovedRule:
+    """Build the correction rule for one approved finding.
+
+    A ``MAPPING`` finding yields a reusable alias keyed to the raw value; anything
+    else yields a per-cell correction keyed to the finding's record. Both resolve
+    to a value against a reviewer decision, so both carry ``REFERENCE_RESOLVE``.
+    """
+    if finding.category is AnomalyCategory.MAPPING:
+        raw = str(finding.evidence["raw_value"])
+        return ApprovedRule(
+            rule_id=f"alias:{raw}",
+            rule_version="v1",
+            source_type=SourceType.REFERENCE_RESOLVE,
+            record_id=finding.record_id,
+            column=column,
+            value=value,
+            key=raw,
+        )
+    return ApprovedRule(
+        rule_id=f"approve:{finding.finding_id}",
+        rule_version="v1",
+        source_type=SourceType.REFERENCE_RESOLVE,
+        record_id=finding.record_id,
+        column=column,
+        value=value,
+        key=None,
+    )
