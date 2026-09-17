@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import csv
+import datetime
 import io
 import pathlib
 import zipfile
 
+import openpyxl
 import pytest
 
 from carbonara.ingest import (
@@ -16,6 +18,7 @@ from carbonara.ingest import (
     admit,
     content_hash,
     detect_format,
+    read_rows,
 )
 from carbonara.source_schema import EXPECTED_SOURCE_SCHEMA
 
@@ -32,6 +35,23 @@ def _clean_csv_bytes(rows: int = 1) -> bytes:
             [str(i), "STY", "SKU", "shell", "cotton", "100 CO", "200g", "Acme", "PT", "15/01/2024", "1", "9.5"]
         )
     return buffer.getvalue().encode("utf-8")
+
+
+def _clean_xlsx_bytes(rows: int = 1) -> bytes:
+    """An XLSX whose header/types match the expected source schema exactly.
+
+    source_row_id and quantity are native integer cells and unit_price a native
+    float, to exercise the cell→string conversion; order_date stays free text so
+    the column types the same as the CSV path (STRING), not a native date.
+    """
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.append(list(EXPECTED_SOURCE_SCHEMA))
+    for i in range(rows):
+        sheet.append([i, "STY", "SKU", "shell", "cotton", "100 CO", "200g", "Acme", "PT", "15/01/2024", 1, 9.5])
+    buffer = io.BytesIO()
+    workbook.save(buffer)
+    return buffer.getvalue()
 
 
 def _write(tmp_path: pathlib.Path, name: str, raw: bytes) -> pathlib.Path:
@@ -85,7 +105,31 @@ def test_rerun_reprocesses_without_duplicating_bytes(tmp_path):
     assert len(list((store / "raw").iterdir())) == 1
 
 
-def test_xlsx_is_detected_but_not_parsed(tmp_path):
+def test_xlsx_is_parsed_through_the_same_gate(tmp_path):
+    store = tmp_path / "store"
+    result = admit(_write(tmp_path, "book.xlsx", _clean_xlsx_bytes()), store)
+    assert result.source_format is SourceFormat.XLSX
+    assert result.status is IngestStatus.ACCEPTED  # same schema → accepted, like the CSV
+    assert result.encoding == "utf-8"
+    assert (store / "accepted_schema.json").exists()
+    assert result.stored_path.read_bytes() == _clean_xlsx_bytes()
+
+
+def test_read_rows_reads_xlsx_cells_faithfully(tmp_path):
+    # An integer id keeps no trailing ".0", a float stays a float, a native date
+    # cell becomes an ISO string — matching what the CSV path would carry.
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.append(["source_row_id", "unit_price", "order_date"])
+    sheet.append([7, 9.5, datetime.datetime(2024, 1, 8)])
+    buffer = io.BytesIO()
+    workbook.save(buffer)
+    [row] = read_rows(_write(tmp_path, "book.xlsx", buffer.getvalue()))
+    assert row == {"source_row_id": "7", "unit_price": "9.5", "order_date": "2024-01-08"}
+
+
+def test_malformed_xlsx_raises_a_clear_error(tmp_path):
+    # ZIP signature but no workbook part → a named error, not a raw traceback.
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w") as archive:
         archive.writestr("[Content_Types].xml", "<Types/>")

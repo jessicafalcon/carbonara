@@ -4,11 +4,16 @@ from __future__ import annotations
 
 import csv
 import dataclasses
+import datetime
 import enum
 import hashlib
 import io
 import json
 import pathlib
+import zipfile
+
+import openpyxl
+from openpyxl.utils.exceptions import InvalidFileException
 
 from carbonara.profile import ColumnType, Profile, profile_table
 from carbonara.source_schema import (
@@ -28,6 +33,8 @@ __all__ = [
     "admit",
     "content_hash",
     "detect_format",
+    "read_rows",
+    "read_source",
 ]
 
 #: ZIP local-file-header magic; an XLSX is a ZIP container.
@@ -54,7 +61,12 @@ class IngestStatus(enum.StrEnum):
 
 
 class UnsupportedFormatError(Exception):
-    """Raised for a format detected but not parsed in this phase (XLSX)."""
+    """Raised for a file whose format is detected but cannot be parsed.
+
+    Both CSV and XLSX are parsed; this fires only when a file carries the XLSX
+    (ZIP) signature but is not a readable workbook — surfaced as a clear cause
+    rather than a raw openpyxl/zip traceback (input-boundary hardening).
+    """
 
 
 @dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
@@ -109,6 +121,80 @@ def _read_csv(raw: bytes) -> tuple[tuple[str, ...], list[dict[str, str]], str]:
     return columns, rows, encoding
 
 
+def _cell_str(value: object) -> str:
+    """Convert one XLSX cell to the canonical string the CSV path would carry.
+
+    Deterministic and locale-free: an integer keeps no trailing ``.0``, a date
+    cell becomes an ISO date (matching the CSV convention for ``order_date``),
+    and a blank cell is the empty string.
+
+    >>> _cell_str(7), _cell_str(6.26), _cell_str(3400.0), _cell_str(None)
+    ('7', '6.26', '3400', '')
+    >>> _cell_str(datetime.datetime(2024, 1, 8))
+    '2024-01-08'
+    """
+    if value is None:
+        return ""
+    if isinstance(value, bool):
+        return "TRUE" if value else "FALSE"
+    if isinstance(value, int):
+        return str(value)
+    if isinstance(value, float):
+        return str(int(value)) if value.is_integer() else str(value)
+    if isinstance(value, datetime.datetime):
+        midnight = value.hour == value.minute == value.second == value.microsecond == 0
+        return value.date().isoformat() if midnight else value.isoformat(sep=" ")
+    if isinstance(value, datetime.date | datetime.time):
+        return value.isoformat()
+    return str(value)
+
+
+def _read_xlsx(raw: bytes) -> tuple[tuple[str, ...], list[dict[str, str]], str]:
+    """Read the first sheet of an XLSX into (columns, string rows, encoding).
+
+    openpyxl reads the OOXML directly and every cell is converted to a string
+    here (:func:`_cell_str`), so an XLSX follows the same path a CSV does with no
+    pandas type inference: fixed first-sheet selection, no locale-dependent number
+    or date parsing. XLSX character data is UTF-8 (OOXML), so the encoding is
+    recorded as ``utf-8``. A fully blank row is skipped, as it would be in a CSV.
+    """
+    try:
+        workbook = openpyxl.load_workbook(io.BytesIO(raw), read_only=True, data_only=True)
+    except (OSError, zipfile.BadZipFile, InvalidFileException) as error:
+        raise UnsupportedFormatError(f"XLSX signature but not a readable workbook: {error}") from error
+    try:
+        sheet = workbook[workbook.sheetnames[0]]  # first sheet by position — deterministic
+        row_iter = sheet.iter_rows(values_only=True)
+        columns = tuple(_cell_str(value) for value in next(row_iter, ()))
+        rows: list[dict[str, str]] = []
+        for values in row_iter:
+            cells = [_cell_str(value) for value in values]
+            if not any(cells):
+                continue
+            rows.append({column: (cells[i] if i < len(cells) else "") for i, column in enumerate(columns)})
+    finally:
+        workbook.close()
+    return columns, rows, "utf-8"
+
+
+def read_source(raw: bytes, source_format: SourceFormat) -> tuple[tuple[str, ...], list[dict[str, str]], str]:
+    """Parse raw bytes of a supported format into (columns, string rows, encoding)."""
+    return _read_xlsx(raw) if source_format is SourceFormat.XLSX else _read_csv(raw)
+
+
+def read_rows(path: pathlib.Path) -> list[dict[str, str]]:
+    """Read a CSV or XLSX source file into pipeline-ready string rows.
+
+    The counterpart to :func:`admit`'s gate: ``admit`` decides whether to accept a
+    file; this reads an accepted file's rows for :func:`carbonara.pipeline.run`.
+    Format is detected by content, so the caller need not know it — the same call
+    reads either format identically.
+    """
+    raw = path.read_bytes()
+    _, rows, _ = read_source(raw, detect_format(raw))
+    return rows
+
+
 def _registry_path(root: pathlib.Path) -> pathlib.Path:
     return root / "registry.json"
 
@@ -154,9 +240,6 @@ def admit(path: pathlib.Path, store_root: pathlib.Path, *, rerun: bool = False) 
     """
     raw = path.read_bytes()
     fmt = detect_format(raw)
-    if fmt is SourceFormat.XLSX:
-        raise UnsupportedFormatError("XLSX detected; only CSV is parsed in this phase")
-
     digest = content_hash(raw)
     stored = _stored_path(store_root, digest, fmt)
     registry = _load_registry(store_root)
@@ -169,10 +252,13 @@ def admit(path: pathlib.Path, store_root: pathlib.Path, *, rerun: bool = False) 
             encoding=registry[digest].get("encoding", "utf-8"),
         )
 
+    # Parse before storing, so a file that carries the XLSX signature but cannot be
+    # read as a workbook fails without leaving unusable bytes in the store.
+    columns, rows, encoding = read_source(raw, fmt)
+
     stored.parent.mkdir(parents=True, exist_ok=True)
     stored.write_bytes(raw)  # immutable original; overwriting with identical bytes is a no-op
 
-    columns, rows, encoding = _read_csv(raw)
     profile = profile_table(columns, rows)
     diff = diff_schema(profile, _load_baseline(store_root))
 
