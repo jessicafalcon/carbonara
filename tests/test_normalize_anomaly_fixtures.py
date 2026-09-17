@@ -8,8 +8,10 @@ import pathlib
 import pytest
 
 from carbonara.anomalies import detect_anomalies
+from carbonara.ingest import content_hash
 from carbonara.materialize import materialize
 from carbonara.normalize import NormalizeResult, normalize_records
+from carbonara.pipeline import run
 from carbonara.rules import AnomalyCategory, Finding, Severity
 
 _BOM_V1 = pathlib.Path(__file__).resolve().parent.parent / "fixtures" / "bom_v1.csv"
@@ -83,6 +85,25 @@ def test_zero_weight_positive_value_is_high_severity(pipeline):
 def test_duplicate_key_is_flagged_once(pipeline):
     _, findings = pipeline
     assert _findings_for(findings, 307, AnomalyCategory.DUPLICATE_KEY)
+
+
+def test_planted_anomalies_surface_through_the_pipeline():
+    """The §12 cases reach run().findings, not only detect_anomalies — the wired net."""
+    findings = run(
+        _rows(),
+        {"vendor": "supplier"},
+        content_hash=content_hash(_BOM_V1.read_bytes()),
+        created_at="2026-01-01T00:00:00Z",
+    ).findings
+
+    def surfaced(source_row_id: int, category: AnomalyCategory) -> bool:
+        rid = f"r{source_row_id:04d}"
+        return any(f.record_id == rid and f.category is category for f in findings)
+
+    assert surfaced(41, AnomalyCategory.VALIDITY)  # malformed date
+    assert surfaced(236, AnomalyCategory.DISTRIBUTION)  # extreme price
+    assert surfaced(26, AnomalyCategory.CROSS_FIELD)  # zero weight on a positive-value line
+    assert surfaced(307, AnomalyCategory.DUPLICATE_KEY)  # duplicate (style, sku, component)
 
 
 def test_pass_is_reproducible():

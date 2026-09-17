@@ -52,10 +52,16 @@ def walkthrough() -> list[str]:
     lines.append(f"1. upload      · {_BOM_V1.name} · content hash {digest[:16]}")
     lines.append(f"2. drift gate  · {admitted.status.value}; proposes rename {renames} (confirmed before ingest)")
 
-    # 3. Review queue: the Organic cottn mapping is proposed, never auto-applied.
+    # 3. Review queue: the anomaly net and the Organic cottn mapping are all
+    # surfaced for review, never auto-applied.
     before = _pipeline(digest)
+    mappings = sum(1 for f in before.findings if f.category.value == "mapping")
+    anomalies = len(before.findings) - mappings
     finding = next(f for f in before.findings if f.record_id == _FOCUS and f.category.value == "mapping")
-    lines.append(f"3. review      · {len(before.findings)} findings; {_FOCUS} {finding.message}")
+    lines.append(
+        f"3. review      · {len(before.findings)} findings "
+        f"({mappings} mappings + {anomalies} anomalies); {_FOCUS} {finding.message}"
+    )
     lines.append(f"               proposes {finding.proposed_value!r} — surfaced, not applied")
 
     # 4. Approve: replay the recorded decision (actor and timestamp injected).

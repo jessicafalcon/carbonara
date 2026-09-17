@@ -12,6 +12,7 @@ from collections.abc import Mapping, Sequence
 
 import pandas as pd
 
+from carbonara.anomalies import detect_anomalies
 from carbonara.apply_review import AppliedApproval, apply_approvals
 from carbonara.augment import augment_lineage
 from carbonara.fill import fill_weights
@@ -65,6 +66,11 @@ def run(
     re-applied cell's approval lineage chains onto its normalize source rather than
     clobbering it (§8.1). Empty ``approvals`` reproduces the single-pass output
     exactly.
+
+    ``findings`` carries the reviewable events: uncertain mappings and implausible
+    values from normalize/fill/footprint, plus the anomaly net (validity,
+    completeness, duplicate-key, cross-field, distribution) run on the pre-fill
+    records. Everything is surfaced for review, nothing silently corrected (§7.3).
     """
     normalized = normalize_records(materialize(rows, mapping))
     applied = apply_approvals(normalized.records, approvals)
@@ -76,7 +82,13 @@ def run(
     # clobbering apply_lineage pass below.
     lineage_events = normalized.events + applied.seed_events + filled.events + footprint.events
     events = normalized.events + applied.seed_events + applied.approval_events + filled.events + footprint.events
-    findings = normalized.findings + filled.findings + footprint.findings
+    # Anomalies are detected on the pre-fill records: "missing weight" must fire on
+    # the cell as it arrived, before the ladder fills it (a filled weight is an
+    # estimate, not the observed value). Additive and reviewable — never a silent
+    # edit (§7.3); the categories are disjoint from the mapping/plausibility
+    # findings above, so finding ids cannot collide.
+    anomalies = detect_anomalies(applied.records)
+    findings = normalized.findings + anomalies + filled.findings + footprint.findings
     # Key the run to the reference data's bytes, not just the version label: an edit
     # to any factor or vocabulary is then a new, detectable run (§8.3).
     ref_digest = reference_digest(footprint.factor_version)

@@ -56,6 +56,20 @@ def test_page_shows_the_run_signature_and_panels(result):
         assert heading in html
 
 
+def test_readiness_labels_the_material_stage_boundary(result):
+    html = render_view(result)
+    assert "material-stage estimate" in html
+    assert "excludes yarn/fabric formation" in html
+
+
+def test_readiness_summarizes_findings_by_severity(result):
+    html = render_view(result)
+    # The summary and the queue count reflect the wired anomaly net, not just mappings.
+    assert f"findings <b>{len(result.findings)}</b>" in html
+    assert f"Review queue · {len(result.findings)} findings" in html
+    assert any(f.severity.value == "high" for f in result.findings)  # a high anomaly reaches the queue
+
+
 def test_trace_carries_rules_source_row_and_factor_version(result):
     trace = _trace(render_view(result))
     costed = next(c for c in result.footprint.components if c.estimated_kgco2e is not None)

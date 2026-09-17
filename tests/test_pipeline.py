@@ -129,3 +129,23 @@ def test_re_run_with_approvals_is_byte_identical():
     b = _run(approvals=_approvals())
     assert a.ledger.to_jsonl() == b.ledger.to_jsonl()
     assert a.frame["data_lineage"].astype(str).tolist() == b.frame["data_lineage"].astype(str).tolist()
+
+
+def test_run_surfaces_the_wired_anomaly_net():
+    # The pipeline carries the anomaly net (§7.3), not just mapping/plausibility:
+    # the planted validity, duplicate-key, cross-field, and distribution cases reach
+    # findings instead of passing through silently. (Completeness is country-only
+    # plus the ladder's residual weight gap; the fixture resolves every country and
+    # fills every weight, so it plants no completeness case — covered in unit tests.)
+    categories = {f.category.value for f in _run().findings}
+    assert {"validity", "duplicate_key", "cross_field", "distribution"} <= categories
+
+
+def test_findings_reproduce_across_runs():
+    key = lambda result: [(f.finding_id, f.category.value, f.severity.value) for f in result.findings]  # noqa: E731
+    assert key(_run()) == key(_run())
+
+
+def test_empty_input_surfaces_no_findings():
+    empty = run([], {"vendor": "supplier"}, content_hash="x", created_at="2026-01-01T00:00:00Z")
+    assert empty.findings == []

@@ -47,19 +47,14 @@ def _validity(records: list[SourceRecord]) -> list[Finding]:
 
 
 def _completeness(records: list[SourceRecord]) -> list[Finding]:
+    # A missing weight is *not* flagged here: the fill ladder resolves most of them,
+    # and a filled weight is a labeled estimate, not a pending review item. Weight
+    # completeness is owned by the fill stage, which flags only the residual the
+    # ladder cannot resolve (action-required, §7.4 tier 5). Country has no ladder,
+    # so an unresolved country is a genuine gap and belongs here.
     findings: list[Finding] = []
     for source in records:
         record = source.record
-        if record.component_weight_g is None:
-            findings.append(
-                Finding.create(
-                    record_id=record.record_id,
-                    column="component_weight_g",
-                    category=AnomalyCategory.COMPLETENESS,
-                    severity=Severity.LOW,
-                    message="missing weight",
-                )
-            )
         if record.factory_country_iso is None:
             findings.append(
                 Finding.create(

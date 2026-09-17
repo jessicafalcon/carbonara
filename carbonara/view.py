@@ -265,6 +265,9 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
     mapped = sum(1 for c in result.footprint.components if c.material is not None)
     with_country = sum(1 for s in result.records if s.record.factory_country_iso is not None)
     total_rows = len(result.footprint.components)
+    high = sum(1 for f in result.findings if f.severity is Severity.HIGH)
+    medium = sum(1 for f in result.findings if f.severity is Severity.MEDIUM)
+    low = sum(1 for f in result.findings if f.severity is Severity.LOW)
 
     diff_panel = ""
     if diff is not None:
@@ -297,6 +300,8 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
   <section class="panel">
     <h2>Readiness</h2>
     <div class="headline">{_n(summary.total_kgco2e)} <span class="unit">kgCO₂e</span></div>
+    <div class="range">material-stage estimate · fibre/material production only —
+      excludes yarn/fabric formation, dyeing, cut-make-trim, transport, and use (§15)</div>
     <div class="range">uncertainty {_n(lo)} – {_n(hi)} kgCO₂e · observed vs filled input share</div>
     <div style="margin:10px 0 4px">{_split(summary.observed_share, summary.filled_share)}</div>
     <div class="tags">
@@ -313,6 +318,12 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
       <span class="tag">weight coverage <b>{weighted}/{total_rows}</b></span>
       <span class="tag">material mapped <b>{mapped}/{total_rows}</b></span>
       <span class="tag">country resolved <b>{with_country}/{total_rows}</b></span>
+    </div>
+    <div class="tags" style="margin-top:14px">
+      <span class="tag">findings <b>{len(result.findings)}</b></span>
+      <span class="tag">high <b class="delta-up">{high}</b></span>
+      <span class="tag">medium <b>{medium}</b></span>
+      <span class="tag">low <b>{low}</b></span>
     </div>
   </section>
 

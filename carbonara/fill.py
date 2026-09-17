@@ -156,6 +156,19 @@ def fill_weights(records: list[SourceRecord]) -> FillResult:
             # tiers 3 → 4 → 5, first match wins (tiers 1–2 unreachable here; see docstring)
             filled = _median_fill(source, pools) or _constant_fill(source)
             if filled is None:
+                # The honest last resort (§7.4 tier 5): no tier cleared its bar, so the
+                # weight is left null and surfaced for review — the residual completeness
+                # gap that actually needs a decision, not the missing weights the ladder
+                # resolved (those carry their fill lineage and the observed/filled share).
+                findings.append(
+                    Finding.create(
+                        record_id=record.record_id,
+                        column="component_weight_g",
+                        category=AnomalyCategory.COMPLETENESS,
+                        severity=Severity.MEDIUM,
+                        message="weight unresolved by the fill ladder — action required",
+                    )
+                )
                 out.append(
                     dataclasses.replace(
                         source, record=dataclasses.replace(record, quality_status=QualityStatus.ACTION_REQUIRED)
