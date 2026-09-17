@@ -47,10 +47,15 @@ through live.
 |---|---|
 | Garment archetypes | 4 (t-shirt, hoodie, trousers, dress) |
 | Styles | ~50 (~12 per archetype) |
-| Rows | ~500 component lines (~5–8 components/style) |
+| Rows | ~300 component lines (~5–8 components/style) |
 | Suppliers | 4–5 entities, 2–4 messy spellings each |
 | Weight missingness | ~30–40% of component rows |
-| Seed | fixed (`random.seed`), so output is byte-identical across runs |
+| Seed | fixed (`random.Random(42)`), so output is byte-identical across runs |
+
+Row count falls out of the real style × component structure rather than a target:
+~50 styles at 5–8 components each land near ~300 lines, not the brief's round
+~500. The smaller figure is deliberate — enough to clear median support on the
+dense groups, few enough to audit live, and no padding (§6).
 
 ## Planted cases (ground truth retained)
 

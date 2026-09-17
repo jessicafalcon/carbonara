@@ -123,7 +123,7 @@ Volume is set so that **every branch of the fill ladder fires at least once on b
 |---|---|---|
 | Garment archetypes | 4 (t-shirt, hoodie, trousers, dress) | Gives a `category` dimension to back off across. |
 | Styles | ~50 (~12 per archetype) | Dense groups clear support; niche ones don't. |
-| Rows | ~500 component lines (~5–8 components/style) | Believable single-brand export, auditable live. Volume from real BOM structure, not inflation. |
+| Rows | ~300 component lines (~5–8 components/style) | Believable single-brand export, auditable live. Volume from real BOM structure (~50 styles × 5–8 components), not inflation. |
 | Suppliers | 4–5 entities, 2–4 messy spellings each | Fuzzy-match value comes from *variants of few entities*. |
 | Weight missingness | ~30–40% of component rows | Enough observed weights to compute medians, enough gaps to make filling matter. |
 
@@ -391,7 +391,7 @@ Effort setting for the build: **Opus 4.8 at `xhigh`** (the Anthropic-recommended
 **Objective.** A deterministic generator that emits one messy BOM and retains ground truth for every corrupted/blanked cell.
 
 - Freeze the canonical record ([§6](#6-canonical-model-and-fixture)) as a typed contract (a frozen dataclass / explicit schema).
-- Build the generator: 4 archetypes, ~50 styles, ~500 component lines, 4–5 suppliers with messy spellings, ~30–40% weight missingness. `random.seed(...)` fixed; ground-truth table written alongside the corrupted file.
+- Build the generator: 4 archetypes, ~50 styles, ~300 component lines, 4–5 suppliers with messy spellings, ~30–40% weight missingness. `random.seed(...)` fixed; ground-truth table written alongside the corrupted file.
 - **Plant every ladder branch** ([§6](#6-canonical-model-and-fixture)): dense/tight, high-spread, sparse, planted outlier, plus messy conditions (renamed headers, `Organic cottn`, `70/30 CO/PL`, mixed g/kg, blank-vs-zero, duplicate keys, malformed dates, extreme price/weight).
 - **Exit gate.** Every fill-ladder branch and every row of the §12 fixture-behavior table has a fixture with a *specified expected outcome*; regenerating twice yields byte-identical files.
 
