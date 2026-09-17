@@ -86,6 +86,17 @@ The view surfaces the diff. This is the §12 "factor-table revision → recalcul
 metrics + factor-version diff" case, done as a direct version comparison — not a
 statistical decomposition (icanexplain is Phase 6, stretch).
 
+**Why v2 is a hypothetical, not a second real release.** A real historical
+Ecobalyse factor set is not obtainable through public or token access: the API
+serves only the current release (no version parameter, no versioned hosts), and
+the detailed climate-change data in Ecobalyse's git history is AES-encrypted with
+an internal data key that is separate from the public API token. The exact `cch`
+figures we can fetch are therefore current-release only (v1). v2 is a labeled
+hypothetical polyester revision, sufficient to exercise the recompute/diff/
+append-only mechanism §12 requires. A genuinely real v2 arrives when Ecobalyse
+publishes its next release — re-running `scripts/fetch_factors.py` against a fresh
+checkout then produces it, and the diff becomes a real revision.
+
 ## The pipeline orchestrator
 
 `carbonara/pipeline.py`: one deterministic entry that runs
