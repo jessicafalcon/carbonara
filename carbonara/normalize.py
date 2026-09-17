@@ -310,6 +310,7 @@ def normalize_records(records: list[SourceRecord]) -> NormalizeResult:
                     severity=Severity.MEDIUM,
                     message=f"{raw['material']!r} near vocabulary {material[1]!r}",
                     proposed_value=material[1],
+                    evidence={"column": "material_normalized", "raw_value": raw["material"]},
                 )
             )
 
