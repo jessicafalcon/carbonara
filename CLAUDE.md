@@ -220,8 +220,14 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   off `main`, no connector behavior change. Corrects three stale spec claims
   against the shipped code (Phase 1 row count ~300 not ~500; Phase 5 excludes
   plausibility-`FLAGGED` weights from headline totals; Phase 6 ground-truth
-  validation is direction-only with the ~10% gap reported as QA), and renames the
-  four phase-named test suites to behavior names. `pytest` (203) + `pre-commit`
-  pass. **Merge is the user's call.**
+  validation is direction-only with the ~10% gap reported as QA), labels the
+  footprint as a material-stage estimate (README + brief §9/§15), fixes the
+  README quickstart (real `uv` path, not the unpublished `pip install`), and
+  renames the four phase-named test suites to behavior names. `pytest` (203) +
+  `pre-commit` pass. Two follow-ups deferred to their own branches (data-path /
+  error-behavior changes): wire `detect_anomalies` into `pipeline.run` (the ~119
+  findings the live pipeline never surfaces) + a view stage-boundary caption; and
+  input-boundary hardening (crashes → reviewable findings). **Merge is the user's
+  call.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
