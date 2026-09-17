@@ -103,3 +103,26 @@ def test_admit_is_deterministic_across_runs(tmp_path):
     assert (tmp_path / "a" / "store" / "registry.json").read_bytes() == (
         tmp_path / "b" / "store" / "registry.json"
     ).read_bytes()
+
+
+# --- §12 fixture-behavior cases, exercised on the shipped fixtures/bom_v1.csv ---
+
+_BOM_V1 = pathlib.Path(__file__).resolve().parent.parent / "fixtures" / "bom_v1.csv"
+
+
+def test_bom_v1_renamed_header_requires_review(tmp_path):
+    # The generator ships supplier→vendor, so the first import trips the gate.
+    result = admit(_BOM_V1, tmp_path / "store")
+    assert result.status is IngestStatus.REVIEW_REQUIRED
+    assert result.mapping_proposal is not None
+    assert result.mapping_proposal.renames == {"vendor": "supplier"}
+
+
+def test_bom_v1_duplicate_upload_is_idempotent(tmp_path):
+    store = tmp_path / "store"
+    admit(_BOM_V1, store)
+    registry_before = (store / "registry.json").read_bytes()
+    result = admit(_BOM_V1, store)
+    assert result.status is IngestStatus.DUPLICATE
+    assert (store / "registry.json").read_bytes() == registry_before
+    assert len(list((store / "raw").iterdir())) == 1
