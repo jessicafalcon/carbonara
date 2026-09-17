@@ -118,15 +118,16 @@ class ReviewQueue:
         """Reject a finding."""
         return self.decide(finding_id, status=ReviewStatus.REJECTED, actor=actor, note=note, at=at)
 
-    def approved_rules(self) -> list[ApprovedRule]:
-        """Mint a versioned correction from each approved finding that proposes a value.
+    def approved_rules_with_decisions(self) -> list[tuple[ApprovedRule, ReviewDecision]]:
+        """Each minted correction paired with the decision that approved it.
 
         A ``MAPPING`` approval becomes a reusable alias (matched by raw value); any
         other approved finding carrying a ``proposed_value`` becomes a per-cell
-        correction. An approved flag with no ``proposed_value`` mints nothing — there
-        is no value to re-apply, and we never guess one (brief §15).
+        correction. An approved flag with no ``proposed_value`` yields nothing — there
+        is no value to re-apply, and we never guess one (brief §15). The decision is
+        the item's current (approving) one, carrying the injected actor and ``at``.
         """
-        rules: list[ApprovedRule] = []
+        pairs: list[tuple[ApprovedRule, ReviewDecision]] = []
         for item in self._items.values():
             finding = item.finding
             if item.status is not ReviewStatus.APPROVED:
@@ -134,8 +135,12 @@ class ReviewQueue:
             value, column = finding.proposed_value, finding.column
             if value is None or column is None:
                 continue
-            rules.append(_rule_from_finding(finding, value=value, column=column))
-        return rules
+            pairs.append((_rule_from_finding(finding, value=value, column=column), item.decisions[-1]))
+        return pairs
+
+    def approved_rules(self) -> list[ApprovedRule]:
+        """The versioned corrections minted from approved findings (without decisions)."""
+        return [rule for rule, _ in self.approved_rules_with_decisions()]
 
     def decisions_jsonl(self) -> str:
         """Serialize every recorded decision as deterministic JSON lines (queue order).

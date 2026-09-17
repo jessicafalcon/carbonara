@@ -36,10 +36,9 @@ def test_recompute_appends_under_a_new_run_id_leaving_v1_history_intact():
     rows_path = _BOM_V1
     with rows_path.open(newline="") as handle:
         rows = list(csv.DictReader(handle))
-    kwargs = dict(content_hash=content_hash(rows_path.read_bytes()), created_at="2026-01-01T00:00:00Z")
-
-    v1 = run(rows, {"vendor": "supplier"}, factor_version="v1", **kwargs)
-    v2 = run(rows, {"vendor": "supplier"}, factor_version="v2", **kwargs)
+    digest = content_hash(rows_path.read_bytes())
+    v1 = run(rows, {"vendor": "supplier"}, content_hash=digest, created_at="2026-01-01T00:00:00Z", factor_version="v1")
+    v2 = run(rows, {"vendor": "supplier"}, content_hash=digest, created_at="2026-01-01T00:00:00Z", factor_version="v2")
     assert v1.run_id != v2.run_id  # a revision is a new run, not an overwrite
 
     # Append-only: both runs' events coexist and the v1 rows are byte-identical.

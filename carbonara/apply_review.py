@@ -49,10 +49,10 @@ from collections.abc import Sequence
 
 from carbonara.augment import RuleRecord
 from carbonara.materialize import SourceRecord
-from carbonara.review import ApprovedRule, ReviewDecision
+from carbonara.review import ApprovedRule, ReviewDecision, ReviewQueue
 from carbonara.rules import RuleEvent, SourceType
 
-__all__ = ["AppliedApproval", "ApplyResult", "ApprovalChain", "apply_approvals"]
+__all__ = ["AppliedApproval", "ApplyResult", "ApprovalChain", "apply_approvals", "applications_from"]
 
 #: The base normalize step a material alias chains onto — the lowercasing the
 #: reviewer saw before approving the resolution.
@@ -65,6 +65,11 @@ class AppliedApproval:
 
     rule: ApprovedRule
     decision: ReviewDecision
+
+
+def applications_from(queue: ReviewQueue) -> list[AppliedApproval]:
+    """The approvals to re-apply from a decided review queue, ready for :func:`apply_approvals`."""
+    return [AppliedApproval(rule=rule, decision=decision) for rule, decision in queue.approved_rules_with_decisions()]
 
 
 @dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
