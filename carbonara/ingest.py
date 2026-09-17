@@ -70,6 +70,7 @@ class IngestResult:
     source_format: SourceFormat
     status: IngestStatus
     stored_path: pathlib.Path
+    encoding: str = "utf-8"
     profile: Profile | None = None
     schema_diff: SchemaDiff | None = None
     mapping_proposal: MappingProposal | None = None
@@ -85,11 +86,27 @@ def detect_format(raw: bytes) -> SourceFormat:
     return SourceFormat.XLSX if raw.startswith(_ZIP_MAGIC) else SourceFormat.CSV
 
 
-def _read_csv(raw: bytes) -> tuple[tuple[str, ...], list[dict[str, str]]]:
-    reader = csv.DictReader(io.StringIO(raw.decode("utf-8")))
+def _decode(raw: bytes) -> tuple[str, str]:
+    """Decode source bytes as UTF-8, falling back to CP1252, returning (text, encoding).
+
+    Real vendor exports are often Windows-1252 / Latin-1, not UTF-8. CP1252 maps
+    every byte, so a Western file never fails to decode; the encoding used is
+    returned so provenance can record which one read the file.
+    """
+    for encoding in ("utf-8", "cp1252"):
+        try:
+            return raw.decode(encoding), encoding
+        except UnicodeDecodeError:
+            continue
+    return raw.decode("cp1252", errors="replace"), "cp1252"  # unreachable: cp1252 maps all bytes
+
+
+def _read_csv(raw: bytes) -> tuple[tuple[str, ...], list[dict[str, str]], str]:
+    text, encoding = _decode(raw)
+    reader = csv.DictReader(io.StringIO(text))
     columns = tuple(reader.fieldnames or ())
     rows = [{key: (value or "") for key, value in row.items()} for row in reader]
-    return columns, rows
+    return columns, rows, encoding
 
 
 def _registry_path(root: pathlib.Path) -> pathlib.Path:
@@ -144,12 +161,18 @@ def admit(path: pathlib.Path, store_root: pathlib.Path, *, rerun: bool = False) 
     stored = _stored_path(store_root, digest, fmt)
     registry = _load_registry(store_root)
     if digest in registry and not rerun:
-        return IngestResult(content_hash=digest, source_format=fmt, status=IngestStatus.DUPLICATE, stored_path=stored)
+        return IngestResult(
+            content_hash=digest,
+            source_format=fmt,
+            status=IngestStatus.DUPLICATE,
+            stored_path=stored,
+            encoding=registry[digest].get("encoding", "utf-8"),
+        )
 
     stored.parent.mkdir(parents=True, exist_ok=True)
     stored.write_bytes(raw)  # immutable original; overwriting with identical bytes is a no-op
 
-    columns, rows = _read_csv(raw)
+    columns, rows, encoding = _read_csv(raw)
     profile = profile_table(columns, rows)
     diff = diff_schema(profile, _load_baseline(store_root))
 
@@ -161,7 +184,12 @@ def admit(path: pathlib.Path, store_root: pathlib.Path, *, rerun: bool = False) 
         proposal = None
         _save_baseline(store_root, schema_of(profile))
 
-    registry[digest] = {"filename": path.name, "format": fmt.value, "schema_status": status.value}
+    registry[digest] = {
+        "filename": path.name,
+        "format": fmt.value,
+        "schema_status": status.value,
+        "encoding": encoding,
+    }
     _save_registry(store_root, registry)
 
     return IngestResult(
@@ -169,6 +197,7 @@ def admit(path: pathlib.Path, store_root: pathlib.Path, *, rerun: bool = False) 
         source_format=fmt,
         status=status,
         stored_path=stored,
+        encoding=encoding,
         profile=profile,
         schema_diff=diff,
         mapping_proposal=proposal,
