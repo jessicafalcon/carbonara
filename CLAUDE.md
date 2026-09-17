@@ -141,18 +141,19 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
 - **Phase 0 — build harness + repo skeleton: done** (on `main`).
 - **Phase 1 — contract + fixture generator: done** (merged, PR #2).
 - **Phase 2 — ingest + schema-drift gate: done** (merged, PR #3).
-- **Phase 3 — normalize + validate + anomaly events: at exit gate, awaiting merge.**
-  Branch `phase-3-normalize-validate-anomalies`; spec + steps committed (rules
-  records, reference data + loaders, materialize, value + reference normalizers,
-  anomaly detectors, review queue, §12 fixture tests). Exit gate green: the
-  normalize+validate pass over `bom_v1` produces every §12 event (shorthand
-  composition, mixed g/kg with raw preserved, material typo as a proposal,
-  supplier variant normalized, malformed date, extreme price, zero-weight
-  cross-field, duplicate key); the review queue approves/rejects with history and
-  mints alias rules; every populated cell carries a RuleEvent; re-runs are
-  identical; `pytest` (96) + `pre-commit` pass. Scoped out: fills, plausibility
-  band, persistent ledger + Bloodline, implausible-claim. **Open PR #4** — merge
-  is the user's call. **Next after merge: Phase 4 — fill ladder
-  + rule ledger + Bloodline lineage (M4);** start a `phase-4-*` branch and spec.
+- **Phase 3 — normalize + validate + anomaly events: done** (merged, PR #4).
+- **Phase 4 — fill ladder + rule ledger + Bloodline lineage: at exit gate, awaiting merge.**
+  Branch `phase-4-fill-ladder-and-provenance`; spec + 8 steps committed (reference
+  weights, fill source types + uncertainty, fill ladder, ledger, Bloodline
+  lineage, fill-accuracy metric, §12 fixture tests). Exit gate green: over `bom_v1`
+  dense-tight → grouped median, high-spread/sparse → reference constant, implausible
+  observed → flagged (not changed); every fill is labeled with tier + params in both
+  stores (append-only ledger + Bloodline `data_lineage`) and carries an uncertainty
+  range; fill accuracy reported per tier (grouped-median MAE ≈ 7.9 g / 12.8%,
+  constant ≈ 1.2 g / 16.6%); fills, ledger, and lineage reproduce exactly; `pytest`
+  (121) + `pre-commit` pass. Scoped out: formula/reference-resolve fill tiers (no
+  applicable weight gap), footprint + view. **Open PR (this branch)** — merge is the
+  user's call. **Next after merge: Phase 5 — footprint + brand-facing view +
+  provenance drawer (M5);** start a `phase-5-*` branch and spec.
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
