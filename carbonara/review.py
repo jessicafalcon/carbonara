@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import dataclasses
 import enum
+import json
 from collections.abc import Iterable
 
 from carbonara.rules import AnomalyCategory, Finding, SourceType
@@ -135,6 +136,49 @@ class ReviewQueue:
                 continue
             rules.append(_rule_from_finding(finding, value=value, column=column))
         return rules
+
+    def decisions_jsonl(self) -> str:
+        """Serialize every recorded decision as deterministic JSON lines (queue order).
+
+        One line per decision — ``finding_id``, ``status``, ``actor``, ``note``,
+        ``at`` — so a persisted queue replays byte-for-byte. No clock is read; the
+        injected ``at`` is passed through unchanged.
+        """
+        lines = [
+            json.dumps(
+                {
+                    "finding_id": finding_id,
+                    "status": decision.status.value,
+                    "actor": decision.actor,
+                    "note": decision.note,
+                    "at": decision.at,
+                },
+                sort_keys=True,
+            )
+            for finding_id, item in self._items.items()
+            for decision in item.decisions
+        ]
+        return "\n".join(lines)
+
+    def replay(self, jsonl: str) -> None:
+        """Apply persisted decisions (from :meth:`decisions_jsonl`) onto the findings.
+
+        Decisions are applied in file order onto the already-loaded findings, so the
+        same file replayed onto the same findings reproduces the decision history and
+        thus the same :meth:`approved_rules`.
+        """
+        for line in jsonl.splitlines():
+            record = line.strip()
+            if not record:
+                continue
+            decision = json.loads(record)
+            self.decide(
+                decision["finding_id"],
+                status=ReviewStatus(decision["status"]),
+                actor=decision["actor"],
+                note=decision["note"],
+                at=decision["at"],
+            )
 
 
 def _rule_from_finding(finding: Finding, *, value: str, column: str) -> ApprovedRule:
