@@ -103,38 +103,38 @@ def test_renamed_header_is_emitted(tmp_path: pathlib.Path) -> None:
 
 
 def test_v2_plants_the_same_cases_as_v1() -> None:
-    # The mix-shifted lines are protected from corruption, so no planted case may
-    # be dropped: every branch must still fire on v2.
+    # Planting runs on the untransformed rows, so both vintages plant every case.
     _, ground_truth = generate.generate(vintage=generate.V2)
     assert {row["case"] for row in ground_truth} == EXPECTED_CASES
+
+
+def test_v2_corrupts_exactly_the_same_cells_as_v1() -> None:
+    # The reorder (plant before transform) makes the corruption layout identical
+    # across vintages, so fill error cancels in the v1→v2 delta.
+    _, gt1 = generate.generate(vintage=generate.V1)
+    _, gt2 = generate.generate(vintage=generate.V2)
+    cells = lambda gt: {(row["source_row_id"], row["column"], row["case"]) for row in gt}  # noqa: E731
+    assert cells(gt1) == cells(gt2)
 
 
 def test_v2_volume_multiplier_scales_quantity() -> None:
     v1_rows, _ = generate.generate(vintage=generate.V1)
     v2_rows, _ = generate.generate(vintage=generate.V2)
     v1_by_id = {row["source_row_id"]: row for row in v1_rows}
-    checked = 0
+    # Identical planting means every v2 line maps to its v1 twin by id and style.
     for row in v2_rows:
-        origin = v1_by_id.get(row["source_row_id"])
-        # Skip the appended duplicate-key row: it copies a different origin per vintage.
-        if origin is None or origin["style_id"] != row["style_id"]:
-            continue
+        origin = v1_by_id[row["source_row_id"]]
         code = row["style_id"].split("-")[0]
         assert int(row["quantity"]) == round(int(origin["quantity"]) * VOLUME_MULT[code])
-        checked += 1
-    # The whole catalog is checked bar the one appended duplicate-key row.
-    assert checked == len(v2_rows) - 1
 
 
-def test_v2_mix_shift_moves_named_lines_to_organic_cotton_and_leaves_them_clean() -> None:
-    rows, ground_truth = generate.generate(vintage=generate.V2)
-    corrupted = {row["source_row_id"] for row in ground_truth}
+def test_v2_mix_shift_moves_named_lines_to_organic_cotton() -> None:
+    rows, _ = generate.generate(vintage=generate.V2)
     shifted = [r for r in rows if r["style_id"] in TSH_SHELL_SHIFT_STYLES and r["component"] == "shell fabric"]
     assert len(shifted) == len(TSH_SHELL_SHIFT_STYLES)
     for row in shifted:
         assert row["material"] == "organic cotton"
         assert row["composition"] == "100% organic cotton"
-        assert row["source_row_id"] not in corrupted
 
 
 def test_decomposition_truth_isolates_the_planted_changes() -> None:

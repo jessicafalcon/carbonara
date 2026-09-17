@@ -54,17 +54,22 @@ randomness) gains a `vintage` parameter. v2 starts from the same clean rows as v
 and applies three fixed, recorded deltas:
 
 1. **Volume** — a fixed per-archetype quantity multiplier (e.g. hoodies up,
-   dresses down), applied to the clean `quantity`. No new randomness.
+   dresses down).
 2. **Mix** — convert a named, fixed set of component lines from one material to
-   another (e.g. a block of cotton jersey bodies → recycled cotton), recorded
-   cell by cell.
+   another (a block of cotton t-shirt bodies → organic cotton).
 3. **Vintage stamp** — `year → 2025` on `order_date`, same month/day.
 
-The same planted messy cases apply to the transformed rows, so both vintages run
-the **identical** pipeline. Because the connector's fill is deterministic and the
-transform is closed-form, the true `F(v1)`, `F(v2)`, and each effect's exact
-contribution are computable from the clean/true values and written to a
-ground-truth decomposition table.
+**Plant first, transform second.** The messy cases are planted on the
+*untransformed* rows; volume and mix are applied only afterwards. The year stamp
+is the sole pre-plant difference, and it feeds no plant's predicate, so the rng
+sequence — and thus the corruption layout — is identical across vintages. Both
+vintages therefore blank and fill the *same* cells, so the per-vintage fill error
+cancels in the v1→v2 delta rather than compounding (an earlier transform-then-plant
+order left the two vintages corrupting ~70% different cells, which inflated the
+delta's error to ~24%; this ordering cuts it to ~10%, the honest fill-accuracy
+floor). Because v2 is a closed-form transform of v1, the true `F(v1)`, `F(v2)` and
+each effect's contribution are known exactly and written to a ground-truth
+decomposition table.
 
 Generator outputs (all byte-reproducible at the fixed seed):
 

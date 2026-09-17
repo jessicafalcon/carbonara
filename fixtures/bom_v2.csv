@@ -1,318 +1,318 @@
 source_row_id,style_id,sku,component,material,composition,net_weight,vendor,country,order_date,quantity,unit_price
 1,TSH-01,TSH-01-BLK-XS,shell fabric,organic cotton,100% organic cotton,147 g,Bharat Mills,India,2025-04-08,1260,5.86
 2,TSH-01,TSH-01-BLK-XS,rib collar,cotton,97% cotton / 3% elastane,12 g,Bharat Mills,India,2025-04-08,1260,12.88
-3,TSH-01,TSH-01-BLK-XS,side tape,polyester,100% polyester,,Bharat Mills,India,2025-04-08,1260,16.42
+3,TSH-01,TSH-01-BLK-XS,side tape,polyester,100% polyester,4 g,Bharat Mills,India,2025-04-08,1260,16.42
 4,TSH-01,TSH-01-BLK-XS,care label,polyester,100% polyester,1 g,Bharat Mills,India,2025-04-08,1260,13.85
 5,TSH-01,TSH-01-BLK-XS,brand label,cotton,100% cotton,2 g,Bharat Mills,India,2025-04-08,1260,20.33
 6,TSH-02,TSH-02-BLK-S,shell fabric,organic cotton,100% organic cotton,170 g,Oceanic Fabrics,Vietnam,2025-06-09,1380,2.87
-7,TSH-02,TSH-02-BLK-S,rib collar,cotton,97% cotton / 3% elastane,13 g,Oceanic Fabrics,Vietnam,2025-06-09,1380,20.27
-8,TSH-02,TSH-02-BLK-S,side tape,polyester,100% polyester,3 g,Oceanic Fabrics,Vietnam,2025-06-09,1380,18.38
-9,TSH-02,TSH-02-BLK-S,thread,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-06-09,1380,9.77
-10,TSH-02,TSH-02-BLK-S,care label,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-06-09,1380,14.02
-11,TSH-02,TSH-02-BLK-S,size label,polyester,100% polyester,1 g,Oceanic Fabric,Vietnam,2025-06-09,1380,21.61
+7,TSH-02,TSH-02-BLK-S,rib collar,cotton,97% cotton / 3% elastane,,Oceanic Fabrics,Vietnam,2025-06-09,1380,20.27
+8,TSH-02,TSH-02-BLK-S,side tape,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-06-09,1380,18.38
+9,TSH-02,TSH-02-BLK-S,thread,polyester,100% polyester,2 g,Oceanic Fabrics,Vietnam,2025-06-09,1380,9.77
+10,TSH-02,TSH-02-BLK-S,care label,polyester,100% polyester,1 g,Oceanic Fabric,Vietnam,2025-06-09,1380,14.02
+11,TSH-02,TSH-02-BLK-S,size label,polyester,100% polyester,1 g,Oceanic Fabrics,Vietnam,2025-06-09,1380,21.61
 12,TSH-03,TSH-03-RED-S,shell fabric,organic cotton,100% organic cotton,132 g,Acme Textiles,Portugal,2025-01-22,1980,11.61
-13,TSH-03,TSH-03-RED-S,rib collar,cotton,97% cotton / 3% elastane,12 g,Acme Textiles,Portugal,2025-01-22,1980,9.20
-14,TSH-03,TSH-03-RED-S,side tape,polyester,100% polyester,4 g,ACME TEXTILES,Portugal,2025-01-22,1980,16.92
-15,TSH-03,TSH-03-RED-S,thread,polyester,100% polyester,3 g,Acme Textiles,Portugal,2025-01-22,1980,2.25
-16,TSH-03,TSH-03-RED-S,care label,polyester,100% polyester,1 g,Acme Textiles Ltd.,Portugal,2025-01-22,1980,16.06
+13,TSH-03,TSH-03-RED-S,rib collar,cotton,97% cotton / 3% elastane,12 g,ACME TEXTILES,Portugal,2025-01-22,1980,9.20
+14,TSH-03,TSH-03-RED-S,side tape,polyester,100% polyester,4 g,Acme Textiles,Portugal,2025-01-22,1980,16.92
+15,TSH-03,TSH-03-RED-S,thread,polyester,100% polyester,3 g,Acme Textiles Ltd.,Portugal,2025-01-22,1980,2.25
+16,TSH-03,TSH-03-RED-S,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-01-22,1980,16.06
 17,TSH-03,TSH-03-RED-S,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-01-22,1980,11.83
-18,TSH-03,TSH-03-RED-S,brand label,cotton,100% cotton,2 g,Acme Textiles,Portugal,2025-01-22,1980,7.11
+18,TSH-03,TSH-03-RED-S,brand label,cotton,100% cotton,,Acme Textiles,Portugal,2025-01-22,1980,7.11
 19,TSH-04,TSH-04-RED-S,shell fabric,organic cotton,100% organic cotton,154 g,Bharat Mills,India,2025-01-08,480,22.17
-20,TSH-04,TSH-04-RED-S,rib collar,cotton,97% cotton / 3% elastane,14 g,Bharat Mills,India,2025-01-08,480,16.25
-21,TSH-04,TSH-04-RED-S,side tape,polyester,100% polyester,,Bharat Mills,India,2025-01-08,480,18.75
+20,TSH-04,TSH-04-RED-S,rib collar,cotton,97% cotton / 3% elastane,,Bharat Mills,India,2025-01-08,480,16.25
+21,TSH-04,TSH-04-RED-S,side tape,polyester,100% polyester,4 g,bharat mills,India,2025-01-08,480,18.75
 22,TSH-04,TSH-04-RED-S,thread,polyester,100% polyester,3 g,Bharat Mills,India,2025-01-08,480,13.70
-23,TSH-04,TSH-04-RED-S,care label,polyester,100% polyester,1 g,bharat mills,India,2025-01-08,480,14.80
-24,TSH-04,TSH-04-RED-S,size label,polyester,100% polyester,,Bharat Mills,India,2025-01-08,480,9.37
+23,TSH-04,TSH-04-RED-S,care label,polyester,100% polyester,,Bharat Mills,India,2025-01-08,480,14.80
+24,TSH-04,TSH-04-RED-S,size label,polyester,100% polyester,1 g,Bharat Mills,India,2025-01-08,480,9.37
 25,TSH-04,TSH-04-RED-S,brand label,cotton,100% cotton,2 g,Bharat Mills,India,2025-01-08,480,12.59
-26,TSH-05,TSH-05-BLK-XS,shell fabric,organic cotton,100% organic cotton,150 g,Golden Thread,China,2025-11-06,5460,13.46
-27,TSH-05,TSH-05-BLK-XS,rib collar,cotton,97% cotton / 3% elastane,,Golden Thread,China,2025-11-06,5460,0.78
-28,TSH-05,TSH-05-BLK-XS,side tape,polyester,100% polyester,4 g,Golden Thread,China,2025-11-06,5460,18.16
-29,TSH-05,TSH-05-BLK-XS,thread,polyester,100% polyester,3 g,Golden Thread Co.,China,2025-11-06,5460,7.04
-30,TSH-05,TSH-05-BLK-XS,care label,polyester,100% polyester,1 g,Golden Thread,China,2025-11-06,5460,16.20
-31,TSH-05,TSH-05-BLK-XS,size label,polyester,100% polyester,1 g,GOLDEN THREAD CO,China,2025-11-06,5460,11.62
-32,TSH-05,TSH-05-BLK-XS,brand label,cotton,100% cotton,2 g,Golden Thread,China,2025-11-06,5460,23.87
-33,TSH-06,TSH-06-WHT-XL,shell fabric,organic cotton,100% organic cotton,125 g,Golden Thread,China,2025-09-04,5040,13.49
-34,TSH-06,TSH-06-WHT-XL,rib collar,cotton,97% cotton / 3% elastane,,Golden Thread,China,2025-09-04,5040,0.51
-35,TSH-06,TSH-06-WHT-XL,side tape,polyester,100% polyester,4 g,Golden Thread,China,2025-09-04,5040,23.26
+26,TSH-05,TSH-05-BLK-XS,shell fabric,organic cotton,100% organic cotton,0 g,Golden Thread,China,2025-11-06,5460,13.46
+27,TSH-05,TSH-05-BLK-XS,rib collar,cotton,97% cotton / 3% elastane,15 g,Golden Thread,China,2025-11-06,5460,0.78
+28,TSH-05,TSH-05-BLK-XS,side tape,polyester,100% polyester,4 g,Golden Thread Co.,China,2025-11-06,5460,18.16
+29,TSH-05,TSH-05-BLK-XS,thread,polyester,100% polyester,,Golden Thread,China,2025-11-06,5460,7.04
+30,TSH-05,TSH-05-BLK-XS,care label,polyester,100% polyester,1 g,GOLDEN THREAD CO,China,2025-11-06,5460,16.20
+31,TSH-05,TSH-05-BLK-XS,size label,polyester,100% polyester,1 g,Golden Thread,China,2025-11-06,5460,11.62
+32,TSH-05,TSH-05-BLK-XS,brand label,cotton,100% cotton,,Golden Thread,China,2025-11-06,5460,23.87
+33,TSH-06,TSH-06-WHT-XL,shell fabric,organic cotton,100% organic cotton,,Golden Thread,China,2025-09-04,5040,13.49
+34,TSH-06,TSH-06-WHT-XL,rib collar,cotton,97% cotton / 3% elastane,11 g,Golden Thread,China,2025-09-04,5040,0.51
+35,TSH-06,TSH-06-WHT-XL,side tape,polyester,100% polyester,4 g,GOLDEN THREAD CO,China,2025-09-04,5040,23.26
 36,TSH-06,TSH-06-WHT-XL,thread,polyester,100% polyester,,Golden Thread,China,2025-09-04,5040,22.03
-37,TSH-06,TSH-06-WHT-XL,care label,polyester,100% polyester,1 g,GOLDEN THREAD CO,China,2025-09-04,5040,1.92
-38,TSH-06,TSH-06-WHT-XL,size label,polyester,100% polyester,,Golden Thread,China,2025-09-04,5040,22.01
-39,TSH-06,TSH-06-WHT-XL,brand label,cotton,100% cotton,2 g,Golden Thread,China,2025-09-04,5040,12.41
-40,TSH-07,TSH-07-BLK-XL,shell fabric,cotton,100% cotton,148 g,Golden Thread Company,China,2025-03-22,3840,17.97
-41,TSH-07,TSH-07-BLK-XL,rib collar,cotton,97% cotton / 3% elastane,,Golden Thread,China,2025-03-22,3840,9.65
-42,TSH-07,TSH-07-BLK-XL,side tape,polyester,100% polyester,,Golden Thread,China,2025-03-22,3840,22.54
-43,TSH-07,TSH-07-BLK-XL,care label,polyester,100% polyester,1 g,Golden Thread,China,2025-03-22,3840,2.07
-44,TSH-07,TSH-07-BLK-XL,size label,polyester,100% polyester,,Golden Thread,China,2025-03-22,3840,1.02
-45,TSH-07,TSH-07-BLK-XL,brand label,cotton,100% cotton,1 g,Golden Thread Company,China,2025-03-22,3840,0.68
-46,TSH-08,TSH-08-BLK-S,shell fabric,cotton,100% cotton,,Acme Textiles,Portugal,2025-01-11,780,18.22
+37,TSH-06,TSH-06-WHT-XL,care label,polyester,100% polyester,,Golden Thread,China,2025-09-04,5040,1.92
+38,TSH-06,TSH-06-WHT-XL,size label,polyester,100% polyester,1 g,Golden Thread,China,2025-09-04,5040,22.01
+39,TSH-06,TSH-06-WHT-XL,brand label,cotton,100% cotton,,Golden Thread,China,2025-09-04,5040,12.41
+40,TSH-07,TSH-07-BLK-XL,shell fabric,cotton,100% cotton,,Golden Thread,China,2025-03-22,3840,17.97
+41,TSH-07,TSH-07-BLK-XL,rib collar,cotton,97% cotton / 3% elastane,10 g,Golden Thread,China,2024-13-07,3840,9.65
+42,TSH-07,TSH-07-BLK-XL,side tape,polyester,100% polyester,5 g,Golden Thread,China,2025-03-22,3840,22.54
+43,TSH-07,TSH-07-BLK-XL,care label,polyester,100% polyester,,Golden Thread,China,2025-03-22,3840,2.07
+44,TSH-07,TSH-07-BLK-XL,size label,polyester,100% polyester,1 g,Golden Thread,China,2025-03-22,3840,1.02
+45,TSH-07,TSH-07-BLK-XL,brand label,cotton,100% cotton,,Golden Thread,China,2025-03-22,3840,0.68
+46,TSH-08,TSH-08-BLK-S,shell fabric,cotton,100% cotton,5000 g,Acme Textiles,Portugal,2025-01-11,780,18.22
 47,TSH-08,TSH-08-BLK-S,rib collar,cotton,97% cotton / 3% elastane,13 g,Acme Textiles,Portugal,2025-01-11,780,6.45
-48,TSH-08,TSH-08-BLK-S,side tape,polyester,100% polyester,,Acme Textiles,Portugal,2025-01-11,780,12.09
+48,TSH-08,TSH-08-BLK-S,side tape,polyester,100% polyester,3 g,Acme Textiles,Portugal,2025-01-11,780,12.09
 49,TSH-08,TSH-08-BLK-S,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-01-11,780,16.65
-50,TSH-08,TSH-08-BLK-S,size label,polyester,100% polyester,,Acme Textiles,Portugal,2025-01-11,780,9.18
+50,TSH-08,TSH-08-BLK-S,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-01-11,780,9.18
 51,TSH-08,TSH-08-BLK-S,brand label,cotton,100% cotton,1 g,Acme Textiles,Portugal,2025-01-11,780,1.83
 52,TSH-09,TSH-09-BLK-XS,shell fabric,cotton,100% cotton,,Oceanic Fabrics,Vietnam,2025-12-11,1020,3.93
 53,TSH-09,TSH-09-BLK-XS,rib collar,cotton,97% cotton / 3% elastane,13 g,Oceanic Fabrics,Vietnam,2025-12-11,1020,21.92
-54,TSH-09,TSH-09-BLK-XS,thread,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-12-11,1020,2.35
+54,TSH-09,TSH-09-BLK-XS,thread,polyester,100% polyester,3 g,Oceanic Fabrics,Vietnam,2025-12-11,1020,2.35
 55,TSH-09,TSH-09-BLK-XS,care label,polyester,100% polyester,1 g,Oceanic Fabrics,Vietnam,2025-12-11,1020,2.90
 56,TSH-09,TSH-09-BLK-XS,size label,polyester,100% polyester,1 g,Oceanic Fabrics,Vietnam,2025-12-11,1020,16.48
-57,TSH-09,TSH-09-BLK-XS,brand label,cotton,100% cotton,,Oceanic Fabrics,Vietnam,2025-12-11,1020,2.78
-58,TSH-10,TSH-10-NVY-S,shell fabric,cotton,70/30 CO/PL,149 g,Oceanic Fabrics,Vietnam,2025-08-16,1860,7.00
+57,TSH-09,TSH-09-BLK-XS,brand label,cotton,100% cotton,2 g,Oceanic Fabrics,Vietnam,2025-12-11,1020,2.78
+58,TSH-10,TSH-10-NVY-S,shell fabric,cotton,100% cotton,,Oceanic Fabrics,Vietnam,2025-08-16,1860,7.00
 59,TSH-10,TSH-10-NVY-S,rib collar,cotton,97% cotton / 3% elastane,12 g,Oceanic Fabrics,Vietnam,2025-08-16,1860,10.86
-60,TSH-10,TSH-10-NVY-S,side tape,polyester,100% polyester,3 g,Oceanic Fabrics,Vietnam,2025-08-16,1860,23.95
+60,TSH-10,TSH-10-NVY-S,side tape,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-08-16,1860,23.95
 61,TSH-10,TSH-10-NVY-S,thread,polyester,100% polyester,4 g,Oceanic Fabrics,Vietnam,2025-08-16,1860,18.10
 62,TSH-10,TSH-10-NVY-S,care label,polyester,100% polyester,1 g,Oceanic Fabrics,Vietnam,2025-08-16,1860,4.29
 63,TSH-10,TSH-10-NVY-S,size label,polyester,100% polyester,1 g,Oceanic Fabrics,Vietnam,2025-08-16,1860,14.69
-64,TSH-10,TSH-10-NVY-S,brand label,cotton,100% cotton,3 g,Oceanic Fabrics,Vietnam,2025-08-16,1860,13.78
-65,TSH-11,TSH-11-WHT-XS,shell fabric,cotton,100% cotton,5000 g,Acme Textiles,Portugal,2025-10-16,4080,6.26
-66,TSH-11,TSH-11-WHT-XS,rib collar,cotton,97% cotton / 3% elastane,,Acme Textiles,Portugal,2025-10-16,4080,3.44
+64,TSH-10,TSH-10-NVY-S,brand label,cotton,100% cotton,,Oceanic Fabrics,Vietnam,2025-08-16,1860,13.78
+65,TSH-11,TSH-11-WHT-XS,shell fabric,Organic cottn,100% cotton,131 g,Acme Textiles,Portugal,2025-10-16,4080,6.26
+66,TSH-11,TSH-11-WHT-XS,rib collar,cotton,97% cotton / 3% elastane,11 g,Acme Textiles,Portugal,2025-10-16,4080,3.44
 67,TSH-11,TSH-11-WHT-XS,side tape,polyester,100% polyester,4 g,Acme Textiles,Portugal,2025-10-16,4080,15.07
-68,TSH-11,TSH-11-WHT-XS,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-10-16,4080,15.67
-69,TSH-11,TSH-11-WHT-XS,size label,polyester,100% polyester,1 g,Acme Textiles Ltd.,Portugal,2025-10-16,4080,13.31
-70,TSH-11,TSH-11-WHT-XS,brand label,cotton,100% cotton,2 g,Acme Textiles,Portugal,2025-10-16,4080,23.40
+68,TSH-11,TSH-11-WHT-XS,care label,polyester,100% polyester,1 g,Acme Textiles Ltd.,Portugal,2025-10-16,4080,15.67
+69,TSH-11,TSH-11-WHT-XS,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-10-16,4080,13.31
+70,TSH-11,TSH-11-WHT-XS,brand label,cotton,100% cotton,,Acme Textiles,Portugal,2025-10-16,4080,23.40
 71,TSH-12,TSH-12-NVY-M,shell fabric,cotton,100% cotton,,Golden Thread,China,2025-05-13,1200,2.95
 72,TSH-12,TSH-12-NVY-M,rib collar,cotton,97% cotton / 3% elastane,11 g,Golden Thread,China,2025-05-13,1200,13.67
-73,TSH-12,TSH-12-NVY-M,side tape,polyester,100% polyester,4 g,Golden Thread,China,2025-05-13,1200,9999.00
-74,TSH-12,TSH-12-NVY-M,thread,polyester,100% polyester,3 g,Golden Thread,China,2025-05-13,1200,2.19
-75,TSH-12,TSH-12-NVY-M,care label,polyester,100% polyester,1 g,Golden Thread,China,2025-05-13,1200,11.24
-76,TSH-12,TSH-12-NVY-M,size label,polyester,100% polyester,1 g,Golden Thread,China,2025-05-13,1200,13.81
-77,TSH-12,TSH-12-NVY-M,brand label,cotton,100% cotton,,Golden Thread,China,2025-05-13,1200,20.27
-78,HOO-01,HOO-01-RED-XS,shell fabric,cotton,80% cotton / 20% polyester,0.66 kg,Nordic Weave,Sweden,2025-05-22,935,18.69
-79,HOO-01,HOO-01-RED-XS,hood lining,Organic cottn,80% cotton / 20% polyester,95 g,Nordic Weave,Sweden,2025-05-22,935,5.66
+73,TSH-12,TSH-12-NVY-M,side tape,polyester,100% polyester,4 g,Golden Thread,China,2025-05-13,1200,9.05
+74,TSH-12,TSH-12-NVY-M,thread,polyester,100% polyester,3 g,Golden Thread Company,China,2025-05-13,1200,2.19
+75,TSH-12,TSH-12-NVY-M,care label,polyester,100% polyester,,Golden Thread,China,2025-05-13,1200,11.24
+76,TSH-12,TSH-12-NVY-M,size label,polyester,100% polyester,,Golden Thread,China,2025-05-13,1200,13.81
+77,TSH-12,TSH-12-NVY-M,brand label,cotton,100% cotton,2 g,Golden Thread,China,2025-05-13,1200,20.27
+78,HOO-01,HOO-01-RED-XS,shell fabric,cotton,80% cotton / 20% polyester,661 g,Nordic Weave,Sweden,2025-05-22,935,18.69
+79,HOO-01,HOO-01-RED-XS,hood lining,cotton,80% cotton / 20% polyester,95 g,Nordic Weave,Sweden,2025-05-22,935,5.66
 80,HOO-01,HOO-01-RED-XS,rib cuffs,cotton,95% cotton / 5% elastane,44 g,Nordic Weave,Sweden,2025-05-22,935,8.90
 81,HOO-01,HOO-01-RED-XS,drawcord,polyester,100% polyester,5 g,Nordic Weave,Sweden,2025-05-22,935,12.88
-82,HOO-01,HOO-01-RED-XS,thread,polyester,100% polyester,,Nordic Weave,Sweden,2025-05-22,935,6.65
+82,HOO-01,HOO-01-RED-XS,thread,polyester,100% polyester,2 g,Nordic Weave,Sweden,2025-05-22,935,6.65
 83,HOO-01,HOO-01-RED-XS,care label,polyester,100% polyester,,Nordic Weave,Sweden,2025-05-22,935,16.04
-84,HOO-02,HOO-02-WHT-XS,shell fabric,cotton,80% cotton / 20% polyester,0.51 kg,Acme Textiles,Portugal,2025-06-25,1100,14.24
+84,HOO-02,HOO-02-WHT-XS,shell fabric,cotton,80% cotton / 20% polyester,511 g,Acme Textiles,Portugal,2025-06-25,1100,14.24
 85,HOO-02,HOO-02-WHT-XS,hood lining,cotton,80% cotton / 20% polyester,110 g,Acme Textiles,Portugal,2025-06-25,1100,17.43
-86,HOO-02,HOO-02-WHT-XS,rib cuffs,cotton,95% cotton / 5% elastane,49 g,Acme Textiles,Portugal,2025-06-25,1100,4.15
-87,HOO-02,HOO-02-WHT-XS,metal eyelet,brass,100% brass,2 g,Acme Textiles,Portugal,2025-06-25,1100,14.04
+86,HOO-02,HOO-02-WHT-XS,rib cuffs,cotton,95% cotton / 5% elastane,,Acme Textiles,Portugal,2025-06-25,1100,4.15
+87,HOO-02,HOO-02-WHT-XS,metal eyelet,brass,100% brass,,Acme Textiles,Portugal,2025-06-25,1100,14.04
 88,HOO-02,HOO-02-WHT-XS,thread,polyester,100% polyester,3 g,Acme Textiles,Portugal,2025-06-25,1100,11.03
-89,HOO-02,HOO-02-WHT-XS,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-06-25,1100,23.36
+89,HOO-02,HOO-02-WHT-XS,care label,polyester,100% polyester,,Acme Textiles,Portugal,2025-06-25,1100,23.36
 90,HOO-02,HOO-02-WHT-XS,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-06-25,1100,24.32
 91,HOO-03,HOO-03-BLK-M,shell fabric,cotton,80% cotton / 20% polyester,,Golden Thread,China,2025-11-08,4895,23.18
 92,HOO-03,HOO-03-BLK-M,hood lining,cotton,80% cotton / 20% polyester,87 g,Golden Thread,China,2025-11-08,4895,6.30
 93,HOO-03,HOO-03-BLK-M,rib cuffs,cotton,95% cotton / 5% elastane,46 g,Golden Thread,China,2025-11-08,4895,4.84
-94,HOO-03,HOO-03-BLK-M,thread,polyester,100% polyester,,Golden Thread,China,2025-11-08,4895,10.60
-95,HOO-03,HOO-03-BLK-M,care label,polyester,100% polyester,,Golden Thread,China,2025-11-08,4895,19.67
+94,HOO-03,HOO-03-BLK-M,thread,polyester,100% polyester,4 g,Golden Thread,China,2025-11-08,4895,10.60
+95,HOO-03,HOO-03-BLK-M,care label,polyester,100% polyester,1 g,Golden Thread,China,2025-11-08,4895,19.67
 96,HOO-04,HOO-04-GRN-S,shell fabric,cotton,80% cotton / 20% polyester,627 g,Bharat Mills,India,2025-03-26,5115,21.54
 97,HOO-04,HOO-04-GRN-S,hood lining,cotton,80% cotton / 20% polyester,,Bharat Mills,India,2025-03-26,5115,11.78
-98,HOO-04,HOO-04-GRN-S,rib cuffs,cotton,95% cotton / 5% elastane,51 g,Bharat Mills,India,2025-03-26,5115,7.98
-99,HOO-04,HOO-04-GRN-S,drawcord,polyester,100% polyester,,Bharat Mills,India,2025-03-26,5115,1.08
+98,HOO-04,HOO-04-GRN-S,rib cuffs,cotton,95% cotton / 5% elastane,,Bharat Mills,India,2025-03-26,5115,7.98
+99,HOO-04,HOO-04-GRN-S,drawcord,polyester,100% polyester,6 g,Bharat Mills,India,2025-03-26,5115,1.08
 100,HOO-04,HOO-04-GRN-S,care label,polyester,100% polyester,1 g,Bharat Mills,India,2025-03-26,5115,5.23
 101,HOO-05,HOO-05-WHT-M,shell fabric,cotton,80% cotton / 20% polyester,578 g,Acme Textiles,Portugal,2025-05-12,4730,7.00
-102,HOO-05,HOO-05-WHT-M,hood lining,cotton,80% cotton / 20% polyester,115 g,Acme Textiles,Portugal,2025-05-12,4730,3.16
+102,HOO-05,HOO-05-WHT-M,hood lining,cotton,80% cotton / 20% polyester,,Acme Textiles,Portugal,2025-05-12,4730,3.16
 103,HOO-05,HOO-05-WHT-M,rib cuffs,cotton,95% cotton / 5% elastane,31 g,Acme Textiles,Portugal,2025-05-12,4730,8.19
-104,HOO-05,HOO-05-WHT-M,drawcord,polyester,100% polyester,7 g,Acme Textiles,Portugal,2025-05-12,4730,15.35
-105,HOO-05,HOO-05-WHT-M,metal eyelet,brass,100% brass,,Acme Textiles,Portugal,2025-05-12,4730,14.63
-106,HOO-05,HOO-05-WHT-M,thread,polyester,100% polyester,,Acme Textiles,Portugal,2025-05-12,4730,6.74
-107,HOO-05,HOO-05-WHT-M,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-05-12,4730,23.18
-108,HOO-05,HOO-05-WHT-M,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-05-12,4730,13.69
-109,HOO-06,HOO-06-NVY-M,shell fabric,cotton,80% cotton / 20% polyester,497 g,Oceanic Fabrics,Vietnam,2025-02-22,2530,17.58
-110,HOO-06,HOO-06-NVY-M,hood lining,cotton,80% cotton / 20% polyester,,Oceanic Fabrics,Vietnam,2025-02-22,2530,14.08
+104,HOO-05,HOO-05-WHT-M,drawcord,polyester,100% polyester,,Acme Textiles,Portugal,2025-05-12,4730,15.35
+105,HOO-05,HOO-05-WHT-M,metal eyelet,brass,100% brass,2 g,Acme Textiles,Portugal,2025-05-12,4730,14.63
+106,HOO-05,HOO-05-WHT-M,thread,polyester,100% polyester,3 g,Acme Textiles,Portugal,2025-05-12,4730,6.74
+107,HOO-05,HOO-05-WHT-M,care label,polyester,100% polyester,,Acme Textiles,Portugal,2025-05-12,4730,23.18
+108,HOO-05,HOO-05-WHT-M,size label,polyester,100% polyester,1 g,acme textiles ltd,Portugal,2025-05-12,4730,13.69
+109,HOO-06,HOO-06-NVY-M,shell fabric,cotton,80% cotton / 20% polyester,,Oceanic Fabrics,Vietnam,2025-02-22,2530,17.58
+110,HOO-06,HOO-06-NVY-M,hood lining,cotton,80% cotton / 20% polyester,82 g,Oceanic Fabrics,Vietnam,2025-02-22,2530,14.08
 111,HOO-06,HOO-06-NVY-M,rib cuffs,cotton,95% cotton / 5% elastane,43 g,Oceanic Fabrics,Vietnam,2025-02-22,2530,9.79
-112,HOO-06,HOO-06-NVY-M,drawcord,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-02-22,2530,18.83
-113,HOO-06,HOO-06-NVY-M,metal eyelet,brass,100% brass,2 g,Oceanic Fabrics,Vietnam,2025-02-22,2530,10.45
-114,HOO-06,HOO-06-NVY-M,thread,polyester,100% polyester,4 g,Oceanic Fabrics,Vietnam,2025-02-22,2530,20.93
-115,HOO-06,HOO-06-NVY-M,care label,polyester,100% polyester,1 g,OCEANIC FABRICS INC,Vietnam,2025-02-22,2530,19.75
-116,HOO-07,HOO-07-RED-M,shell fabric,cotton,80% cotton / 20% polyester,,Oceanic Fabrics,Vietnam,2025-08-15,4950,4.66
-117,HOO-07,HOO-07-RED-M,hood lining,cotton,80% cotton / 20% polyester,,Oceanic Fabrics,Vietnam,2025-08-15,4950,16.01
+112,HOO-06,HOO-06-NVY-M,drawcord,polyester,100% polyester,8 g,Oceanic Fabrics,Vietnam,2025-02-22,2530,18.83
+113,HOO-06,HOO-06-NVY-M,metal eyelet,brass,100% brass,,Oceanic Fabrics,Vietnam,2025-02-22,2530,10.45
+114,HOO-06,HOO-06-NVY-M,thread,polyester,100% polyester,4 g,OCEANIC FABRICS INC,Vietnam,2025-02-22,2530,20.93
+115,HOO-06,HOO-06-NVY-M,care label,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-02-22,2530,19.75
+116,HOO-07,HOO-07-RED-M,shell fabric,cotton,80% cotton / 20% polyester,554 g,Oceanic Fabrics,Vietnam,2025-08-15,4950,4.66
+117,HOO-07,HOO-07-RED-M,hood lining,cotton,80% cotton / 20% polyester,101 g,Oceanic Fabrics,Vietnam,2025-08-15,4950,16.01
 118,HOO-07,HOO-07-RED-M,rib cuffs,cotton,95% cotton / 5% elastane,44 g,Oceanic Fabrics,Vietnam,2025-08-15,4950,8.71
-119,HOO-07,HOO-07-RED-M,thread,polyester,100% polyester,3 g,Oceanic Fabrics,Vietnam,2025-08-15,4950,16.98
-120,HOO-07,HOO-07-RED-M,care label,polyester,100% polyester,1 g,OCEANIC FABRICS INC,Vietnam,2025-08-15,4950,6.00
-121,HOO-07,HOO-07-RED-M,size label,polyester,100% polyester,1 g,Oceanic Fabric,Vietnam,2025-08-15,4950,6.50
-122,HOO-08,HOO-08-GRN-XL,shell fabric,cotton,80% cotton / 20% polyester,531 g,acme textiles ltd,Portugal,2025-08-14,4620,6.48
+119,HOO-07,HOO-07-RED-M,thread,polyester,100% polyester,3 g,OCEANIC FABRICS INC,Vietnam,2025-08-15,4950,16.98
+120,HOO-07,HOO-07-RED-M,care label,polyester,100% polyester,1 g,Oceanic Fabric,Vietnam,2025-08-15,4950,6.00
+121,HOO-07,HOO-07-RED-M,size label,polyester,100% polyester,1 g,Oceanic Fabrics,Vietnam,2025-08-15,4950,6.50
+122,HOO-08,HOO-08-GRN-XL,shell fabric,cotton,80% cotton / 20% polyester,531 g,Acme Textiles,Portugal,2025-08-14,4620,6.48
 123,HOO-08,HOO-08-GRN-XL,hood lining,cotton,80% cotton / 20% polyester,89 g,Acme Textiles,Portugal,2025-08-14,4620,18.90
 124,HOO-08,HOO-08-GRN-XL,rib cuffs,cotton,95% cotton / 5% elastane,,Acme Textiles,Portugal,2025-08-14,4620,19.37
-125,HOO-08,HOO-08-GRN-XL,metal eyelet,brass,100% brass,,Acme Textiles,Portugal,2025-08-14,4620,4.81
+125,HOO-08,HOO-08-GRN-XL,metal eyelet,brass,100% brass,2 g,Acme Textiles,Portugal,2025-08-14,4620,4.81
 126,HOO-08,HOO-08-GRN-XL,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-08-14,4620,23.97
-127,HOO-08,HOO-08-GRN-XL,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-08-14,4620,6.61
-128,HOO-09,HOO-09-BLK-L,shell fabric,cotton,80% cotton / 20% polyester,518 g,Golden Thread,China,2025-08-22,3905,22.48
+127,HOO-08,HOO-08-GRN-XL,size label,polyester,100% polyester,,Acme Textiles,Portugal,2025-08-14,4620,6.61
+128,HOO-09,HOO-09-BLK-L,shell fabric,cotton,80% cotton / 20% polyester,,Golden Thread,China,2025-08-22,3905,22.48
 129,HOO-09,HOO-09-BLK-L,hood lining,cotton,80% cotton / 20% polyester,90 g,Golden Thread,China,2025-08-22,3905,6.85
-130,HOO-09,HOO-09-BLK-L,rib cuffs,cotton,95% cotton / 5% elastane,33 g,Golden Thread,China,2025-08-22,3905,6.56
-131,HOO-09,HOO-09-BLK-L,metal eyelet,brass,100% brass,1 g,Golden Thread,China,2025-08-22,3905,13.27
+130,HOO-09,HOO-09-BLK-L,rib cuffs,cotton,95% cotton / 5% elastane,33 g,Golden Thread Company,China,2025-08-22,3905,6.56
+131,HOO-09,HOO-09-BLK-L,metal eyelet,brass,100% brass,,Golden Thread,China,2025-08-22,3905,13.27
 132,HOO-09,HOO-09-BLK-L,thread,polyester,100% polyester,,Golden Thread,China,2025-08-22,3905,15.86
-133,HOO-09,HOO-09-BLK-L,care label,polyester,100% polyester,1 g,Golden Thread,China,2025-08-22,3905,7.50
+133,HOO-09,HOO-09-BLK-L,care label,polyester,100% polyester,,Golden Thread,China,2025-08-22,3905,7.50
 134,HOO-09,HOO-09-BLK-L,size label,polyester,100% polyester,1 g,Golden Thread,China,2025-08-22,3905,7.16
-135,HOO-10,HOO-10-WHT-XL,shell fabric,cotton,80% cotton / 20% polyester,,Acme Textiles,Portugal,2025-03-05,1815,2.03
-136,HOO-10,HOO-10-WHT-XL,hood lining,cotton,80% cotton / 20% polyester,,Acme Textiles,Portugal,2025-03-05,1815,20.91
+135,HOO-10,HOO-10-WHT-XL,shell fabric,cotton,80% cotton / 20% polyester,0.49 kg,Acme Textiles,Portugal,2025-03-05,1815,2.03
+136,HOO-10,HOO-10-WHT-XL,hood lining,cotton,80% cotton / 20% polyester,101 g,Acme Textiles,Portugal,2025-03-05,1815,20.91
 137,HOO-10,HOO-10-WHT-XL,rib cuffs,cotton,95% cotton / 5% elastane,32 g,Acme Textiles,Portugal,2025-03-05,1815,23.68
-138,HOO-10,HOO-10-WHT-XL,drawcord,polyester,100% polyester,,Acme Textiles,Portugal,2025-03-05,1815,0.98
+138,HOO-10,HOO-10-WHT-XL,drawcord,polyester,100% polyester,7 g,Acme Textiles,Portugal,2025-03-05,1815,0.98
 139,HOO-10,HOO-10-WHT-XL,metal eyelet,brass,100% brass,,Acme Textiles,Portugal,2025-03-05,1815,12.19
 140,HOO-10,HOO-10-WHT-XL,thread,polyester,100% polyester,,Acme Textiles,Portugal,2025-03-05,1815,23.60
 141,HOO-10,HOO-10-WHT-XL,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-03-05,1815,22.35
-142,HOO-10,HOO-10-WHT-XL,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-03-05,1815,20.98
+142,HOO-10,HOO-10-WHT-XL,size label,polyester,100% polyester,1 g,ACME TEXTILES,Portugal,2025-03-05,1815,20.98
 143,HOO-11,HOO-11-RED-XL,shell fabric,cotton,80% cotton / 20% polyester,480 g,nordic weave ab,Sweden,2025-04-16,1760,10.41
 144,HOO-11,HOO-11-RED-XL,hood lining,cotton,80% cotton / 20% polyester,104 g,Nordic Weave,Sweden,2025-04-16,1760,4.54
-145,HOO-11,HOO-11-RED-XL,rib cuffs,cotton,95% cotton / 5% elastane,37 g,Nordic Weave,Sweden,2025-04-16,1760,15.75
-146,HOO-11,HOO-11-RED-XL,drawcord,polyester,100% polyester,,Nordic Weave,Sweden,2025-04-16,1760,1.16
-147,HOO-11,HOO-11-RED-XL,metal eyelet,brass,100% brass,,Nordic Weave,Sweden,2025-04-16,1760,1.16
-148,HOO-11,HOO-11-RED-XL,care label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-04-16,1760,16.25
+145,HOO-11,HOO-11-RED-XL,rib cuffs,Organic cottn,95% cotton / 5% elastane,37 g,Nordic Weave,Sweden,2025-04-16,1760,15.75
+146,HOO-11,HOO-11-RED-XL,drawcord,polyester,100% polyester,6 g,Nordic Weave,Sweden,2025-04-16,1760,1.16
+147,HOO-11,HOO-11-RED-XL,metal eyelet,brass,100% brass,1 g,Nordic Weave,Sweden,2025-04-16,1760,1.16
+148,HOO-11,HOO-11-RED-XL,care label,polyester,100% polyester,,Nordic Weave,Sweden,2025-04-16,1760,16.25
 149,HOO-11,HOO-11-RED-XL,size label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-04-16,1760,1.73
-150,HOO-12,HOO-12-GRN-M,shell fabric,cotton,80% cotton / 20% polyester,564 g,Golden Thread,China,2025-08-11,2585,0.97
+150,HOO-12,HOO-12-GRN-M,shell fabric,cotton,80% cotton / 20% polyester,,Golden Thread,China,2025-08-11,2585,0.97
 151,HOO-12,HOO-12-GRN-M,hood lining,cotton,80% cotton / 20% polyester,45 g,Golden Thread,China,2025-08-11,2585,9.07
-152,HOO-12,HOO-12-GRN-M,rib cuffs,cotton,95% cotton / 5% elastane,,Golden Thread,China,2025-08-11,2585,16.43
+152,HOO-12,HOO-12-GRN-M,rib cuffs,cotton,95% cotton / 5% elastane,34 g,Golden Thread Co.,China,2025-08-11,2585,16.43
 153,HOO-12,HOO-12-GRN-M,drawcord,polyester,100% polyester,6 g,Golden Thread,China,2025-08-11,2585,18.98
-154,HOO-12,HOO-12-GRN-M,metal eyelet,brass,100% brass,1 g,Golden Thread Co.,China,2025-08-11,2585,23.77
-155,HOO-12,HOO-12-GRN-M,thread,polyester,100% polyester,,Golden Thread,China,2025-08-11,2585,4.23
+154,HOO-12,HOO-12-GRN-M,metal eyelet,brass,100% brass,1 g,Golden Thread,China,2025-08-11,2585,23.77
+155,HOO-12,HOO-12-GRN-M,thread,polyester,100% polyester,3 g,Golden Thread,China,2025-08-11,2585,4.23
 156,HOO-12,HOO-12-GRN-M,care label,polyester,100% polyester,1 g,Golden Thread,China,2025-08-11,2585,3.59
-157,HOO-12,HOO-12-GRN-M,size label,polyester,100% polyester,1 g,Golden Thread,China,2025-08-11,2585,5.84
+157,HOO-12,HOO-12-GRN-M,size label,polyester,100% polyester,,Golden Thread,China,2025-08-11,2585,5.84
 158,TRO-01,TRO-01-WHT-M,shell fabric,cotton,98% cotton / 2% elastane,319 g,Golden Thread,China,2025-10-20,4455,3.15
 159,TRO-01,TRO-01-WHT-M,pocket lining,cotton,100% cotton,50 g,Golden Thread,China,2025-10-20,4455,17.10
 160,TRO-01,TRO-01-WHT-M,waistband,cotton,98% cotton / 2% elastane,56 g,Golden Thread,China,2025-10-20,4455,23.98
-161,TRO-01,TRO-01-WHT-M,button,metal,100% metal,,Golden Thread,China,2025-10-20,4455,2.36
+161,TRO-01,TRO-01-WHT-M,button,metal,100% metal,4 g,Golden Thread,China,2025-10-20,4455,2.36
 162,TRO-01,TRO-01-WHT-M,thread,polyester,100% polyester,3 g,Golden Thread,China,2025-10-20,4455,17.42
-163,TRO-02,TRO-02-NVY-XS,shell fabric,Organic cottn,98% cotton / 2% elastane,353 g,Bharat Mills,India,2025-11-20,855,16.36
+163,TRO-02,TRO-02-NVY-XS,shell fabric,cotton,98% cotton / 2% elastane,353 g,Bharat Mills,India,2025-11-20,855,16.36
 164,TRO-02,TRO-02-NVY-XS,pocket lining,cotton,100% cotton,43 g,Bharat Mills,India,2025-11-20,855,0.81
 165,TRO-02,TRO-02-NVY-XS,waistband,cotton,98% cotton / 2% elastane,48 g,Bharat Mills,India,2025-11-20,855,11.12
 166,TRO-02,TRO-02-NVY-XS,thread,polyester,100% polyester,3 g,Bharat Mills,India,2025-11-20,855,9.37
 167,TRO-02,TRO-02-NVY-XS,care label,polyester,100% polyester,1 g,Bharat Mills,India,2025-11-20,855,4.25
 168,TRO-03,TRO-03-NVY-XL,shell fabric,cotton,98% cotton / 2% elastane,335 g,Bharat Mills,India,2025-10-26,3240,21.37
 169,TRO-03,TRO-03-NVY-XL,pocket lining,cotton,100% cotton,46 g,Bharat Mills,India,2025-10-26,3240,22.10
-170,TRO-03,TRO-03-NVY-XL,waistband,cotton,98% cotton / 2% elastane,53 g,Bharat Mills,India,2025-10-26,3240,6.47
-171,TRO-03,TRO-03-NVY-XL,zipper,polyester,100% polyester,13 g,Bharat Mills,India,2025-10-26,3240,9.79
-172,TRO-03,TRO-03-NVY-XL,button,metal,100% metal,6 g,Bharat Mills,India,2025-10-26,3240,1.20
+170,TRO-03,TRO-03-NVY-XL,waistband,cotton,98% cotton / 2% elastane,,Bharat Mills,India,2025-10-26,3240,6.47
+171,TRO-03,TRO-03-NVY-XL,zipper,polyester,100% polyester,,Bharat Mills,India,2025-10-26,3240,9.79
+172,TRO-03,TRO-03-NVY-XL,button,metal,100% metal,6 g,Bharat Mills Pvt Ltd,India,2025-10-26,3240,1.20
 173,TRO-03,TRO-03-NVY-XL,thread,polyester,100% polyester,3 g,Bharat Mills,India,2025-10-26,3240,5.70
-174,TRO-03,TRO-03-NVY-XL,care label,polyester,100% polyester,1 g,Bharat Mills Pvt Ltd,India,2025-10-26,3240,20.05
-175,TRO-03,TRO-03-NVY-XL,size label,polyester,100% polyester,1 g,Bharat Mills,India,2025-10-26,3240,17.68
-176,TRO-04,TRO-04-WHT-XL,shell fabric,cotton,98% cotton / 2% elastane,423 g,ACME TEXTILES,Portugal,2025-09-07,630,19.08
+174,TRO-03,TRO-03-NVY-XL,care label,polyester,100% polyester,1 g,Bharat Mills,India,2025-10-26,3240,20.05
+175,TRO-03,TRO-03-NVY-XL,size label,polyester,100% polyester,,Bharat Mills,India,2025-10-26,3240,17.68
+176,TRO-04,TRO-04-WHT-XL,shell fabric,cotton,98% cotton / 2% elastane,0.42 kg,Acme Textiles,Portugal,2025-09-07,630,19.08
 177,TRO-04,TRO-04-WHT-XL,pocket lining,cotton,100% cotton,,Acme Textiles,Portugal,2025-09-07,630,12.53
-178,TRO-04,TRO-04-WHT-XL,waistband,cotton,98% cotton / 2% elastane,,Acme Textiles,Portugal,2025-09-07,630,19.93
+178,TRO-04,TRO-04-WHT-XL,waistband,Organic cottn,98% cotton / 2% elastane,46 g,Acme Textiles,Portugal,2025-09-07,630,19.93
 179,TRO-04,TRO-04-WHT-XL,thread,polyester,100% polyester,3 g,Acme Textiles,Portugal,2025-09-07,630,17.45
 180,TRO-04,TRO-04-WHT-XL,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-09-07,630,8.00
 181,TRO-04,TRO-04-WHT-XL,size label,polyester,100% polyester,,Acme Textiles,Portugal,2025-09-07,630,13.51
-182,TRO-05,TRO-05-GRN-XL,shell fabric,cotton,98% cotton / 2% elastane,,Bharat Mills,India,2025-06-23,2790,18.17
+182,TRO-05,TRO-05-GRN-XL,shell fabric,cotton,98% cotton / 2% elastane,340 g,Bharat Mills,India,2025-06-23,2790,18.17
 183,TRO-05,TRO-05-GRN-XL,pocket lining,cotton,100% cotton,41 g,Bharat Mills,India,2025-06-23,2790,23.80
-184,TRO-05,TRO-05-GRN-XL,waistband,cotton,98% cotton / 2% elastane,65 g,Bharat Mills,India,2025-06-23,2790,17.41
-185,TRO-05,TRO-05-GRN-XL,zipper,polyester,100% polyester,,Bharat Mills,India,2025-06-23,2790,7.27
-186,TRO-05,TRO-05-GRN-XL,thread,polyester,100% polyester,4 g,Bharat Mills,India,2025-06-23,2790,14.94
-187,TRO-05,TRO-05-GRN-XL,care label,polyester,100% polyester,1 g,Bharat Mills,India,2025-06-23,2790,24.52
-188,TRO-05,TRO-05-GRN-XL,size label,polyester,100% polyester,1 g,bharat mills,India,2025-06-23,2790,20.90
-189,TRO-06,TRO-06-WHT-S,shell fabric,cotton,98% cotton / 2% elastane,0 g,Bharat Mills,India,2025-03-10,225,3.59
-190,TRO-06,TRO-06-WHT-S,pocket lining,cotton,100% cotton,,Bharat Mills,India,2025-03-10,225,21.78
-191,TRO-06,TRO-06-WHT-S,waistband,cotton,98% cotton / 2% elastane,42 g,Bharat Mills,India,2025-03-10,225,14.56
-192,TRO-06,TRO-06-WHT-S,zipper,polyester,100% polyester,,Bharat Mills,India,2025-03-10,225,12.00
+184,TRO-05,TRO-05-GRN-XL,waistband,cotton,98% cotton / 2% elastane,,Bharat Mills,India,2025-06-23,2790,17.41
+185,TRO-05,TRO-05-GRN-XL,zipper,polyester,100% polyester,20 g,Bharat Mills,India,2025-06-23,2790,7.27
+186,TRO-05,TRO-05-GRN-XL,thread,polyester,100% polyester,4 g,bharat mills,India,2025-06-23,2790,14.94
+187,TRO-05,TRO-05-GRN-XL,care label,polyester,100% polyester,,Bharat Mills,India,2025-06-23,2790,24.52
+188,TRO-05,TRO-05-GRN-XL,size label,polyester,100% polyester,1 g,Bharat Mills,India,2025-06-23,2790,20.90
+189,TRO-06,TRO-06-WHT-S,shell fabric,cotton,98% cotton / 2% elastane,,Bharat Mills,India,2025-03-10,225,3.59
+190,TRO-06,TRO-06-WHT-S,pocket lining,cotton,100% cotton,42 g,Bharat Mills,India,2025-03-10,225,21.78
+191,TRO-06,TRO-06-WHT-S,waistband,cotton,98% cotton / 2% elastane,,Bharat Mills,India,2025-03-10,225,14.56
+192,TRO-06,TRO-06-WHT-S,zipper,polyester,100% polyester,18 g,Bharat Mills,India,2025-03-10,225,12.00
 193,TRO-06,TRO-06-WHT-S,thread,polyester,100% polyester,3 g,Bharat Mills,India,2025-03-10,225,1.76
-194,TRO-06,TRO-06-WHT-S,care label,polyester,100% polyester,,Bharat Mills,India,2025-03-10,225,23.56
-195,TRO-07,TRO-07-GRN-XS,shell fabric,Organic cottn,98% cotton / 2% elastane,393 g,Acme Textiles,Portugal,2025-07-16,585,2.59
-196,TRO-07,TRO-07-GRN-XS,pocket lining,cotton,100% cotton,33 g,Acme Textiles,Portugal,2025-07-16,585,6.58
-197,TRO-07,TRO-07-GRN-XS,waistband,cotton,98% cotton / 2% elastane,,Acme Textiles,Portugal,2025-07-16,585,15.11
+194,TRO-06,TRO-06-WHT-S,care label,polyester,100% polyester,1 g,Bharat Mills,India,2025-03-10,225,23.56
+195,TRO-07,TRO-07-GRN-XS,shell fabric,cotton,98% cotton / 2% elastane,393 g,Acme Textiles,Portugal,2025-07-16,585,2.59
+196,TRO-07,TRO-07-GRN-XS,pocket lining,cotton,100% cotton,,Acme Textiles,Portugal,2025-07-16,585,6.58
+197,TRO-07,TRO-07-GRN-XS,waistband,cotton,98% cotton / 2% elastane,49 g,Acme Textiles,Portugal,2025-07-16,585,15.11
 198,TRO-07,TRO-07-GRN-XS,button,metal,100% metal,5 g,Acme Textiles,Portugal,2025-07-16,585,15.65
 199,TRO-07,TRO-07-GRN-XS,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-07-16,585,22.76
-200,TRO-08,TRO-08-WHT-XL,shell fabric,cotton,70/30 CO/PL,325 g,Oceanic Fabrics,Vietnam,2025-05-19,3735,23.72
+200,TRO-08,TRO-08-WHT-XL,shell fabric,cotton,98% cotton / 2% elastane,,Oceanic Fabrics,Vietnam,2025-05-19,3735,23.72
 201,TRO-08,TRO-08-WHT-XL,pocket lining,cotton,100% cotton,46 g,Oceanic Fabrics,Vietnam,2025-05-19,3735,16.68
-202,TRO-08,TRO-08-WHT-XL,waistband,cotton,98% cotton / 2% elastane,59 g,Oceanic Fabrics,Vietnam,2025-05-19,3735,4.35
+202,TRO-08,TRO-08-WHT-XL,waistband,cotton,98% cotton / 2% elastane,,Oceanic Fabrics,Vietnam,2025-05-19,3735,4.35
 203,TRO-08,TRO-08-WHT-XL,zipper,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-05-19,3735,0.57
-204,TRO-08,TRO-08-WHT-XL,size label,polyester,100% polyester,1 g,Oceanic Fabrics,Vietnam,2025-05-19,3735,11.54
-205,TRO-09,TRO-09-RED-L,shell fabric,cotton,98% cotton / 2% elastane,0.42 kg,Bharat Mills,India,2025-01-08,1800,15.81
+204,TRO-08,TRO-08-WHT-XL,size label,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-05-19,3735,11.54
+205,TRO-09,TRO-09-RED-L,shell fabric,cotton,98% cotton / 2% elastane,416 g,Bharat Mills,India,2025-01-08,1800,15.81
 206,TRO-09,TRO-09-RED-L,pocket lining,cotton,100% cotton,41 g,Bharat Mills,India,2025-01-08,1800,16.70
-207,TRO-09,TRO-09-RED-L,waistband,cotton,98% cotton / 2% elastane,61 g,Bharat Mills,India,2025-01-08,1800,13.84
-208,TRO-09,TRO-09-RED-L,zipper,polyester,100% polyester,,Bharat Mills,India,2025-01-08,1800,16.37
-209,TRO-09,TRO-09-RED-L,thread,polyester,100% polyester,4 g,Bharat Mills,India,2025-01-08,1800,2.25
+207,TRO-09,TRO-09-RED-L,waistband,cotton,98% cotton / 2% elastane,,Bharat Mills,India,2025-01-08,1800,13.84
+208,TRO-09,TRO-09-RED-L,zipper,polyester,100% polyester,16 g,Bharat Mills,India,2025-01-08,1800,16.37
+209,TRO-09,TRO-09-RED-L,thread,polyester,100% polyester,4 g,Bharat Mills Pvt Ltd,India,2025-01-08,1800,2.25
 210,TRO-09,TRO-09-RED-L,care label,polyester,100% polyester,,Bharat Mills,India,2025-01-08,1800,4.57
-211,TRO-09,TRO-09-RED-L,size label,polyester,100% polyester,1 g,Bharat Mills Pvt Ltd,India,2025-01-08,1800,14.45
-212,TRO-10,TRO-10-WHT-L,shell fabric,cotton,98% cotton / 2% elastane,,Acme Textiles,Portugal,2025-08-23,1890,22.29
-213,TRO-10,TRO-10-WHT-L,pocket lining,cotton,100% cotton,,Acme Textiles,Portugal,2025-08-23,1890,1.13
+211,TRO-09,TRO-09-RED-L,size label,polyester,100% polyester,1 g,Bharat Mills,India,2025-01-08,1800,14.45
+212,TRO-10,TRO-10-WHT-L,shell fabric,cotton,98% cotton / 2% elastane,0.42 kg,Acme Textiles,Portugal,2025-08-23,1890,22.29
+213,TRO-10,TRO-10-WHT-L,pocket lining,cotton,100% cotton,44 g,Acme Textiles,Portugal,2025-08-23,1890,1.13
 214,TRO-10,TRO-10-WHT-L,waistband,cotton,98% cotton / 2% elastane,46 g,Acme Textiles,Portugal,2025-08-23,1890,6.11
-215,TRO-10,TRO-10-WHT-L,zipper,polyester,100% polyester,,Acme Textiles,Portugal,2025-08-23,1890,14.88
-216,TRO-10,TRO-10-WHT-L,button,metal,100% metal,,Acme Textiles,Portugal,2025-08-23,1890,1.01
+215,TRO-10,TRO-10-WHT-L,zipper,polyester,100% polyester,15 g,Acme Textiles,Portugal,2025-08-23,1890,14.88
+216,TRO-10,TRO-10-WHT-L,button,metal,100% metal,3 g,Acme Textiles,Portugal,2025-08-23,1890,1.01
 217,TRO-10,TRO-10-WHT-L,thread,polyester,100% polyester,3 g,Acme Textiles,Portugal,2025-08-23,1890,14.62
-218,TRO-10,TRO-10-WHT-L,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-08-23,1890,19.20
+218,TRO-10,TRO-10-WHT-L,care label,polyester,100% polyester,,Acme Textiles,Portugal,2025-08-23,1890,19.20
 219,TRO-10,TRO-10-WHT-L,size label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-08-23,1890,11.33
-220,TRO-11,TRO-11-WHT-S,shell fabric,cotton,98% cotton / 2% elastane,399 g,Nordic Weave,Sweden,2025-07-21,2970,10.50
+220,TRO-11,TRO-11-WHT-S,shell fabric,cotton,98% cotton / 2% elastane,,Nordic Weave,Sweden,2025-07-21,2970,10.50
 221,TRO-11,TRO-11-WHT-S,pocket lining,cotton,100% cotton,44 g,Nordic Weave,Sweden,2025-07-21,2970,4.44
 222,TRO-11,TRO-11-WHT-S,waistband,cotton,98% cotton / 2% elastane,58 g,Nordic Weave,Sweden,2025-07-21,2970,10.59
-223,TRO-11,TRO-11-WHT-S,thread,polyester,100% polyester,2 g,Nordic Weave,Sweden,2025-07-21,2970,10.31
-224,TRO-11,TRO-11-WHT-S,care label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-07-21,2970,19.13
-225,TRO-12,TRO-12-BLK-L,shell fabric,cotton,98% cotton / 2% elastane,,Acme Textiles,Portugal,2025-06-09,2025,10.62
+223,TRO-11,TRO-11-WHT-S,thread,polyester,100% polyester,,Nordic Weave,Sweden,2025-07-21,2970,10.31
+224,TRO-11,TRO-11-WHT-S,care label,polyester,100% polyester,,Nordic Weave,Sweden,2025-07-21,2970,19.13
+225,TRO-12,TRO-12-BLK-L,shell fabric,cotton,70/30 CO/PL,335 g,Acme Textiles,Portugal,2025-06-09,2025,10.62
 226,TRO-12,TRO-12-BLK-L,pocket lining,cotton,100% cotton,39 g,Acme Textiles,Portugal,2025-06-09,2025,5.10
 227,TRO-12,TRO-12-BLK-L,waistband,cotton,98% cotton / 2% elastane,,Acme Textiles,Portugal,2025-06-09,2025,15.82
-228,TRO-12,TRO-12-BLK-L,zipper,polyester,100% polyester,23 g,Acme Textiles,Portugal,2025-06-09,2025,19.12
+228,TRO-12,TRO-12-BLK-L,zipper,polyester,100% polyester,,Acme Textiles,Portugal,2025-06-09,2025,19.12
 229,TRO-12,TRO-12-BLK-L,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-06-09,2025,23.23
-230,DRS-01,DRS-01-GRN-L,shell fabric,viscose,100% viscose,,Acme Textiles,Portugal,2025-01-21,3442,0.84
+230,DRS-01,DRS-01-GRN-L,shell fabric,viscose,100% viscose,247 g,Acme Textiles,Portugal,2025-01-21,3442,0.84
 231,DRS-01,DRS-01-GRN-L,lining,polyester,100% polyester,,Acme Textiles,Portugal,2025-01-21,3442,21.11
 232,DRS-01,DRS-01-GRN-L,hook and eye,metal,100% metal,2 g,Acme Textiles,Portugal,2025-01-21,3442,3.28
 233,DRS-01,DRS-01-GRN-L,thread,polyester,100% polyester,,Acme Textiles,Portugal,2025-01-21,3442,4.27
-234,DRS-01,DRS-01-GRN-L,care label,polyester,100% polyester,,Acme Textiles,Portugal,2025-01-21,3442,23.35
+234,DRS-01,DRS-01-GRN-L,care label,polyester,100% polyester,1 g,Acme Textiles,Portugal,2025-01-21,3442,23.35
 235,DRS-01,DRS-01-GRN-L,brand label,cotton,100% cotton,2 g,Acme Textiles,Portugal,2025-01-21,3442,10.68
-236,DRS-02,DRS-02-GRN-L,shell fabric,viscose,100% viscose,,Golden Thread,China,2025-08-18,935,8.83
+236,DRS-02,DRS-02-GRN-L,shell fabric,viscose,100% viscose,253 g,Golden Thread,China,2025-08-18,935,9999.00
 237,DRS-02,DRS-02-GRN-L,lining,polyester,100% polyester,82 g,Golden Thread,China,2025-08-18,935,0.56
-238,DRS-02,DRS-02-GRN-L,zipper,polyester,100% polyester,,Golden Thread,China,2025-08-18,935,18.29
+238,DRS-02,DRS-02-GRN-L,zipper,polyester,100% polyester,12 g,Golden Thread,China,2025-08-18,935,18.29
 239,DRS-02,DRS-02-GRN-L,hook and eye,metal,100% metal,2 g,Golden Thread,China,2025-08-18,935,16.67
 240,DRS-02,DRS-02-GRN-L,thread,polyester,100% polyester,2 g,Golden Thread,China,2025-08-18,935,21.70
-241,DRS-02,DRS-02-GRN-L,care label,polyester,100% polyester,1 g,Golden Thread,China,2024-13-07,935,8.64
+241,DRS-02,DRS-02-GRN-L,care label,polyester,100% polyester,,Golden Thread,China,2025-08-18,935,8.64
 242,DRS-02,DRS-02-GRN-L,size label,polyester,100% polyester,1 g,Golden Thread,China,2025-08-18,935,19.19
-243,DRS-02,DRS-02-GRN-L,brand label,cotton,100% cotton,1 g,Golden Thread,China,2025-08-18,935,21.81
-244,DRS-03,DRS-03-NVY-XL,shell fabric,viscose,100% viscose,0.26 kg,Oceanic Fabrics,Vietnam,2025-04-25,2380,9.96
+243,DRS-02,DRS-02-GRN-L,brand label,cotton,100% cotton,,Golden Thread,China,2025-08-18,935,21.81
+244,DRS-03,DRS-03-NVY-XL,shell fabric,viscose,100% viscose,256 g,Oceanic Fabrics,Vietnam,2025-04-25,2380,9.96
 245,DRS-03,DRS-03-NVY-XL,lining,polyester,100% polyester,71 g,Oceanic Fabrics,Vietnam,2025-04-25,2380,24.53
 246,DRS-03,DRS-03-NVY-XL,thread,polyester,100% polyester,2 g,Oceanic Fabrics,Vietnam,2025-04-25,2380,12.64
 247,DRS-03,DRS-03-NVY-XL,care label,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-04-25,2380,14.96
-248,DRS-03,DRS-03-NVY-XL,size label,polyester,100% polyester,1 g,Oceanic Fabrics,Vietnam,2025-04-25,2380,21.81
-249,DRS-04,DRS-04-GRN-XS,shell fabric,viscose,100% viscose,223 g,Nordic Weave,Sweden,2025-08-01,4080,15.77
-250,DRS-04,DRS-04-GRN-XS,lining,polyester,100% polyester,,Nordic Weave,Sweden,2025-08-01,4080,10.24
+248,DRS-03,DRS-03-NVY-XL,size label,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-04-25,2380,21.81
+249,DRS-04,DRS-04-GRN-XS,shell fabric,viscose,100% viscose,,Nordic Weave,Sweden,2025-08-01,4080,15.77
+250,DRS-04,DRS-04-GRN-XS,lining,polyester,100% polyester,73 g,Nordic Weave,Sweden,2025-08-01,4080,10.24
 251,DRS-04,DRS-04-GRN-XS,zipper,polyester,100% polyester,16 g,Nordic Weave,Sweden,2025-08-01,4080,17.02
 252,DRS-04,DRS-04-GRN-XS,hook and eye,metal,100% metal,2 g,Nordic Weave,Sweden,2025-08-01,4080,13.57
-253,DRS-04,DRS-04-GRN-XS,care label,polyester,100% polyester,,Nordic Weave,Sweden,2025-08-01,4080,22.24
-254,DRS-04,DRS-04-GRN-XS,size label,polyester,100% polyester,,Nordic Weave,Sweden,2025-08-01,4080,12.45
-255,DRS-05,DRS-05-RED-XS,shell fabric,viscose,100% viscose,188 g,Nordic Weave,Sweden,2024/02/31,3570,22.63
+253,DRS-04,DRS-04-GRN-XS,care label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-08-01,4080,22.24
+254,DRS-04,DRS-04-GRN-XS,size label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-08-01,4080,12.45
+255,DRS-05,DRS-05-RED-XS,shell fabric,viscose,100% viscose,,Nordic Weave,Sweden,2025-02-08,3570,22.63
 256,DRS-05,DRS-05-RED-XS,lining,polyester,100% polyester,,Nordic Weave,Sweden,2025-02-08,3570,1.63
-257,DRS-05,DRS-05-RED-XS,zipper,polyester,100% polyester,15 g,Nordic Weave,Sweden,2025-02-08,3570,9.68
+257,DRS-05,DRS-05-RED-XS,zipper,polyester,100% polyester,,Nordic Weave,Sweden,2025-02-08,3570,9.68
 258,DRS-05,DRS-05-RED-XS,hook and eye,metal,100% metal,1 g,Nordic Weave,Sweden,2025-02-08,3570,4.07
 259,DRS-05,DRS-05-RED-XS,thread,polyester,100% polyester,2 g,nordic weave ab,Sweden,2025-02-08,3570,19.92
-260,DRS-05,DRS-05-RED-XS,care label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-02-08,3570,4.66
+260,DRS-05,DRS-05-RED-XS,care label,polyester,100% polyester,,Nordic Weave,Sweden,2025-02-08,3570,4.66
 261,DRS-05,DRS-05-RED-XS,size label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-02-08,3570,15.68
-262,DRS-06,DRS-06-NVY-L,shell fabric,viscose,100% viscose,,Nordic Weave,Sweden,2025-03-08,2678,17.10
+262,DRS-06,DRS-06-NVY-L,shell fabric,viscose,100% viscose,241 g,Nordic Weave,Sweden,2025-03-08,2678,17.10
 263,DRS-06,DRS-06-NVY-L,lining,polyester,100% polyester,86 g,Nordic Weave AB,Sweden,2025-03-08,2678,8.97
-264,DRS-06,DRS-06-NVY-L,zipper,polyester,100% polyester,,Nordic Weave,Sweden,2025-03-08,2678,14.90
+264,DRS-06,DRS-06-NVY-L,zipper,polyester,100% polyester,17 g,Nordic Weave,Sweden,2025-03-08,2678,14.90
 265,DRS-06,DRS-06-NVY-L,hook and eye,metal,100% metal,1 g,Nordic Weave,Sweden,2025-03-08,2678,6.63
-266,DRS-06,DRS-06-NVY-L,thread,polyester,100% polyester,3 g,Nordic Weave,Sweden,2025-03-08,2678,21.21
-267,DRS-06,DRS-06-NVY-L,care label,polyester,100% polyester,,Nordic Weave,Sweden,2025-03-08,2678,12.34
+266,DRS-06,DRS-06-NVY-L,thread,polyester,100% polyester,,Nordic Weave,Sweden,2025-03-08,2678,21.21
+267,DRS-06,DRS-06-NVY-L,care label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-03-08,2678,12.34
 268,DRS-06,DRS-06-NVY-L,size label,polyester,100% polyester,1 g,Nordic Weave AB,Sweden,2025-03-08,2678,6.31
 269,DRS-07,DRS-07-RED-M,shell fabric,viscose,100% viscose,264 g,Nordic Weave,Sweden,2025-05-23,1742,19.57
 270,DRS-07,DRS-07-RED-M,lining,polyester,100% polyester,81 g,Nordic Weave,Sweden,2025-05-23,1742,24.35
 271,DRS-07,DRS-07-RED-M,thread,polyester,100% polyester,4 g,Nordic Weave,Sweden,2025-05-23,1742,20.90
-272,DRS-07,DRS-07-RED-M,care label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2025-05-23,1742,22.62
-273,DRS-07,DRS-07-RED-M,brand label,cotton,100% cotton,2 g,Nordic Weave,Sweden,2025-05-23,1742,20.15
-274,DRS-08,DRS-08-NVY-S,shell fabric,viscose,100% viscose,,Nordic Weave,Sweden,2025-05-22,4080,19.82
+272,DRS-07,DRS-07-RED-M,care label,polyester,100% polyester,,Nordic Weave,Sweden,2025-05-23,1742,22.62
+273,DRS-07,DRS-07-RED-M,brand label,cotton,100% cotton,,Nordic Weave,Sweden,2025-05-23,1742,20.15
+274,DRS-08,DRS-08-NVY-S,shell fabric,viscose,100% viscose,204 g,Nordic Weave,Sweden,2025-05-22,4080,19.82
 275,DRS-08,DRS-08-NVY-S,lining,polyester,100% polyester,89 g,Nordic Weave,Sweden,2025-05-22,4080,3.72
 276,DRS-08,DRS-08-NVY-S,zipper,polyester,100% polyester,15 g,Nordic Weave,Sweden,2025-05-22,4080,22.79
-277,DRS-08,DRS-08-NVY-S,hook and eye,metal,100% metal,1 g,Nordic Weave,Sweden,2025-05-22,4080,5.42
-278,DRS-08,DRS-08-NVY-S,size label,polyester,100% polyester,,Nordic Weave,Sweden,2025-05-22,4080,19.77
+277,DRS-08,DRS-08-NVY-S,hook and eye,metal,100% metal,,Nordic Weave,Sweden,2025-05-22,4080,5.42
+278,DRS-08,DRS-08-NVY-S,size label,polyester,100% polyester,1 g,Nordic Weave,Sweden,2024/02/31,4080,19.77
 279,DRS-08,DRS-08-NVY-S,brand label,cotton,100% cotton,,Nordic Weave,Sweden,2025-05-22,4080,12.79
-280,DRS-09,DRS-09-WHT-S,shell fabric,viscose,100% viscose,205 g,Bharat Mills,India,2025-08-26,1742,21.57
+280,DRS-09,DRS-09-WHT-S,shell fabric,viscose,70/30 CO/PL,205 g,Bharat Mills,India,2025-08-26,1742,21.57
 281,DRS-09,DRS-09-WHT-S,lining,polyester,100% polyester,76 g,Bharat Mills,India,2025-08-26,1742,24.20
-282,DRS-09,DRS-09-WHT-S,zipper,polyester,100% polyester,6 g,Bharat Mills,India,2025-08-26,1742,20.21
-283,DRS-09,DRS-09-WHT-S,thread,polyester,100% polyester,,Bharat Mills,India,2025-08-26,1742,0.84
+282,DRS-09,DRS-09-WHT-S,zipper,polyester,100% polyester,,Bharat Mills,India,2025-08-26,1742,20.21
+283,DRS-09,DRS-09-WHT-S,thread,polyester,100% polyester,2 g,Bharat Mills,India,2025-08-26,1742,0.84
 284,DRS-09,DRS-09-WHT-S,care label,polyester,100% polyester,,Bharat Mills,India,2025-08-26,1742,13.65
-285,DRS-09,DRS-09-WHT-S,size label,polyester,100% polyester,1 g,Bharat Mills,India,2025-08-26,1742,16.97
+285,DRS-09,DRS-09-WHT-S,size label,polyester,100% polyester,,Bharat Mills,India,2025-08-26,1742,16.97
 286,DRS-09,DRS-09-WHT-S,brand label,cotton,100% cotton,,Bharat Mills,India,2025-08-26,1742,14.82
-287,DRS-10,DRS-10-WHT-XS,shell fabric,viscose,70/30 CO/PL,236 g,Golden Thread,China,2025-08-01,3528,10.50
+287,DRS-10,DRS-10-WHT-XS,shell fabric,viscose,100% viscose,236 g,Golden Thread,China,2025-08-01,3528,10.50
 288,DRS-10,DRS-10-WHT-XS,lining,polyester,100% polyester,76 g,Golden Thread,China,2025-08-01,3528,3.92
-289,DRS-10,DRS-10-WHT-XS,zipper,polyester,100% polyester,,Golden Thread,China,2025-08-01,3528,12.57
-290,DRS-10,DRS-10-WHT-XS,hook and eye,metal,100% metal,,Golden Thread,China,2025-08-01,3528,2.88
-291,DRS-10,DRS-10-WHT-XS,thread,polyester,100% polyester,,Golden Thread,China,2025-08-01,3528,11.61
-292,DRS-10,DRS-10-WHT-XS,size label,polyester,100% polyester,1 g,Golden Thread,China,2025-08-01,3528,16.93
-293,DRS-10,DRS-10-WHT-XS,brand label,cotton,100% cotton,2 g,Golden Thread,China,2025-08-01,3528,10.77
+289,DRS-10,DRS-10-WHT-XS,zipper,polyester,100% polyester,16 g,Golden Thread,China,2025-08-01,3528,12.57
+290,DRS-10,DRS-10-WHT-XS,hook and eye,metal,100% metal,1 g,Golden Thread,China,2025-08-01,3528,2.88
+291,DRS-10,DRS-10-WHT-XS,thread,polyester,100% polyester,3 g,Golden Thread,China,2025-08-01,3528,11.61
+292,DRS-10,DRS-10-WHT-XS,size label,polyester,100% polyester,,Golden Thread,China,2025-08-01,3528,16.93
+293,DRS-10,DRS-10-WHT-XS,brand label,cotton,100% cotton,,Golden Thread,China,2025-08-01,3528,10.77
 294,DRS-11,DRS-11-NVY-L,shell fabric,viscose,100% viscose,167 g,Acme Textiles,Portugal,2025-08-20,2380,23.79
-295,DRS-11,DRS-11-NVY-L,lining,polyester,100% polyester,83 g,Acme Textiles,Portugal,2025-08-20,2380,17.30
-296,DRS-11,DRS-11-NVY-L,zipper,polyester,100% polyester,13 g,acme textiles ltd,Portugal,2025-08-20,2380,13.84
+295,DRS-11,DRS-11-NVY-L,lining,polyester,100% polyester,83 g,acme textiles ltd,Portugal,2025-08-20,2380,17.30
+296,DRS-11,DRS-11-NVY-L,zipper,polyester,100% polyester,13 g,Acme Textiles,Portugal,2025-08-20,2380,13.84
 297,DRS-11,DRS-11-NVY-L,hook and eye,metal,100% metal,2 g,Acme Textiles,Portugal,2025-08-20,2380,10.25
 298,DRS-11,DRS-11-NVY-L,thread,polyester,100% polyester,3 g,Acme Textiles,Portugal,2025-08-20,2380,5.15
 299,DRS-11,DRS-11-NVY-L,care label,polyester,100% polyester,,Acme Textiles,Portugal,2025-08-20,2380,11.64
 300,DRS-11,DRS-11-NVY-L,size label,polyester,100% polyester,,Acme Textiles,Portugal,2025-08-20,2380,16.74
-301,DRS-12,DRS-12-RED-XS,shell fabric,viscose,100% viscose,229 g,Acme Textiles,Portugal,2025-06-08,850,8.55
-302,DRS-12,DRS-12-RED-XS,lining,polyester,100% polyester,99 g,Acme Textiles,Portugal,2025-06-08,850,4.12
-303,DRS-12,DRS-12-RED-XS,zipper,polyester,100% polyester,14 g,Acme Textiles,Portugal,2025-06-08,850,21.53
-304,DRS-12,DRS-12-RED-XS,hook and eye,metal,100% metal,,Acme Textiles,Portugal,2025-06-08,850,4.04
-305,DRS-12,DRS-12-RED-XS,thread,polyester,100% polyester,,Acme Textiles,Portugal,2025-06-08,850,4.78
+301,DRS-12,DRS-12-RED-XS,shell fabric,viscose,100% viscose,0.23 kg,Acme Textiles,Portugal,2025-06-08,850,8.55
+302,DRS-12,DRS-12-RED-XS,lining,polyester,100% polyester,,Acme Textiles,Portugal,2025-06-08,850,4.12
+303,DRS-12,DRS-12-RED-XS,zipper,polyester,100% polyester,,Acme Textiles,Portugal,2025-06-08,850,21.53
+304,DRS-12,DRS-12-RED-XS,hook and eye,metal,100% metal,1 g,Acme Textiles,Portugal,2025-06-08,850,4.04
+305,DRS-12,DRS-12-RED-XS,thread,polyester,100% polyester,3 g,Acme Textiles,Portugal,2025-06-08,850,4.78
 306,DRS-12,DRS-12-RED-XS,size label,polyester,100% polyester,,Acme Textiles,Portugal,2025-06-08,850,16.70
-307,DRS-11,DRS-11-NVY-L,lining,polyester,100% polyester,83 g,Acme Textiles,Portugal,2025-08-20,2380,17.30
-308,TRO-01,TRO-01-WHT-M,webbing strap,nylon,100% nylon,40 g,Golden Thread,China,2025-10-20,4455,17.95
-309,TRO-02,TRO-02-NVY-XS,webbing strap,nylon,100% nylon,9 g,Bharat Mills,India,2025-11-20,855,11.37
-310,TRO-03,TRO-03-NVY-XL,webbing strap,nylon,100% nylon,66 g,Bharat Mills,India,2025-10-26,3240,22.53
-311,TRO-04,TRO-04-WHT-XL,webbing strap,nylon,100% nylon,16 g,ACME TEXTILES,Portugal,2025-09-07,630,8.39
-312,TRO-05,TRO-05-GRN-XL,webbing strap,nylon,100% nylon,92 g,Bharat Mills,India,2025-06-23,2790,4.13
-313,TRO-06,TRO-06-WHT-S,webbing strap,nylon,100% nylon,27 g,Bharat Mills,India,2025-03-10,225,3.59
-314,TRO-07,TRO-07-GRN-XS,webbing strap,nylon,100% nylon,,Acme Textiles,Portugal,2025-07-16,585,15.80
-315,DRS-01,DRS-01-GRN-L,sequin panel,polyester,100% polyester,31 g,Acme Textiles,Portugal,2025-01-21,3442,14.84
-316,DRS-02,DRS-02-GRN-L,sequin panel,polyester,100% polyester,34 g,Golden Thread,China,2025-08-18,935,17.95
-317,DRS-03,DRS-03-NVY-XL,sequin panel,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-04-25,2380,9.83
+307,DRS-04,DRS-04-GRN-XS,lining,polyester,100% polyester,73 g,Nordic Weave,Sweden,2025-08-01,4080,10.24
+308,TRO-01,TRO-01-WHT-M,webbing strap,nylon,100% nylon,40 g,Golden Thread,China,2025-10-20,4455,17.31
+309,TRO-02,TRO-02-NVY-XS,webbing strap,nylon,100% nylon,9 g,Bharat Mills,India,2025-11-20,855,12.51
+310,TRO-03,TRO-03-NVY-XL,webbing strap,nylon,100% nylon,66 g,Bharat Mills,India,2025-10-26,3240,22.79
+311,TRO-04,TRO-04-WHT-XL,webbing strap,nylon,100% nylon,16 g,Acme Textiles,Portugal,2025-09-07,630,2.30
+312,TRO-05,TRO-05-GRN-XL,webbing strap,nylon,100% nylon,92 g,Bharat Mills,India,2025-06-23,2790,2.48
+313,TRO-06,TRO-06-WHT-S,webbing strap,nylon,100% nylon,27 g,Bharat Mills,India,2025-03-10,225,15.40
+314,TRO-07,TRO-07-GRN-XS,webbing strap,nylon,100% nylon,,Acme Textiles,Portugal,2025-07-16,585,2.11
+315,DRS-01,DRS-01-GRN-L,sequin panel,polyester,100% polyester,31 g,Acme Textiles,Portugal,2025-01-21,3442,7.24
+316,DRS-02,DRS-02-GRN-L,sequin panel,polyester,100% polyester,34 g,Golden Thread,China,2025-08-18,935,16.01
+317,DRS-03,DRS-03-NVY-XL,sequin panel,polyester,100% polyester,,Oceanic Fabrics,Vietnam,2025-04-25,2380,13.93

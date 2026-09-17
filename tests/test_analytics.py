@@ -128,12 +128,13 @@ def test_pipeline_decomposition_agrees_with_ground_truth() -> None:
     assert (pipeline.volume_mix_effect < 0) == (truth.volume_mix_effect < 0)
     assert (pipeline.observed_delta < 0) == (truth.observed_delta < 0)
 
-    # Magnitudes agree within a loose bound; the residual is propagated fill error
-    # (the two vintages fill different blanked cells), a reported QA figure — not a
-    # decomposition defect. This bound only catches gross regressions.
+    # Magnitudes agree within a bound; the residual (~10% on the delta) is
+    # propagated per-vintage fill error scaled by the volume change, a reported QA
+    # figure — not a decomposition defect. Both vintages corrupt the same cells, so
+    # the asymmetry that once dominated is gone; 0.20 leaves headroom over fill error.
     def gap(observed: float, reference: float) -> float:
         return abs(observed - reference) / max(abs(reference), 1.0)
 
-    assert gap(pipeline.observed_delta, truth.observed_delta) < 0.5
-    assert gap(pipeline.intensity_effect, truth.intensity_effect) < 0.5
-    assert gap(pipeline.volume_mix_effect, truth.volume_mix_effect) < 0.5
+    assert gap(pipeline.observed_delta, truth.observed_delta) < 0.20
+    assert gap(pipeline.intensity_effect, truth.intensity_effect) < 0.20
+    assert gap(pipeline.volume_mix_effect, truth.volume_mix_effect) < 0.20

@@ -166,8 +166,9 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   `F` by material×vintage, and `analytics/explain.py` decomposes + reconciles;
   `scripts/build_explanation.py` writes the artifact. Exit gate green: reconciliation is
   exact, the intensity effect sits on polyester alone and equals the planted factor bump,
-  and pipeline vs ground truth agree in direction (the ~24% magnitude gap is propagated
-  fill error, reported as QA). **Lea (`lea-cli`) not adopted** — hard `sqlglot` conflict
+  and pipeline vs ground truth agree in direction and within ~10% (the residual is
+  propagated fill error, reported as QA). Planting runs before the volume/mix transform,
+  so both vintages corrupt the same cells and fill error cancels in the delta. **Lea (`lea-cli`) not adopted** — hard `sqlglot` conflict
   with icanexplain's ibis + BigQuery dependency bloat; the DAG is plain DuckDB SQL (see
   the spec's Dependencies section). Added a `carbonara-pr` PR-writing skill. `pytest`
   (172) + `pre-commit` pass. **Open: push branch + open PR #7 (this step); merge is the

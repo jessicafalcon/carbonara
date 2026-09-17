@@ -7,9 +7,12 @@ are tested against, retaining the true value of every corrupted or blanked cell.
 
 Two vintages share one clean skeleton (brief §6): **v1 (2024)** and **v2 (2025)**
 differ only in planted ways — a per-archetype volume multiplier, a named
-material-mix shift, and the ``material_factors_v2`` factor bump. Because v2 is a
-deterministic transform of v1's clean rows (not an independent re-seed), the true
-production-weighted footprint of each vintage is known exactly and written to
+material-mix shift, and the ``material_factors_v2`` factor bump. Planting runs on
+the untransformed rows and the volume/mix deltas are applied *after* it, so both
+vintages corrupt exactly the same cells and fill identically — the fill error then
+cancels in the v1→v2 delta rather than compounding. Because v2 is a deterministic
+transform of v1 (not an independent re-seed), the true production-weighted
+footprint of each vintage is known exactly and written to
 ``decomposition_truth.csv`` — the ground truth the Phase-6 explanation validates
 against.
 
@@ -379,20 +382,17 @@ def _draw_weight(rng: random.Random, spec: ComponentSpec) -> int:
     return max(1, round(grams))
 
 
-def _clean_rows(rng: random.Random, vintage: Vintage = V1) -> list[dict[str, str]]:
-    """Build the clean, valid BOM for one vintage: well-formed, nothing yet corrupted.
+def _clean_rows(rng: random.Random, year: int = 2024) -> list[dict[str, str]]:
+    """Build the clean, valid BOM: every cell well-formed, nothing yet corrupted.
 
-    v1 leaves quantity, material and year untouched (identical to the original
-    fixture). v2 scales each style's quantity by its archetype's ``volume_mult``,
-    applies any ``mix_shifts`` to the matching component lines, and stamps
-    ``order_date`` to the vintage year — a deterministic transform that consumes no
-    extra randomness, so the rng sequence (and thus the planting layout) is shared
-    across vintages.
+    Only the ``year`` stamp varies by vintage here — it feeds no plant's predicate,
+    so it leaves the rng sequence (and thus the planting layout) untouched. The
+    vintage's volume and mix changes are applied *after* planting
+    (:func:`_apply_vintage`), so both vintages corrupt exactly the same cells.
     """
     rows: list[dict[str, str]] = []
     source_row_id = 0
     for archetype in ARCHETYPES:
-        volume_mult = vintage.volume_mult.get(archetype.code, 1.0)
         for style_index in range(1, STYLES_PER_ARCHETYPE + 1):
             style_id = f"{archetype.code}-{style_index:02d}"
             colorway = COLORWAYS[rng.randrange(len(COLORWAYS))]
@@ -401,21 +401,18 @@ def _clean_rows(rng: random.Random, vintage: Vintage = V1) -> list[dict[str, str
             supplier = SUPPLIERS[rng.randrange(len(SUPPLIERS))]
             month = rng.randrange(1, 13)
             day = rng.randrange(1, 28)
-            order_date = f"{vintage.year}-{month:02d}-{day:02d}"
-            quantity = round(rng.randrange(200, 5000, 50) * volume_mult)
+            order_date = f"{year}-{month:02d}-{day:02d}"
+            quantity = rng.randrange(200, 5000, 50)
             for component in _select_components(rng, archetype):
                 source_row_id += 1
-                shift = _mix_shift(vintage, style_id, component.name)
-                material = shift.to_material if shift else component.material
-                composition = shift.to_composition if shift else component.composition
                 rows.append(
                     {
                         "source_row_id": str(source_row_id),
                         "style_id": style_id,
                         "sku": sku,
                         "component": component.name,
-                        "material": material,
-                        "composition": composition,
+                        "material": component.material,
+                        "composition": component.composition,
                         "net_weight": f"{_draw_weight(rng, component)} g",
                         "supplier": supplier.canonical,
                         "country": supplier.country_raw,
@@ -852,16 +849,36 @@ def _plant_missingness_band(
         )
 
 
+def _apply_vintage(rows: list[dict[str, str]], vintage: Vintage) -> None:
+    """Apply the vintage's volume and material-mix changes, in place, after planting.
+
+    Scales each line's quantity by its archetype multiplier and switches the named
+    mix-shift lines to their new material — the deltas that make v2 differ from v1.
+    Applied *after* planting so both vintages corrupt exactly the same cells and
+    fill identically, so the fill error cancels in the v1→v2 delta. v1 leaves both
+    empty, so it is a no-op.
+    """
+    for row in rows:
+        multiplier = vintage.volume_mult.get(row["style_id"].split("-")[0], 1.0)
+        if multiplier != 1.0:
+            row["quantity"] = str(round(int(row["quantity"]) * multiplier))
+        shift = _mix_shift(vintage, row["style_id"], row["component"])
+        if shift is not None:
+            row["material"] = shift.to_material
+            row["composition"] = shift.to_composition
+
+
 def generate(seed: int = SEED, *, vintage: Vintage = V1) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
-    """Generate the raw BOM rows and the ground-truth rows for one vintage."""
+    """Generate the raw BOM rows and the ground-truth rows for one vintage.
+
+    Plants the messy cases on the untransformed rows — vintage-invariant, so every
+    vintage corrupts the same cells — then applies the vintage's volume and mix
+    deltas (:func:`_apply_vintage`).
+    """
     rng = random.Random(seed)
-    rows = _clean_rows(rng, vintage)
+    rows = _clean_rows(rng, vintage.year)
     ground_truth: list[dict[str, str]] = []
-    # Keep the planted material-mix shift out of the corruption passes, so the
-    # shifted lines stay clean and the vintage's material basket reads cleanly.
-    used: set[str] = {
-        row["source_row_id"] for row in rows if _mix_shift(vintage, row["style_id"], row["component"]) is not None
-    }
+    used: set[str] = set()
     _plant_renamed_header(ground_truth)
     _plant_supplier_variants(rng, rows, ground_truth, used)
     _plant_material_typo(rng, rows, ground_truth, used)
@@ -877,6 +894,7 @@ def generate(seed: int = SEED, *, vintage: Vintage = V1) -> tuple[list[dict[str,
     _plant_dense_tight_blanks(rng, rows, ground_truth, used)
     _plant_missingness_band(rng, rows, ground_truth, used)
     _plant_file_level_cases(ground_truth)
+    _apply_vintage(rows, vintage)
     return rows, ground_truth
 
 
