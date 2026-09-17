@@ -63,6 +63,7 @@ class AnomalyCategory(enum.StrEnum):
     DUPLICATE_KEY = "duplicate_key"
     CROSS_FIELD = "cross_field"
     DISTRIBUTION = "distribution"
+    PLAUSIBILITY = "plausibility"
     MAPPING = "mapping"
 
 
