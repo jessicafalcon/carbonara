@@ -146,6 +146,8 @@ def test_findings_reproduce_across_runs():
     assert key(_run()) == key(_run())
 
 
-def test_empty_input_surfaces_no_findings():
+def test_empty_input_surfaces_a_no_data_finding():
     empty = run([], {"vendor": "supplier"}, content_hash="x", created_at="2026-01-01T00:00:00Z")
-    assert empty.findings == []
+    # A header-only source is visible, not silent, and still a valid zero footprint.
+    assert [(f.category.value, f.message) for f in empty.findings] == [("validity", "source has no data rows")]
+    assert empty.footprint.components == []

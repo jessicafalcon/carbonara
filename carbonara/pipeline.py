@@ -22,7 +22,7 @@ from carbonara.lineage import apply_lineage, to_frame
 from carbonara.materialize import SourceRecord, materialize
 from carbonara.normalize import normalize_records
 from carbonara.references import reference_digest
-from carbonara.rules import Finding, RuleEvent
+from carbonara.rules import AnomalyCategory, Finding, RuleEvent, Severity
 
 __all__ = ["PipelineResult", "run"]
 
@@ -89,6 +89,19 @@ def run(
     # findings above, so finding ids cannot collide.
     anomalies = detect_anomalies(applied.records)
     findings = normalized.findings + anomalies + filled.findings + footprint.findings
+    if not rows:
+        # A header-only file passes the drift gate (schema matches, no data) and
+        # would otherwise yield a silent "0 kgCO₂e" — surface the emptiness so an
+        # empty catalog is not indistinguishable from a healthy one.
+        findings = [
+            Finding.create(
+                record_id="source",
+                column=None,
+                category=AnomalyCategory.VALIDITY,
+                severity=Severity.HIGH,
+                message="source has no data rows",
+            )
+        ]
     # Key the run to the reference data's bytes, not just the version label: an edit
     # to any factor or vocabulary is then a new, detectable run (§8.3).
     ref_digest = reference_digest(footprint.factor_version)
