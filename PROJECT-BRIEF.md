@@ -260,6 +260,8 @@ estimated_kgco2e(component) = component_weight_kg × factor_kgco2e_per_kg(materi
 
 Component-level, aggregated to product and catalog. Always display the factor source/version, material-mapping confidence, and observed-vs-filled input share, with an uncertainty range.
 
+The factor is a **material-stage** value: it covers fibre/material production only. The estimate deliberately excludes yarn/fabric formation, dyeing and finishing, cut-make-trim, transport, and the use phase — often the larger share of a garment's cradle-to-grave total. The figure is therefore a labeled slice of the footprint, not the whole of it, and reads far lower than a full-lifecycle number from the same source. This boundary is stated in the README so the number is not misread; broadening it would need process-stage factors, out of scope here.
+
 **Optional (stretch):** icanexplain decomposes v1→v2 change into volume/mix and intensity/factor effects; a reconciliation record checks the contributions sum to the observed delta within tolerance. Validated against the planted ground-truth decomposition ([§6](#6-canonical-model-and-fixture)).
 
 ---
@@ -343,9 +345,9 @@ Inputs are synthetic and fictional; no real customer data is used. In production
 
 ## 15. Claims boundaries
 
-**May claim:** a field was read from a named file/row; a value was normalized/derived/referenced/imputed by a named versioned rule; a metric was computed by a versioned model from defined inputs; a footprint is a labeled estimate with stated coverage and factor assumptions.
+**May claim:** a field was read from a named file/row; a value was normalized/derived/referenced/imputed by a named versioned rule; a metric was computed by a versioned model from defined inputs; a footprint is a labeled **material-stage** estimate with stated coverage and factor assumptions.
 
-**Must not claim:** an imputed value is exact; an identifier can be statistically guessed; an anomaly is erroneous without a review decision; a footprint is precise where it rests materially on filled inputs.
+**Must not claim:** an imputed value is exact; an identifier can be statistically guessed; an anomaly is erroneous without a review decision; a footprint is precise where it rests materially on filled inputs; a material-stage estimate is a garment's full (cradle-to-grave) footprint — it excludes yarn/fabric formation, dyeing/finishing, assembly, transport, and use.
 
 ---
 

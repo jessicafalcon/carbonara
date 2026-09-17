@@ -42,6 +42,13 @@ using versioned Ecobalyse/ADEME emission factors. Each estimate is a derived
 value with its own ledger event and Bloodline source, so it traces back to the
 rules, the source row, and the factor version.
 
+The estimate is **material-stage only**: the factor covers fibre/material
+production. It deliberately excludes yarn and fabric formation, dyeing and
+finishing, cut-make-trim, transport, and the use phase — the stages that often
+dominate a garment's total. The number is a labeled slice of a cradle-to-grave
+footprint, not the whole of it (§15). This is why a material-stage figure reads
+far lower than a full-lifecycle one from the same source.
+
 ```python
 >>> from carbonara.contract import CanonicalRecord
 >>> from carbonara.materialize import SourceRecord
@@ -183,19 +190,23 @@ The connector is deliberate about what it asserts and what it does not (brief §
 - Scope is one file at a time — an apparel BOM / catalog / PO in CSV, offline. No
   identity resolution across sources, and no network in the data path.
 
-## Install
+## Quickstart
+
+The connector is not published to PyPI; run it from a checkout. Needs Python
+≥ 3.11 and [uv](https://docs.astral.sh/uv/); everything else is pinned and
+offline. The fixture BOM ships in the repo, so nothing needs generating first.
 
 ```sh
-pip install carbonara
+git clone https://github.com/jessicafalcon/carbonara
+cd carbonara && uv sync                # install pinned deps + dev tools
+
+uv run python scripts/demo.py          # the narrated five-minute walkthrough
+uv run python scripts/build_view.py    # writes build/view.html — open it in a browser
 ```
 
 ## Local development
 
 ```sh
-git clone https://github.com/carbonara/carbonara
-cd carbonara && uv sync
-
-# Check code quality
 pre-commit install --hook-type pre-push
 pre-commit run --all-files
 
