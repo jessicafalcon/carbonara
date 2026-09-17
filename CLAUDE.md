@@ -151,7 +151,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   Exact Ecobalyse `cch` factors (`scripts/fetch_factors.py`, token-gated), reference-data
   content-hashing in the run id (`reference_digest`), the slate-dashboard view
   (`carbonara/view.py`), and the trace journey all landed.
-- **Phase 6 — (stretch) two-vintage change explanation: at exit gate, awaiting merge.**
+- **Phase 6 — (stretch) two-vintage change explanation: done** (merged, PR #7).
   Branch `phase-6-lea-and-icanexplain`; spec + 8 steps committed. The v1→v2 change in a
   **production-weighted** catalog total `F = Σ mass_kg × factor` (quantity does not enter
   the Phase-5 per-line footprint, so a real volume effect needs this new mart aggregate)
@@ -171,8 +171,17 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   so both vintages corrupt the same cells and fill error cancels in the delta. **Lea (`lea-cli`) not adopted** — hard `sqlglot` conflict
   with icanexplain's ibis + BigQuery dependency bloat; the DAG is plain DuckDB SQL (see
   the spec's Dependencies section). Added a `carbonara-pr` PR-writing skill. `pytest`
-  (172) + `pre-commit` pass. **Open: push branch + open PR #7 (this step); merge is the
-  user's call. Next after merge: Phase 7 (aspiration) — Bloodline augmentation-rule
-  helper (M7).**
+  (172) + `pre-commit` pass.
+- **Phase 7 — (aspiration) Bloodline augmentation-rule helper (M7): in progress.**
+  Branch `phase-7-augmentation-rule-helper`; spec written (`specs/phase-7-augmentation-rule-helper.md`,
+  4 ordered steps). Closes the source-vs-lifecycle gap (§8.1): an in-repo helper
+  (`carbonara/augment.py`) preserves a cell's original Bloodline lineage while
+  attaching an ordered rule record (rule id/version, inputs, confidence) inside the
+  head `Source`'s metadata — one `Source` per cell kept, lifecycle as an oldest-first
+  `"lineage"` list, no parallel store, no clobber. Uses `apply_data_lineage`/`Source`
+  as intended (liftable upstream; no upstream PR this phase). Deterministic → stays in
+  `carbonara/`, passes the guard. The live pipeline still clobbers with `override=True`
+  (one rule per cell today); the helper is demonstrated on a two-rule cell. **Next:
+  step 2 — write `carbonara/augment.py` + module doctest.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
