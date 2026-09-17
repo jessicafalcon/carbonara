@@ -238,10 +238,15 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   pre-fill records (missing-weight must fire before the ladder fills the cell) and
   folds the findings in after the normalize findings; additive and deterministic
   (categories disjoint from mapping/plausibility so ids can't collide, `run_id`
-  unaffected, re-run reproduces). The view gains a by-severity summary (§10) and
-  the material-stage caption; the demo names the split (`6 mappings + 120
-  anomalies`); a new test proves the §12 cases surface through `run()`, not only
-  `detect_anomalies`. `pytest` (209) + `pre-commit` pass. Deferred to its own
-  branch: input-boundary hardening. **Open: PR to push; merge is the user's call.**
+  unaffected, re-run reproduces). Weight completeness is flagged on the *residual*
+  (the null the ladder leaves, `fill.py`, MEDIUM), not on every originally-missing
+  cell — the raw form flooded the queue with 97 already-filled items and buried the
+  actionable ones, while the unfillable weights raised no finding at all;
+  `detect_anomalies` keeps country completeness. The view gains a by-severity
+  summary (§10) and the material-stage caption (fixture queue 123 → 26: 2 high /
+  24 medium / 0 low); the demo names the split (`6 mappings + 23 anomalies`); a new
+  test proves the §12 cases surface through `run()`, not only `detect_anomalies`.
+  `pytest` (210) + `pre-commit` pass. Deferred to its own branch: input-boundary
+  hardening. **Open: PR #11; merge is the user's call.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
