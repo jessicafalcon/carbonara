@@ -101,10 +101,13 @@ the backlog, not a spec).
   atomic commit, made once it is green (`uv run pytest` + `uv run pre-commit run
   --all-files` clean). Never bundle a whole phase into one commit; never commit
   red or unrelated changes together.
-- **At the exit gate.** When the brief §16 exit gate is green, push the branch
-  and open/finalize the PR (`carbonara-voice`), then **stop — do not merge. The
-  merge to `main` is the user's call.** Push and PRs are fine at any point;
-  only the merge waits for the user.
+- **At the exit gate.** When the brief §16 exit gate is green, run `/simplify` on
+  the branch (a reuse/simplification pass — catches a hand-rolled branch stdlib
+  already covers, a redundant assertion, dead code — before a reviewer has to),
+  fix what it finds, then push the branch and open/finalize the PR
+  (`carbonara-voice`), then **stop — do not merge. The merge to `main` is the
+  user's call.** Push and PRs are fine at any point; only the merge waits for the
+  user.
 - **Update Current status after every PR and every merge** (in the same change) —
   the phase, branch, open PR, and the next spec step. A new session resumes from
   it, so it must be current.
@@ -163,8 +166,9 @@ recorded in `BACKLOG.md`, not a spec.
    `carbonara-tests` as you go; the PostToolUse hooks run on every `.py` edit.
 4. Each step, once green (`uv run pytest`, then `uv run pre-commit run
    --all-files`): one atomic commit.
-5. At the exit gate: push the branch, open/finalize the PR, and stop — the user
-   merges. Update Current status once told it's merged.
+5. At the exit gate: run `/simplify` on the branch and fix what it finds, then
+   push the branch, open/finalize the PR, and stop — the user merges. Update
+   Current status once told it's merged.
 
 For a **backlog item**, step 2 has no spec file — read the item's BACKLOG.md
 entry instead, branch `<type>/<slug>` off `main`, and record any mid-build
