@@ -159,7 +159,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   journey confirmed by test and in-browser (displayed number → footprint row →
   rules → source row + factor version). `pytest` (149) + `pre-commit` pass. Scoped
   out: factor uncertainty ranges, composition-weighted factors, Lea/icanexplain
-  (Phase 6). **Next: push branch, open PR — merge is the user's call.** After merge:
-  **Phase 6 (stretch) — Lea DAG / icanexplain (M6).**
+  (Phase 6). **Open PR #6** — merge is the user's call. **Next after merge: Phase 6
+  (stretch) — Lea DAG / icanexplain (M6).**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
