@@ -195,20 +195,27 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   (`.github/workflows/ci.yml`: `pytest` + `pre-commit` on push/PR) since the gate was
   only ever local, and installed the pre-push hook. `pytest` (181) + `pre-commit`
   pass.
-- **Phase 8 — demo + limitations note, review loop applied (M8): in progress.**
-  Branch `phase-8-applied-review-loop`; spec committed (`specs/phase-8-applied-review-loop.md`,
-  8 ordered steps). Wires `review.approved_rules()` back into the pipeline as a
-  deterministic second pass: an approved mapping (`Organic cottn` → `organic cotton`)
-  is re-applied to the cell it corrects and chained onto the cell's original source
-  via `carbonara.augment.augment_lineage` (normalize → approved alias, not clobber;
-  §8.1), writing a ledger event like any rule (§8.2). The decision (actor/status/`at`)
-  is injected as an `approvals` param on `pipeline.run()` — no clock, passes the guard;
-  the pass slots in right after normalize so the corrected material flows into
-  fill + footprint. Scope is **broader** (confirmed): also persists/replays review
-  decisions (fixture-driven) and reflects the applied loop in the static view, with two
-  bounded cuts recorded in the spec — generalization keyed to `proposed_value` (no
-  invented per-category semantics), and the view stays static HTML. Demo is a scripted
-  `scripts/demo.py` walkthrough + README `Walkthrough`/`Limitations` sections (§15).
-  **Next spec step: step 2 — generalize `approved_rules` beyond MAPPING.**
+- **Phase 8 — demo + limitations note, review loop applied (M8): at exit gate, awaiting merge.**
+  Branch `phase-8-applied-review-loop`; spec + 8 steps committed. Wires
+  `review.approved_rules()` back into the pipeline as a deterministic second pass
+  (`carbonara/apply_review.py`): an approved mapping (`Organic cottn` → `organic cotton`)
+  is re-applied to the cell it corrects and chained onto the cell's normalize source
+  via `augment_lineage` (normalize_material → reference_resolve, not clobber; §8.1),
+  writing a ledger event like any rule (§8.2). The decision (actor/status/`at`) is
+  injected as an `approvals` param on `pipeline.run()` — no clock, passes the guard —
+  and the pass slots in right after normalize so the three planted `Organic cottn`
+  cells flow into fill + footprint (unresolved → costed). Scope **broader** (confirmed):
+  `approved_rules` generalized to any approved finding with a `proposed_value` (MAPPING
+  stays a reusable alias, others per-cell); review decisions persist/replay as JSONL
+  (`fixtures/review_decisions.jsonl`); the static view marks resolved findings "applied"
+  and the drawer shows the chained spine lineage; `scripts/demo.py` is the narrated
+  eight-step walkthrough; README has doctested `Walkthrough` + `Limitations` (§15)
+  sections. Two bounded cuts recorded in the spec — generalization keyed to
+  `proposed_value` (no invented per-category semantics), view stays static HTML.
+  Exit gate green: walkthrough reproducible from a clean checkout; the approved cell
+  carries a two-entry lineage (original + approval); re-run byte-identical; empty
+  approvals reproduces the single-pass output. `pytest` (203) + `pre-commit` pass.
+  **Open: push branch + open PR #9; merge is the user's call. Next after merge:
+  Phase 8 is the last §16 phase — project complete.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
