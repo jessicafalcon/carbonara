@@ -20,14 +20,44 @@ plan.
 
 ## Status
 
-Phase 0 — build harness and repo skeleton. The package is a stub; the pipeline
-is built phase by phase (see the brief).
+The pipeline runs end to end: ingest and schema-drift gate, normalize and
+validate, the gap-fill ladder with dual-store provenance, and the
+component-level footprint with a brand-facing view and a per-number provenance
+drawer. Stretch work (Lea, icanexplain) is not built (see the brief).
 
 ```python
 >>> import carbonara
 >>> carbonara.__version__
 '0.1.0'
 
+```
+
+## Footprint
+
+The footprint costs each component by `component_weight_kg × factor(material)`,
+using versioned Ecobalyse/ADEME emission factors. Each estimate is a derived
+value with its own ledger event and Bloodline source, so it traces back to the
+rules, the source row, and the factor version.
+
+```python
+>>> from carbonara.contract import CanonicalRecord
+>>> from carbonara.materialize import SourceRecord
+>>> from carbonara.footprint import compute_footprint
+>>> rec = CanonicalRecord(
+...     record_id="r0001", source_row_id="1", style_id="TSH-1", sku="S",
+...     component="shell fabric", material_raw="cotton",
+...     material_normalized="cotton", component_weight_g=200.0, supplier_raw="Acme",
+... )
+>>> [component] = compute_footprint([SourceRecord(record=rec, raw={})], []).components
+>>> round(component.estimated_kgco2e, 2)  # 0.2 kg × 8.3 kgCO₂e/kg
+1.66
+
+```
+
+Render the view over the fixture BOM to a standalone HTML file:
+
+```sh
+uv run python scripts/build_view.py   # writes build/view.html
 ```
 
 ## Install

@@ -142,18 +142,24 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
 - **Phase 1 — contract + fixture generator: done** (merged, PR #2).
 - **Phase 2 — ingest + schema-drift gate: done** (merged, PR #3).
 - **Phase 3 — normalize + validate + anomaly events: done** (merged, PR #4).
-- **Phase 4 — fill ladder + rule ledger + Bloodline lineage: at exit gate, awaiting merge.**
-  Branch `phase-4-fill-ladder-and-provenance`; spec + 8 steps committed (reference
-  weights, fill source types + uncertainty, fill ladder, ledger, Bloodline
-  lineage, fill-accuracy metric, §12 fixture tests). Exit gate green: over `bom_v1`
-  dense-tight → grouped median, high-spread/sparse → reference constant, implausible
-  observed → flagged (not changed); every fill is labeled with tier + params in both
-  stores (append-only ledger + Bloodline `data_lineage`) and carries an uncertainty
-  range; fill accuracy reported per tier (grouped-median MAE ≈ 7.9 g / 12.8%,
-  constant ≈ 1.2 g / 16.6%); fills, ledger, and lineage reproduce exactly; `pytest`
-  (121) + `pre-commit` pass. Scoped out: formula/reference-resolve fill tiers (no
-  applicable weight gap), footprint + view. **Open PR #5** — merge is the
-  user's call. **Next after merge: Phase 5 — footprint + brand-facing view +
-  provenance drawer (M5);** start a `phase-5-*` branch and spec.
+- **Phase 4 — fill ladder + rule ledger + Bloodline lineage: done** (merged, PR #5).
+- **Phase 5 — footprint + brand-facing view + provenance drawer: at exit gate, awaiting merge.**
+  Branch `phase-5-footprint-and-view`; spec + 8 steps committed (Ecobalyse/ADEME
+  material factors, footprint as the `DERIVED_FORMULA` case, pipeline orchestrator,
+  factor-revision diff, slate-dashboard view, demo builder + trace journey, §12
+  exit-gate capstone + docs). Exit gate green: the footprint costs
+  `weight_kg × factor(material)` with factor source/version, mapping confidence,
+  observed-vs-filled share, and an uncertainty range; each estimate carries a ledger
+  event + Bloodline source; unresolved material is flagged (not costed), a flagged
+  weight is derived but excluded from the total. A factor revision (`_v2`) recomputes
+  under a new `run_id` with a version diff and no history corruption. The view
+  (`carbonara/view.py`, `render_view`) renders readiness / review queue / material
+  basket / factor diff / a per-number provenance drawer to self-contained offline
+  HTML, byte-reproducibly; `scripts/build_view.py` writes `build/view.html`. Trace
+  journey confirmed by test and in-browser (displayed number → footprint row →
+  rules → source row + factor version). `pytest` (149) + `pre-commit` pass. Scoped
+  out: factor uncertainty ranges, composition-weighted factors, Lea/icanexplain
+  (Phase 6). **Next: push branch, open PR — merge is the user's call.** After merge:
+  **Phase 6 (stretch) — Lea DAG / icanexplain (M6).**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
