@@ -38,19 +38,15 @@ _Key = tuple[str, ...]
 _KeyFn = Callable[[SourceRecord], _Key]
 
 
-def _category(record: SourceRecord) -> str:
-    return record.record.style_id.split("-")[0]
-
-
 def _material(record: SourceRecord) -> str:
     return record.record.material_normalized or record.record.material_raw.lower()
 
 
 #: Back-off levels, finest first (brief §7.6). Stops at category — never a global median.
 _BACKOFF: tuple[tuple[str, _KeyFn], ...] = (
-    ("material×component×category", lambda r: (_material(r), r.record.component, _category(r))),
-    ("component×category", lambda r: (r.record.component, _category(r))),
-    ("category", lambda r: (_category(r),)),
+    ("material×component×category", lambda r: (_material(r), r.record.component, r.record.category)),
+    ("component×category", lambda r: (r.record.component, r.record.category)),
+    ("category", lambda r: (r.record.category,)),
 )
 
 

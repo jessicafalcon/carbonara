@@ -34,6 +34,12 @@ def test_raw_fields_set_normalized_left_null():
     assert sr.record.factory_country_iso is None
 
 
+def test_category_is_derived_from_style_id():
+    # The archetype the fill ladder backs off across (§7.6), resolved once here.
+    [sr] = materialize([_row("1", style_id="DRS-12")], {"vendor": "supplier"})
+    assert sr.record.category == "DRS"
+
+
 def test_materialize_is_deterministic():
     rows = [_row("3"), _row("1"), _row("2")]
     first = materialize(rows, {"vendor": "supplier"})
