@@ -139,12 +139,16 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
 ## Current status
 
 - **Phase 0 — build harness + repo skeleton: done** (on `main`).
-- **Phase 1 — contract + fixture generator: at exit gate, awaiting merge.**
-  Branch `phase-1-contract-and-fixture`; all 7 spec steps committed (contract,
-  generator base, messy conditions, ladder cases, ground truth, tests,
-  artifacts). Exit gate green: 16 planted cases cover the §12 table and every
-  ladder branch, regeneration is byte-identical, `pytest` and `pre-commit` pass.
-  **Open PR #2** — merge is the user's call. **Next after merge: Phase 2 —
-  ingest + schema-drift gate (M2);** start a `phase-2-*` branch and spec.
+- **Phase 1 — contract + fixture generator: done** (merged, PR #2).
+- **Phase 2 — ingest + schema-drift gate: at exit gate, awaiting merge.**
+  Branch `phase-2-ingest-and-schema-drift`; all 5 spec steps committed (spec,
+  profile, source schema + drift diff + mapping proposal, ingest orchestration,
+  §12 fixture-behavior tests). Exit gate green: a clean file is accepted and
+  recorded as baseline, a renamed header halts review-required with a
+  `vendor → supplier` proposal, duplicate bytes are a no-op, admit is
+  deterministic, and `pytest` + `pre-commit` pass. XLSX parsing is scoped out
+  (detected, raises). **Open PR #3** — merge is the user's call.
+  **Next after merge: Phase 3 — normalize + validate + anomaly events (M3);**
+  start a `phase-3-*` branch and spec.
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
