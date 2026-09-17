@@ -1,0 +1,139 @@
+source_row_id,column,true_value,case,expected
+0,supplier_raw,supplier,renamed_header,"schema-drift warning, review required"
+16,supplier_normalized,Acme Textiles,supplier_variant,fuzzy match to canonical supplier above threshold
+69,supplier_normalized,Acme Textiles,supplier_variant,fuzzy match to canonical supplier above threshold
+14,supplier_normalized,Acme Textiles,supplier_variant,fuzzy match to canonical supplier above threshold
+176,supplier_normalized,Acme Textiles,supplier_variant,fuzzy match to canonical supplier above threshold
+122,supplier_normalized,Acme Textiles,supplier_variant,fuzzy match to canonical supplier above threshold
+296,supplier_normalized,Acme Textiles,supplier_variant,fuzzy match to canonical supplier above threshold
+154,supplier_normalized,Golden Thread,supplier_variant,fuzzy match to canonical supplier above threshold
+29,supplier_normalized,Golden Thread,supplier_variant,fuzzy match to canonical supplier above threshold
+40,supplier_normalized,Golden Thread,supplier_variant,fuzzy match to canonical supplier above threshold
+45,supplier_normalized,Golden Thread,supplier_variant,fuzzy match to canonical supplier above threshold
+31,supplier_normalized,Golden Thread,supplier_variant,fuzzy match to canonical supplier above threshold
+37,supplier_normalized,Golden Thread,supplier_variant,fuzzy match to canonical supplier above threshold
+211,supplier_normalized,Bharat Mills,supplier_variant,fuzzy match to canonical supplier above threshold
+174,supplier_normalized,Bharat Mills,supplier_variant,fuzzy match to canonical supplier above threshold
+188,supplier_normalized,Bharat Mills,supplier_variant,fuzzy match to canonical supplier above threshold
+23,supplier_normalized,Bharat Mills,supplier_variant,fuzzy match to canonical supplier above threshold
+11,supplier_normalized,Oceanic Fabrics,supplier_variant,fuzzy match to canonical supplier above threshold
+121,supplier_normalized,Oceanic Fabrics,supplier_variant,fuzzy match to canonical supplier above threshold
+120,supplier_normalized,Oceanic Fabrics,supplier_variant,fuzzy match to canonical supplier above threshold
+115,supplier_normalized,Oceanic Fabrics,supplier_variant,fuzzy match to canonical supplier above threshold
+263,supplier_normalized,Nordic Weave,supplier_variant,fuzzy match to canonical supplier above threshold
+268,supplier_normalized,Nordic Weave,supplier_variant,fuzzy match to canonical supplier above threshold
+143,supplier_normalized,Nordic Weave,supplier_variant,fuzzy match to canonical supplier above threshold
+259,supplier_normalized,Nordic Weave,supplier_variant,fuzzy match to canonical supplier above threshold
+163,material_normalized,organic cotton,material_typo,"proposed alias, not silent correction"
+79,material_normalized,organic cotton,material_typo,"proposed alias, not silent correction"
+195,material_normalized,organic cotton,material_typo,"proposed alias, not silent correction"
+58,composition,70% cotton / 30% polyester,composition_shorthand,"composition parsed, sums to 100%"
+287,composition,70% cotton / 30% polyester,composition_shorthand,"composition parsed, sums to 100%"
+200,composition,70% cotton / 30% polyester,composition_shorthand,"composition parsed, sums to 100%"
+205,component_weight_g,416,mixed_units_kg,normalized value + preserved raw value/unit
+244,component_weight_g,256,mixed_units_kg,normalized value + preserved raw value/unit
+78,component_weight_g,661,mixed_units_kg,normalized value + preserved raw value/unit
+84,component_weight_g,511,mixed_units_kg,normalized value + preserved raw value/unit
+189,component_weight_g,307,zero_weight_positive_value,high-severity anomaly
+241,order_date,2025-08-18,malformed_date,validity anomaly (invalid date)
+255,order_date,2025-02-08,malformed_date,validity anomaly (invalid date)
+73,unit_price,9.05,extreme_price,distribution anomaly (extreme price)
+307,record_id,295,duplicate_key,"finding, no double counting"
+314,component_weight_g,45,blank_weight_high_spread,fails dispersion -> reference constant
+317,component_weight_g,32,blank_weight_sparse,fails support -> reference constant
+65,component_weight_g,131,implausible_weight,trips plausibility band -> rejected/flagged
+52,component_weight_g,166,blank_weight_dense_tight,GROUPED_MEDIAN fill
+71,component_weight_g,136,blank_weight_dense_tight,GROUPED_MEDIAN fill
+46,component_weight_g,143,blank_weight_dense_tight,GROUPED_MEDIAN fill
+83,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+140,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+305,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+146,component_weight_g,6,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+274,component_weight_g,204,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+306,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+135,component_weight_g,492,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+112,component_weight_g,8,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+254,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+147,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+132,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+136,component_weight_g,101,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+227,component_weight_g,48,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+38,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+106,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+139,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+290,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+210,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+91,component_weight_g,605,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+125,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+57,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+216,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+152,component_weight_g,34,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+27,component_weight_g,15,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+36,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+256,component_weight_g,85,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+34,component_weight_g,11,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+279,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+304,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+291,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+231,component_weight_g,74,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+230,component_weight_g,247,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+284,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+250,component_weight_g,73,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+50,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+177,component_weight_g,42,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+24,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+185,component_weight_g,20,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+178,component_weight_g,46,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+264,component_weight_g,17,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+110,component_weight_g,82,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+212,component_weight_g,416,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+48,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+300,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+117,component_weight_g,101,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+286,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+233,component_weight_g,4,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+138,component_weight_g,7,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+225,component_weight_g,335,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+21,component_weight_g,4,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+99,component_weight_g,6,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+190,component_weight_g,42,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+105,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+278,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+41,component_weight_g,10,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+182,component_weight_g,340,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+161,component_weight_g,4,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+77,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+283,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+208,component_weight_g,16,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+155,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+82,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+42,component_weight_g,5,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+116,component_weight_g,554,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+267,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+124,component_weight_g,39,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+44,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+97,component_weight_g,93,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+181,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+236,component_weight_g,253,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+289,component_weight_g,16,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+262,component_weight_g,241,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+197,component_weight_g,49,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+194,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+213,component_weight_g,44,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+203,component_weight_g,19,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+253,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+9,component_weight_g,2,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+192,component_weight_g,18,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+238,component_weight_g,12,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+94,component_weight_g,4,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+10,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+66,component_weight_g,11,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+95,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+247,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+299,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+234,component_weight_g,1,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+3,component_weight_g,4,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+215,component_weight_g,15,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+54,component_weight_g,3,blank_weight,"grouped-median fill where the group clears guards, else reference constant"
+0,,,duplicate_file_upload,"idempotent rerun, no duplicate rows"
+0,,,factor_table_revision,recalculated metrics + factor-version diff

@@ -38,13 +38,25 @@ LADDER_EXPECTED = {
 }
 
 
+FIXTURE_FILES = (
+    "bom_v1.csv",
+    "ground_truth_v1.csv",
+    "bom_v2.csv",
+    "ground_truth_v2.csv",
+    "decomposition_truth.csv",
+)
+
+TSH_SHELL_SHIFT_STYLES = {f"TSH-{index:02d}" for index in range(1, 7)}
+VOLUME_MULT = {"TSH": 1.20, "HOO": 1.10, "TRO": 0.90, "DRS": 0.85}
+
+
 def test_regeneration_is_byte_identical(tmp_path: pathlib.Path) -> None:
     first, second = tmp_path / "first", tmp_path / "second"
     first.mkdir()
     second.mkdir()
     generate.write_fixtures(first)
     generate.write_fixtures(second)
-    for name in ("bom_v1.csv", "ground_truth_v1.csv"):
+    for name in FIXTURE_FILES:
         assert (first / name).read_bytes() == (second / name).read_bytes()
 
 
@@ -85,3 +97,57 @@ def test_renamed_header_is_emitted(tmp_path: pathlib.Path) -> None:
     header = (tmp_path / "bom_v1.csv").read_text().splitlines()[0].split(",")
     assert "vendor" in header
     assert "supplier" not in header
+
+
+# --- Two vintages (brief §6) ------------------------------------------------
+
+
+def test_v2_plants_the_same_cases_as_v1() -> None:
+    # The mix-shifted lines are protected from corruption, so no planted case may
+    # be dropped: every branch must still fire on v2.
+    _, ground_truth = generate.generate(vintage=generate.V2)
+    assert {row["case"] for row in ground_truth} == EXPECTED_CASES
+
+
+def test_v2_volume_multiplier_scales_quantity() -> None:
+    v1_rows, _ = generate.generate(vintage=generate.V1)
+    v2_rows, _ = generate.generate(vintage=generate.V2)
+    v1_by_id = {row["source_row_id"]: row for row in v1_rows}
+    checked = 0
+    for row in v2_rows:
+        origin = v1_by_id.get(row["source_row_id"])
+        # Skip the appended duplicate-key row: it copies a different origin per vintage.
+        if origin is None or origin["style_id"] != row["style_id"]:
+            continue
+        code = row["style_id"].split("-")[0]
+        assert int(row["quantity"]) == round(int(origin["quantity"]) * VOLUME_MULT[code])
+        checked += 1
+    # The whole catalog is checked bar the one appended duplicate-key row.
+    assert checked == len(v2_rows) - 1
+
+
+def test_v2_mix_shift_moves_named_lines_to_organic_cotton_and_leaves_them_clean() -> None:
+    rows, ground_truth = generate.generate(vintage=generate.V2)
+    corrupted = {row["source_row_id"] for row in ground_truth}
+    shifted = [r for r in rows if r["style_id"] in TSH_SHELL_SHIFT_STYLES and r["component"] == "shell fabric"]
+    assert len(shifted) == len(TSH_SHELL_SHIFT_STYLES)
+    for row in shifted:
+        assert row["material"] == "organic cotton"
+        assert row["composition"] == "100% organic cotton"
+        assert row["source_row_id"] not in corrupted
+
+
+def test_decomposition_truth_isolates_the_planted_changes() -> None:
+    footprint = {"v1": {}, "v2": {}}
+    quantity = {"v1": {}, "v2": {}}
+    for vintage in (generate.V1, generate.V2):
+        for row in generate.truth_basis(vintage):
+            footprint[vintage.label][row["material"]] = float(row["true_footprint_kgco2e"])
+            quantity[vintage.label][row["material"]] = int(row["true_quantity"])
+    # The material-mix shift shows up as organic cotton appearing only in v2.
+    assert "organic cotton" not in footprint["v1"]
+    assert footprint["v2"]["organic cotton"] > 0
+    # Every material carries a positive footprint, and the catalog total moves.
+    assert all(value > 0 for basket in footprint.values() for value in basket.values())
+    delta = sum(footprint["v2"].values()) - sum(footprint["v1"].values())
+    assert abs(delta) > 1.0
