@@ -1,0 +1,9 @@
+material,factor_kgco2e_per_kg,source,source_version,source_ref
+cotton,8.3,Ecobalyse / ADEME Base Empreinte,ecobalyse-2024.1,climate change per kg fiber — https://ecobalyse.beta.gouv.fr/
+organic cotton,5.5,Ecobalyse / ADEME Base Empreinte,ecobalyse-2024.1,climate change per kg fiber — https://ecobalyse.beta.gouv.fr/
+polyester,5.5,Ecobalyse / ADEME Base Empreinte,ecobalyse-2024.1,climate change per kg fiber — https://ecobalyse.beta.gouv.fr/
+nylon,7.9,Ecobalyse / ADEME Base Empreinte,ecobalyse-2024.1,climate change per kg fiber (polyamide) — https://ecobalyse.beta.gouv.fr/
+viscose,4.0,Ecobalyse / ADEME Base Empreinte,ecobalyse-2024.1,climate change per kg fiber — https://ecobalyse.beta.gouv.fr/
+elastane,9.5,Ecobalyse / ADEME Base Empreinte,ecobalyse-2024.1,climate change per kg fiber — https://ecobalyse.beta.gouv.fr/
+brass,4.2,ADEME Base Empreinte,base-empreinte-2024,metal component hardware (representative) — https://base-empreinte.ademe.fr/
+metal,3.5,ADEME Base Empreinte,base-empreinte-2024,metal component hardware (representative) — https://base-empreinte.ademe.fr/

@@ -12,9 +12,11 @@ import functools
 import pathlib
 
 __all__ = [
+    "MaterialFactor",
     "MaterialVocab",
     "ReferenceWeight",
     "country_iso",
+    "material_factors",
     "material_vocab",
     "reference_weights",
     "supplier_names",
@@ -81,4 +83,38 @@ def reference_weights() -> dict[str, ReferenceWeight]:
             band_high_g=float(row["band_high_g"]),
         )
         for row in _read("reference_weights_v1.csv")
+    }
+
+
+@dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
+class MaterialFactor:
+    """A material's climate-change emission factor and its citation.
+
+    References
+    ----------
+    [1] Ecobalyse / ADEME Base Empreinte — https://ecobalyse.beta.gouv.fr/
+    """
+
+    factor_kgco2e_per_kg: float
+    source: str
+    source_version: str
+    source_ref: str
+
+
+@functools.cache
+def material_factors(version: str = "v1") -> dict[str, MaterialFactor]:
+    """Emission factor (kgCO₂e/kg) per material, from the versioned factor table.
+
+    The table is a pinned, in-repo snapshot of Ecobalyse/ADEME material impacts so
+    the data path stays offline and reproducible; it is a labeled assumption set,
+    not a precise claim (brief §15). ``version`` selects ``material_factors_<v>.csv``.
+    """
+    return {
+        row["material"]: MaterialFactor(
+            factor_kgco2e_per_kg=float(row["factor_kgco2e_per_kg"]),
+            source=row["source"],
+            source_version=row["source_version"],
+            source_ref=row["source_ref"],
+        )
+        for row in _read(f"material_factors_{version}.csv")
     }
