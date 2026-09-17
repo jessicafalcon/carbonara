@@ -118,6 +118,28 @@ def test_bom_v1_renamed_header_requires_review(tmp_path):
     assert result.mapping_proposal.renames == {"vendor": "supplier"}
 
 
+def _csv_with_supplier(supplier: str, encoding: str) -> bytes:
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow(EXPECTED_SOURCE_SCHEMA)
+    writer.writerow(["0", "STY", "SKU", "shell", "cotton", "100 CO", "200g", supplier, "PT", "15/01/2024", "1", "9.5"])
+    return buffer.getvalue().encode(encoding)
+
+
+def test_cp1252_file_is_decoded_and_encoding_recorded(tmp_path):
+    raw = _csv_with_supplier("Sté Générale", "cp1252")
+    with pytest.raises(UnicodeDecodeError):  # the file is genuinely not UTF-8
+        raw.decode("utf-8")
+    result = admit(_write(tmp_path, "vendor.csv", raw), tmp_path / "store")
+    assert result.encoding == "cp1252"
+    assert result.status is IngestStatus.ACCEPTED  # decoded and admitted, not crashed
+
+
+def test_utf8_file_reads_as_utf8(tmp_path):
+    result = admit(_write(tmp_path, "clean.csv", _clean_csv_bytes()), tmp_path / "store")
+    assert result.encoding == "utf-8"
+
+
 def test_bom_v1_duplicate_upload_is_idempotent(tmp_path):
     store = tmp_path / "store"
     admit(_BOM_V1, store)
