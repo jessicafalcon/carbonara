@@ -149,7 +149,9 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   factor-revision diff, slate-dashboard view, demo builder + trace journey, §12
   exit-gate capstone + docs), plus exact factor figures fetched from Ecobalyse
   (`scripts/fetch_factors.py`, token-gated `cch` via a gitignored `.env`) and a
-  determinism-guard scoping fix. Exit gate green: the footprint costs
+  determinism-guard scoping fix, and reference-data content-hashing folded into
+  the run id + ledger (`reference_digest`, `factor_content_hash`) so a factor
+  edit is a new detectable run, not a silent change. Exit gate green: the footprint costs
   `weight_kg × factor(material)` with factor source/version, mapping confidence,
   observed-vs-filled share, and an uncertainty range; each estimate carries a ledger
   event + Bloodline source; unresolved material is flagged (not costed), a flagged
