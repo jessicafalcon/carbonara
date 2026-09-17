@@ -85,6 +85,12 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
   its own commit. **Write it as a senior data architect:** choose the simplest,
   most elegant solution that meets the contract — boring over clever — and cut
   anything speculative. No overengineering.
+- **Record every design or decision change in the spec.** The spec stays the
+  source of truth. If a choice changes mid-phase — the approach, a dependency, a
+  scope cut, an interface, a deferral — update `specs/phase-<n>-<slug>.md` (or the
+  brief §16 entry when the phase has not started) in the same commit as the change,
+  authored with `carbonara-voice`. A decision that lives only in the chat or the
+  code is a decision the next session cannot see.
 - **One step = one commit.** Work the phase step by step; each step is a single
   atomic commit, made once it is green (`uv run pytest` + `uv run pre-commit run
   --all-files` clean). Never bundle a whole phase into one commit; never commit
@@ -185,8 +191,11 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   still clobbers with `override=True` (one rule per cell today); the helper is
   demonstrated on a two-rule cell (`tests/test_augment.py`, 7 regression tests) and a
   module + README doctest. Also fixed a pre-existing E501 in
-  `scripts/build_explanation.py` that slipped past PR #7's gate. `pytest` (181) +
-  `pre-commit` pass. **Open: push branch + open PR #8 (this step); merge is the
-  user's call. Next after merge: Phase 8 — demo + limitations note (M8).**
+  `scripts/build_explanation.py` that slipped past PR #7's gate, added a CI workflow
+  (`.github/workflows/ci.yml`: `pytest` + `pre-commit` on push/PR) since the gate was
+  only ever local, and installed the pre-push hook. `pytest` (181) + `pre-commit`
+  pass. **Open: PR #8 (pushed, awaiting merge); merge is the user's call. Next after
+  merge: Phase 8 — demo + limitations note (M8), now including the applied review
+  loop (re-apply approved rules, chained via `augment_lineage`; brief §16 Phase 8).**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
