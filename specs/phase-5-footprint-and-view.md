@@ -33,6 +33,11 @@ Each footprint value carries, per §9:
   applied — Phase 3) has **no factor**: it is left unmapped and flagged, never
   silently costed at zero. This is the observed mapping gap the coverage panel
   reports.
+- **aggregation rule** — only `COSTED` rows feed the headline totals. A row with
+  no factor (`UNMAPPED`) and a row whose weight tripped the plausibility band
+  (`FLAGGED` — the weight is still derived, but not trusted enough to sum) are
+  both reported as coverage instead, so a filled-then-flagged input never hides
+  inside a total (`carbonara/footprint.py`).
 - **observed-vs-filled input share** — whether the `component_weight_g` behind the
   estimate was observed (normalized from the source) or filled by the ladder
   (grouped median / reference constant). Read from the fill events, not guessed.

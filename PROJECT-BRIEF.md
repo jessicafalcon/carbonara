@@ -123,7 +123,7 @@ Volume is set so that **every branch of the fill ladder fires at least once on b
 |---|---|---|
 | Garment archetypes | 4 (t-shirt, hoodie, trousers, dress) | Gives a `category` dimension to back off across. |
 | Styles | ~50 (~12 per archetype) | Dense groups clear support; niche ones don't. |
-| Rows | ~500 component lines (~5–8 components/style) | Believable single-brand export, auditable live. Volume from real BOM structure, not inflation. |
+| Rows | ~300 component lines (~5–8 components/style) | Believable single-brand export, auditable live. Volume from real BOM structure (~50 styles × 5–8 components), not inflation. |
 | Suppliers | 4–5 entities, 2–4 messy spellings each | Fuzzy-match value comes from *variants of few entities*. |
 | Weight missingness | ~30–40% of component rows | Enough observed weights to compute medians, enough gaps to make filling matter. |
 
@@ -260,6 +260,8 @@ estimated_kgco2e(component) = component_weight_kg × factor_kgco2e_per_kg(materi
 
 Component-level, aggregated to product and catalog. Always display the factor source/version, material-mapping confidence, and observed-vs-filled input share, with an uncertainty range.
 
+The factor is a **material-stage** value: it covers fibre/material production only. The estimate deliberately excludes yarn/fabric formation, dyeing and finishing, cut-make-trim, transport, and the use phase — often the larger share of a garment's cradle-to-grave total. The figure is therefore a labeled slice of the footprint, not the whole of it, and reads far lower than a full-lifecycle number from the same source. This boundary is stated in the README so the number is not misread; broadening it would need process-stage factors, out of scope here.
+
 **Optional (stretch):** icanexplain decomposes v1→v2 change into volume/mix and intensity/factor effects; a reconciliation record checks the contributions sum to the observed delta within tolerance. Validated against the planted ground-truth decomposition ([§6](#6-canonical-model-and-fixture)).
 
 ---
@@ -343,9 +345,9 @@ Inputs are synthetic and fictional; no real customer data is used. In production
 
 ## 15. Claims boundaries
 
-**May claim:** a field was read from a named file/row; a value was normalized/derived/referenced/imputed by a named versioned rule; a metric was computed by a versioned model from defined inputs; a footprint is a labeled estimate with stated coverage and factor assumptions.
+**May claim:** a field was read from a named file/row; a value was normalized/derived/referenced/imputed by a named versioned rule; a metric was computed by a versioned model from defined inputs; a footprint is a labeled **material-stage** estimate with stated coverage and factor assumptions.
 
-**Must not claim:** an imputed value is exact; an identifier can be statistically guessed; an anomaly is erroneous without a review decision; a footprint is precise where it rests materially on filled inputs.
+**Must not claim:** an imputed value is exact; an identifier can be statistically guessed; an anomaly is erroneous without a review decision; a footprint is precise where it rests materially on filled inputs; a material-stage estimate is a garment's full (cradle-to-grave) footprint — it excludes yarn/fabric formation, dyeing/finishing, assembly, transport, and use.
 
 ---
 
@@ -391,7 +393,7 @@ Effort setting for the build: **Opus 4.8 at `xhigh`** (the Anthropic-recommended
 **Objective.** A deterministic generator that emits one messy BOM and retains ground truth for every corrupted/blanked cell.
 
 - Freeze the canonical record ([§6](#6-canonical-model-and-fixture)) as a typed contract (a frozen dataclass / explicit schema).
-- Build the generator: 4 archetypes, ~50 styles, ~500 component lines, 4–5 suppliers with messy spellings, ~30–40% weight missingness. `random.seed(...)` fixed; ground-truth table written alongside the corrupted file.
+- Build the generator: 4 archetypes, ~50 styles, ~300 component lines, 4–5 suppliers with messy spellings, ~30–40% weight missingness. `random.seed(...)` fixed; ground-truth table written alongside the corrupted file.
 - **Plant every ladder branch** ([§6](#6-canonical-model-and-fixture)): dense/tight, high-spread, sparse, planted outlier, plus messy conditions (renamed headers, `Organic cottn`, `70/30 CO/PL`, mixed g/kg, blank-vs-zero, duplicate keys, malformed dates, extreme price/weight).
 - **Exit gate.** Every fill-ladder branch and every row of the §12 fixture-behavior table has a fixture with a *specified expected outcome*; regenerating twice yields byte-identical files.
 
