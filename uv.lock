@@ -73,7 +73,6 @@ dependencies = [
 [package.dev-dependencies]
 analytics = [
     { name = "icanexplain" },
-    { name = "lea" },
     { name = "pyarrow" },
     { name = "pyarrow-hotfix" },
 ]
@@ -94,7 +93,6 @@ requires-dist = [
 [package.metadata.requires-dev]
 analytics = [
     { name = "icanexplain", specifier = ">=0.3.0" },
-    { name = "lea", specifier = ">=4.4.0" },
     { name = "pyarrow", specifier = ">=25.0.1" },
     { name = "pyarrow-hotfix", specifier = ">=0.7" },
 ]
@@ -264,12 +262,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/19/74/a633ee74eb36c44aa
 wheels = [
     { url = "https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl", hash = "sha256:98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe", size = 18437, upload-time = "2025-09-08T01:34:57.871Z" },
 ]
-
-[[package]]
-name = "lea"
-version = "4.4.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/c6/ab/2dc9dfd8e513c219637a3e9ffa767d824cf43cd0a9ef628aa93a7b9a43b9/lea-4.4.0.tar.gz", hash = "sha256:e5d5e548d52852bf4b4b77f12439287881c622d3cd55008110c0abd01dd5d3f9", size = 226599, upload-time = "2026-08-17T18:48:51.363Z" }
 
 [[package]]
 name = "loguru"

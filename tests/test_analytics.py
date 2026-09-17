@@ -1,11 +1,12 @@
-"""Phase-6 analytics layer: staging the two vintages' per-line footprints."""
+"""Phase-6 analytics layer: staging the vintages and the staging→core→mart DAG."""
 
 from __future__ import annotations
 
 import duckdb
 import pandas as pd
 
-from analytics.vintages import STAGING_TABLE, footprint_lines, stage_footprint_lines
+from analytics.mart import footprint_mart
+from analytics.vintages import RAW_TABLE, footprint_lines, load_raw_footprint_lines
 
 
 def test_footprint_lines_are_deterministic() -> None:
@@ -31,9 +32,36 @@ def test_footprint_lines_show_the_material_mix_shift() -> None:
     assert "organic cotton" not in v1_materials
 
 
-def test_staging_table_matches_the_frame() -> None:
+def test_raw_table_matches_the_frame() -> None:
     con = duckdb.connect()
-    lines = stage_footprint_lines(con)
-    row = con.execute(f"SELECT count(*) FROM {STAGING_TABLE}").fetchone()
+    lines = load_raw_footprint_lines(con)
+    row = con.execute(f"SELECT count(*) FROM {RAW_TABLE}").fetchone()
     assert row is not None
     assert row[0] == len(lines)
+
+
+# --- staging → core → mart DAG ----------------------------------------------
+
+
+def test_mart_matches_the_python_reference_aggregate() -> None:
+    mart = footprint_mart()
+    reference = (
+        footprint_lines()
+        .groupby(["vintage", "material"], as_index=False)
+        .agg(mass_kg=("mass_kg", "sum"), factor=("factor", "min"), footprint_kgco2e=("footprint_kgco2e", "sum"))
+        .sort_values(["vintage", "material"])
+        .reset_index(drop=True)
+    )
+    pd.testing.assert_frame_equal(mart, reference, check_exact=False, atol=1e-6)
+
+
+def test_mart_is_reproducible() -> None:
+    pd.testing.assert_frame_equal(footprint_mart(), footprint_mart())
+
+
+def test_mart_is_one_row_per_vintage_material_with_the_mix_shift() -> None:
+    mart = footprint_mart()
+    assert not mart.duplicated(subset=["vintage", "material"]).any()
+    v2 = mart[mart["vintage"] == "v2"]
+    assert "organic cotton" in set(v2["material"])
+    assert "organic cotton" not in set(mart.loc[mart["vintage"] == "v1", "material"])

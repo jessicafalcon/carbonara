@@ -10,7 +10,7 @@ Gated on Phase 5 landing (merged, PR #6).
 Explain how the catalog footprint changed between two BOM vintages, and prove the
 explanation is trustworthy. A deterministic generator emits a controlled **v2
 (2025)** vintage that differs from **v1 (2024)** only in planted ways; a tiny
-Lea staging→core→mart DuckDB DAG rolls the pipeline's per-line footprints up to a
+staging→core→mart DuckDB SQL DAG rolls the pipeline's per-line footprints up to a
 production-weighted catalog total by material and vintage; icanexplain decomposes
 the v1→v2 delta of that total into **volume**, **mix**, and **intensity/factor**
 effects. Two checks close it: the contributions **reconcile** to the observed
@@ -72,23 +72,24 @@ Generator outputs (all byte-reproducible at the fixed seed):
 |---|---|
 | `fixtures/bom_v2.csv` | the v2 raw vendor file (same messy shape as v1) |
 | `fixtures/ground_truth_v2.csv` | true value of every corrupted/blanked v2 cell |
-| `fixtures/decomposition_truth.csv` | true `F(v1)`, `F(v2)`, observed delta, and the volume / mix / intensity contribution that sums to it |
+| `fixtures/decomposition_truth.csv` | the known-true production-weighted basis per vintage × material (`mass_kg`, `factor`, `footprint`), over the pipeline's costed universe — fed to the same decomposition to validate the pipeline's |
 
 ## Architecture — analytics layer downstream of the connector (§11)
 
 The carbonara pipeline stays the trustworthy deterministic core; the new work is
 a thin analytics layer **outside** the package (`analytics/`), consuming the
-pipeline's output. This keeps Lea and icanexplain off the connector's guaranteed
+pipeline's output. This keeps the DAG and icanexplain off the connector's guaranteed
 data path, carries their heavier dependencies outside it, and respects §11's "no
-wrapper, no DSL, no warehouse" boundary — Lea never reimplements connector logic,
+wrapper, no DSL, no warehouse" boundary — the DAG never reimplements connector logic,
 it aggregates already-augmented rows.
 
 ```text
 carbonara.pipeline.run(v1) ─┐
-carbonara.pipeline.run(v2) ─┴─► staging (per-line footprint + quantity, per vintage, in DuckDB)
-                                   │  Lea DAG
-                                   ├─ core:  union + tidy the two vintages
-                                   └─ mart:  F by material × vintage  (production-weighted)
+carbonara.pipeline.run(v2) ─┴─► raw (per-line footprint + mass, per vintage, in DuckDB)
+                                   │  DuckDB SQL DAG
+                                   ├─ staging: typed/selected lines
+                                   ├─ core:    costed per-line grain
+                                   └─ mart:    F by material × vintage  (production-weighted)
                                                  │
                                                  ├─ icanexplain: decompose ΔF → volume / mix / intensity
                                                  ├─ reconcile:   Σ contributions ≈ observed ΔF (tolerance)
@@ -102,17 +103,24 @@ determinism guard scopes to `carbonara/`; `analytics/` is held to the same bar b
 
 ## Dependencies (§2 portability, §11)
 
-Pin in `uv.lock`, offline at runtime:
+Pin in `uv.lock` under an `analytics` dependency group (kept out of the
+connector's runtime deps), offline at runtime:
 
-- **lea** — the staging→core→mart runner over DuckDB (already pinned). Used as a
-  tiny file-based DAG, no wrapper or annotation DSL.
-- **icanexplain** — the one footprint decomposition. Pulls `ibis-framework` and
-  `altair`; we consume its numeric decomposition, not its charts.
+- **icanexplain** — the one footprint decomposition. Pulls `ibis-framework`,
+  `pyarrow` and `altair`; we consume its numeric decomposition, not its charts,
+  and run ibis on its **pandas** backend (its duckdb backend pins `duckdb<1.2`,
+  using the removed `duckdb.functional`, while the connector runs duckdb 1.5+).
 
-First task of the dependency step is to confirm lea + icanexplain (`ibis`) and our
-pinned `duckdb` resolve together offline. If the resolution or lea's project
-overhead proves disproportionate to "a tiny DAG", that is a checkpoint to raise,
-not a rabbit hole to dig.
+**Lea is not adopted.** The dependency-resolution checkpoint flagged here found
+the real Lea (`lea-cli`, carbonfact) cannot be used: it requires `sqlglot>=30.2`
+while icanexplain's `ibis 9.5` requires `sqlglot<25.21` — an unresolvable
+conflict — and it pulls a `google-cloud-bigquery` / `gitpython` / `rsa` tree
+disproportionate to "a tiny DuckDB DAG". (The PyPI `lea` 4.x is an unrelated
+probability library.) The staging→core→mart DAG is therefore **plain DuckDB
+SQL** — `.sql` models run in dependency order by a small runner, which honors
+§11's "no wrapper, no DSL, no warehouse" boundary directly and keeps the
+analytics-engineering layering. Declining a conflicting heavy dependency is the
+library judgment §11 rewards ("using few libraries well, not all of them").
 
 ## The PR-writing skill (build harness)
 
@@ -134,7 +142,7 @@ etiquette (a single maintainer merges). Add a row to the CLAUDE.md harness table
   normalized material (§9).
 - **Cross-dimension (category/country) decomposition** — the metric is decomposed
   over material only; other dimensions are a later extension.
-- **A second provenance subsystem or a scheduler/warehouse for Lea** — the DAG is
+- **A second provenance subsystem or a scheduler/warehouse for the DAG** — the DAG is
   a handful of SQL models run once over a local DuckDB file.
 - **Surfacing the explanation in the brand-facing view** — the Phase-6 deliverable
   is the reconciled metric + explanation as a repeatable artifact; wiring it into
@@ -151,13 +159,13 @@ etiquette (a single maintainer merges). Add a row to the CLAUDE.md harness table
    2025 stamp); write `bom_v2.csv`, `ground_truth_v2.csv`, and
    `decomposition_truth.csv`. Tests: regenerate twice byte-identical; the planted
    contributions sum to the true delta; v2 preserves the messy-case structure.
-4. **Deps + staging.** Pin `lea` and `icanexplain` in `pyproject.toml` / `uv.lock`
-   (resolve with `duckdb` offline). `analytics/` package: run both vintages through
+4. **Deps + staging.** Pin `icanexplain` in an `analytics` group in `pyproject.toml` /
+   `uv.lock` (resolve with `duckdb` offline; Lea is not adopted, see above). `analytics/` package: run both vintages through
    `carbonara.pipeline.run`, load per-line footprint + quantity into DuckDB as the
    staging tables. Test: deterministic load, expected row counts per vintage.
-5. **Lea mart.** staging→core→mart SQL models + a tiny runner; mart = `F` by
-   material × vintage. Test: the mart equals a pure-Python reference aggregate of
-   the same rows; byte-identical across runs.
+5. **SQL mart.** staging→core→mart DuckDB SQL models + a tiny runner; mart = `F`
+   by material × vintage. Test: the mart equals a pure-Python reference aggregate
+   of the same rows; identical across runs.
 6. **icanexplain decomposition.** Decompose ΔF over material into volume / mix /
    intensity; build a reconciliation record (Σ contributions vs observed ΔF within
    tolerance). Tests: reconciliation holds; decomposition is reproducible.
@@ -165,7 +173,7 @@ etiquette (a single maintainer merges). Add a row to the CLAUDE.md harness table
    `decomposition_truth.csv` within tolerance; `scripts/build_explanation.py`
    writes the reconciled explanation artifact. Tests: validation within tolerance.
 8. **Exit-gate capstone + docs.** End-to-end test: generate v2 → run both vintages
-   → Lea mart → icanexplain decomposition → reconcile to observed ΔF → validate
+   → SQL mart → icanexplain decomposition → reconcile to observed ΔF → validate
    against planted ground truth, all byte-reproducible. Update the README (doctest)
    and the CLAUDE.md Current status.
 
@@ -178,6 +186,6 @@ etiquette (a single maintainer merges). Add a row to the CLAUDE.md harness table
   (`decomposition_truth.csv`) within tolerance.
 - v2 is generated deterministically; the vintage files, the mart, and the
   decomposition reproduce byte-for-byte on a re-run.
-- Lea is used as a tiny DAG over the connector's output, not a reimplementation
-  of it (§11); Lea and icanexplain live outside `carbonara/`.
+- The DAG is a tiny layered SQL transformation over the connector's output, not a
+  reimplementation of it (§11); the DAG and icanexplain live outside `carbonara/`.
 - `uv run pytest` and `uv run pre-commit run --all-files` are green.

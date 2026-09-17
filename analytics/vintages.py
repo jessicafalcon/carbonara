@@ -20,7 +20,7 @@ from carbonara.footprint import FootprintStatus
 from carbonara.ingest import content_hash
 from carbonara.pipeline import PipelineResult, run
 
-__all__ = ["VintageSpec", "VINTAGES", "footprint_lines", "stage_footprint_lines", "STAGING_TABLE"]
+__all__ = ["VintageSpec", "VINTAGES", "footprint_lines", "load_raw_footprint_lines", "RAW_TABLE"]
 
 _ROOT = pathlib.Path(__file__).resolve().parent.parent
 _FIXTURES = _ROOT / "fixtures"
@@ -28,8 +28,8 @@ _MAPPING = {"vendor": "supplier"}
 #: Injected, not wall-clock — keeps the run id and ledger byte-reproducible.
 _CREATED_AT = "2026-01-01T00:00:00Z"
 
-#: The staging table the Lea DAG reads from.
-STAGING_TABLE = "stg_footprint_lines"
+#: The raw source table the SQL DAG's staging model reads from.
+RAW_TABLE = "raw_footprint_lines"
 
 #: The per-line staging schema, in fixed order for a stable frame.
 _LINE_COLUMNS = ("vintage", "record_id", "material", "quantity", "weight_kg", "factor", "mass_kg", "footprint_kgco2e")
@@ -100,10 +100,10 @@ def footprint_lines(specs: tuple[VintageSpec, ...] = VINTAGES) -> pd.DataFrame:
     return frame.sort_values(["vintage", "record_id"]).reset_index(drop=True)
 
 
-def stage_footprint_lines(con: duckdb.DuckDBPyConnection, specs: tuple[VintageSpec, ...] = VINTAGES) -> pd.DataFrame:
-    """Register the per-line footprints as the DuckDB staging table and return them."""
+def load_raw_footprint_lines(con: duckdb.DuckDBPyConnection, specs: tuple[VintageSpec, ...] = VINTAGES) -> pd.DataFrame:
+    """Load the per-line footprints as the DAG's raw source table and return them."""
     lines = footprint_lines(specs)
     con.register("_lines_frame", lines)
-    con.execute(f"CREATE OR REPLACE TABLE {STAGING_TABLE} AS SELECT * FROM _lines_frame")
+    con.execute(f"CREATE OR REPLACE TABLE {RAW_TABLE} AS SELECT * FROM _lines_frame")
     con.unregister("_lines_frame")
     return lines
