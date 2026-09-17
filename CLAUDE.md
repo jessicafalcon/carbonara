@@ -139,9 +139,12 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
 ## Current status
 
 - **Phase 0 — build harness + repo skeleton: done** (on `main`).
-- **Phase 1 — contract + fixture generator: in progress.** Branch
-  `phase-1-contract-and-fixture`; spec `specs/phase-1-contract-and-fixture.md`
-  (merged via PR #1). **Next: step 1 — the contract.** Implementation needs a new
-  PR (#1 is closed).
+- **Phase 1 — contract + fixture generator: at exit gate, awaiting merge.**
+  Branch `phase-1-contract-and-fixture`; all 7 spec steps committed (contract,
+  generator base, messy conditions, ladder cases, ground truth, tests,
+  artifacts). Exit gate green: 16 planted cases cover the §12 table and every
+  ladder branch, regeneration is byte-identical, `pytest` and `pre-commit` pass.
+  **Open PR #2** — merge is the user's call. **Next after merge: Phase 2 —
+  ingest + schema-drift gate (M2);** start a `phase-2-*` branch and spec.
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
