@@ -15,22 +15,28 @@ reproduces fills, lineage, and ledger byte-for-byte.
 
 The only missing continuous cell in the fixture is `component_weight_g` (~30% of
 rows). Categorical gaps were resolved in Phase 3; material typos are review
-proposals, not auto-fills. So the ladder runs on missing weights, and its
-applicable tiers are:
+proposals, not auto-fills. The brief's five tiers are all realized across the
+pipeline, first-match-wins per missing cell — a missing weight enters at tier 3
+because tiers 1–2 have no applicable input for a weight gap, by the fixture's
+design, not by omission:
 
-1. ~~Formula~~ — needs `total_garment_weight × composition_pct`; the fixture has
-   no garment-total column, so no weight gap has formula inputs. **Not built** —
-   it would be dead code with no case (brief §2, reuse-first). Stated, not hidden.
-2. ~~Reference resolve~~ — a continuous weight is not reference-resolvable (that
-   tier serves country/material/factor lookups, done in Phase 3). Not applicable.
-3. **Grouped median with guards** — the working tier for weight.
+1. **Formula** — the weight formula (`total_garment_weight × composition_pct`)
+   needs a garment-total column the source does not carry, so no weight gap has
+   formula inputs. The `DERIVED_FORMULA` mechanism is not dead vocabulary: it is
+   exercised by the footprint (`component_weight × factor`) in Phase 5, the
+   project's central formula derivation.
+2. **Reference-resolve** — already realized at normalization (Phase 3):
+   country→ISO, material vocabulary, supplier fuzzy-match are exactly "resolve
+   against a canonical reference, bounded fuzzy above a threshold." A continuous
+   weight is not reference-resolvable, so this tier is not re-run in the fill pass.
+3. **Grouped median with guards** — the working tier for a weight gap.
 4. **Reference constant** — the citable fallback, and the source of the tier-3
    plausibility band.
 5. **Leave null, `action_required`** — the honest last resort.
 
-The tier vocabulary (`DERIVED_FORMULA`, `REFERENCE_RESOLVE`) still exists in
-`SourceType` for provenance completeness; tiers 3–5 are the ones a fixture gap
-reaches, which the exit gate confirms.
+So Phase 4 implements tiers 3–5 (the tiers a weight gap reaches); tiers 1–2 are
+realized elsewhere in the pipeline, and the ladder's structure and this reasoning
+are made explicit in `fill.py`. The exit gate confirms the tier routing.
 
 ## The grouped-median tier (§7.4, §7.6)
 
@@ -109,7 +115,10 @@ overbuild this avoids.
 
 ## Deliberately out of scope
 
-- Formula and reference-resolve fill tiers (no applicable weight gap; above).
+- A fill-ladder tier 1 (formula) and tier 2 (reference-resolve) in the fill pass:
+  tier 2 is realized at normalization (Phase 3) and the `DERIVED_FORMULA`
+  mechanism at the footprint (Phase 5); a weight gap has no formula input. This is
+  where those tiers live, not a gap to fill (above).
 - The footprint and the brand-facing view (Phase 5).
 - Filling categorical gaps or applying approved material aliases (Phase 3 owns
   proposals; applying an approved alias is a re-run with the minted rule).

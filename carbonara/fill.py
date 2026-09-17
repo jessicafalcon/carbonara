@@ -1,4 +1,19 @@
-"""The weight fill ladder: grouped median → reference constant → leave null (§7.4)."""
+"""The weight fill ladder: grouped median → reference constant → leave null (§7.4).
+
+The brief's five tiers are realized across the pipeline, first-match-wins per
+missing cell — a missing weight enters at tier 3 because tiers 1–2 have no
+applicable input for this gap type, by the fixture's design, not by omission:
+
+1. **Formula** — no weight gap has formula inputs (the source carries no
+   garment-total weight), so it is not reached here. The ``DERIVED_FORMULA``
+   mechanism is exercised by the footprint (``weight × factor``) in Phase 5.
+2. **Reference-resolve** — realized at normalization (Phase 3): country→ISO,
+   material vocabulary, supplier fuzzy-match. A continuous weight is not
+   reference-resolvable.
+3. **Grouped median** with support / dispersion / plausibility guards (below).
+4. **Reference constant**, marked as an assumption.
+5. **Leave null**, ``action_required``.
+"""
 
 from __future__ import annotations
 
@@ -138,6 +153,7 @@ def fill_weights(records: list[SourceRecord]) -> FillResult:
         weight = record.component_weight_g
 
         if weight is None:
+            # tiers 3 → 4 → 5, first match wins (tiers 1–2 unreachable here; see docstring)
             filled = _median_fill(source, pools) or _constant_fill(source)
             if filled is None:
                 out.append(
