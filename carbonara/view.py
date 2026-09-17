@@ -12,6 +12,7 @@ from __future__ import annotations
 import html
 import json
 
+from carbonara.augment import lineage_history
 from carbonara.footprint import (
     Breakdown,
     FactorDiff,
@@ -62,6 +63,7 @@ tr:last-child td { border-bottom: none; }
 .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
 .tag { font-size: 11px; color: var(--muted); }
 .tag b { color: var(--ink); font-weight: 400; }
+.tag.applied { color: var(--accent); border: 1px solid var(--accent); border-radius: 10px; padding: 1px 6px; }
 .badge { font-size: 10px; padding: 1px 6px; border-radius: 10px; border: 1px solid var(--line); }
 .badge.observed { color: var(--observed); border-color: var(--observed); }
 .badge.filled { color: var(--filled); border-color: var(--filled); }
@@ -101,6 +103,13 @@ function openTrace(id){
     + `<td>${esc(e.source_type)}</td><td>${esc(e.column)}</td>`
     + `<td class="num">${esc(e.value_before ?? '—')} → ${esc(e.value_after ?? '—')}</td></tr>`).join('');
   let raw = Object.entries(t.raw).map(([k,v]) => `<tr><td class="kv">${esc(k)}</td><td>${esc(v)}</td></tr>`).join('');
+  const chain = t.material_lineage || [];
+  let spine = '';
+  if(chain.length > 1){
+    const crumbs = chain.map(e =>
+      `<span class="tag">${esc(e.source_type)} <span class="kv">${esc(e.rule_id)}</span></span>`).join(' › ');
+    spine = `<h3>Cell lineage · material (spine)</h3><div class="tags">${crumbs}</div>`;
+  }
   document.getElementById('drawer-title').innerHTML = esc(t.component) + ' · ' + esc(t.record_id);
   document.getElementById('drawer-body').innerHTML =
     `<h3>Estimate</h3><div class="formula">${t.weight_g.toFixed(0)} g / 1000 × `
@@ -108,6 +117,7 @@ function openTrace(id){
     + `<div class="tags"><span class="tag">material <b>${esc(t.material)}</b></span>`
     + `<span class="tag">weight <b>${esc(t.weight_source)}</b></span>`
     + `<span class="tag">factor <b>${esc(t.factor_source)} ${esc(t.factor_source_version)}</b></span></div>`
+    + spine
     + `<h3>Rules applied (ledger)</h3><table><thead><tr><th>rule</th><th>type</th><th>column</th>`
     + `<th class="num">before → after</th></tr></thead><tbody>${ev}</tbody></table>`
     + `<h3>Source row · row ${esc(t.source_row_id)}</h3><table><tbody>${raw}</tbody></table>`;
@@ -186,12 +196,21 @@ def _review_rows(result: PipelineResult) -> str:
     findings = sorted(result.findings, key=lambda f: (order[f.severity], f.record_id))
     cells = []
     for f in findings:
+        applied = (f.record_id, f.column) in result.resolved_cells
+        status = '<span class="tag applied">applied</span>' if applied else '<span class="kv">pending</span>'
         cells.append(
             f"<tr><td>{_esc(f.record_id)}</td><td>{_esc(f.column)}</td><td>{_esc(f.category)}</td>"
             f'<td class="sev-{f.severity.value}">{_esc(f.severity)}</td>'
-            f"<td>{_esc(f.message)}</td><td>{_esc(f.proposed_value)}</td></tr>"
+            f"<td>{_esc(f.message)}</td><td>{_esc(f.proposed_value)}</td><td>{status}</td></tr>"
         )
     return "".join(cells)
+
+
+def _material_lineage(result: PipelineResult, record_id: str) -> list[dict[str, object]]:
+    """The material cell's chained lineage tiers from the Bloodline spine (oldest first)."""
+    rows = result.frame.loc[result.frame["record_id"] == record_id, "data_lineage"]
+    cell = rows.iloc[0].get("material_normalized") if len(rows) else None
+    return [{"source_type": e["source_type"], "rule_id": e["rule_id"]} for e in lineage_history(cell)]
 
 
 def _trace_data(result: PipelineResult) -> str:
@@ -225,6 +244,7 @@ def _trace_data(result: PipelineResult) -> str:
             "factor_source_version": c.factor_source_version,
             "uncertainty": list(c.uncertainty_kgco2e) if c.uncertainty_kgco2e else None,
             "events": events,
+            "material_lineage": _material_lineage(result, c.record_id),
             "raw": raw,
         }
     # Escape the solidus in any "</..." so a raw value can't close the <script> early.
@@ -299,7 +319,7 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
   <section class="panel">
     <h2>Review queue · {len(result.findings)} findings</h2>
     <div class="scroll"><table><thead><tr><th>record</th><th>column</th><th>category</th>
-      <th>sev</th><th>finding</th><th>proposed</th></tr></thead>
+      <th>sev</th><th>finding</th><th>proposed</th><th>status</th></tr></thead>
       <tbody>{_review_rows(result)}</tbody></table></div>
   </section>
 

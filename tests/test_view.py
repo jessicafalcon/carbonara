@@ -9,15 +9,19 @@ import re
 
 import pytest
 
+from carbonara.apply_review import applications_from
 from carbonara.fill import fill_weights
 from carbonara.footprint import factor_diff
 from carbonara.ingest import content_hash
 from carbonara.materialize import materialize
 from carbonara.normalize import normalize_records
 from carbonara.pipeline import PipelineResult, run
+from carbonara.review import ReviewQueue
 from carbonara.view import render_view
 
-_BOM_V1 = pathlib.Path(__file__).resolve().parent.parent / "fixtures" / "bom_v1.csv"
+_ROOT = pathlib.Path(__file__).resolve().parent.parent
+_BOM_V1 = _ROOT / "fixtures" / "bom_v1.csv"
+_DECISIONS = _ROOT / "fixtures" / "review_decisions.jsonl"
 
 
 def _rows() -> list[dict[str, str]]:
@@ -66,3 +70,28 @@ def test_factor_diff_panel_appears_only_when_supplied(result):
     diff = factor_diff(filled.records, filled.events, from_version="v1", to_version="v2")
     assert "Factor revision" not in render_view(result)
     assert "Factor revision" in render_view(result, diff=diff)
+
+
+def _applied_result() -> PipelineResult:
+    digest = content_hash(_BOM_V1.read_bytes())
+    queue = ReviewQueue(
+        run(_rows(), {"vendor": "supplier"}, content_hash=digest, created_at="2026-01-01T00:00:00Z").findings
+    )
+    queue.replay(_DECISIONS.read_text(encoding="utf-8"))
+    return run(
+        _rows(),
+        {"vendor": "supplier"},
+        content_hash=digest,
+        created_at="2026-01-01T00:00:00Z",
+        approvals=applications_from(queue),
+    )
+
+
+def test_applied_review_shows_status_and_chained_lineage():
+    applied = _applied_result()
+    html = render_view(applied)
+    assert "applied" in html  # the resolved finding's status badge
+    # The drawer trace carries the corrected cell's chained spine lineage.
+    trace = _trace(html)
+    chain = [e["source_type"] for e in trace["r0065"]["material_lineage"]]
+    assert chain == ["normalize_material", "reference_resolve"]
