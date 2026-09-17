@@ -138,15 +138,20 @@ def test_v2_mix_shift_moves_named_lines_to_organic_cotton_and_leaves_them_clean(
 
 
 def test_decomposition_truth_isolates_the_planted_changes() -> None:
-    footprint = {"v1": {}, "v2": {}}
-    quantity = {"v1": {}, "v2": {}}
+    footprint: dict[str, dict[str, float]] = {"v1": {}, "v2": {}}
+    factor: dict[str, dict[str, float]] = {"v1": {}, "v2": {}}
     for vintage in (generate.V1, generate.V2):
         for row in generate.truth_basis(vintage):
-            footprint[vintage.label][row["material"]] = float(row["true_footprint_kgco2e"])
-            quantity[vintage.label][row["material"]] = int(row["true_quantity"])
+            material = row["material"]
+            footprint[vintage.label][material] = float(row["true_footprint_kgco2e"])
+            factor[vintage.label][material] = float(row["factor_kgco2e_per_kg"])
     # The material-mix shift shows up as organic cotton appearing only in v2.
     assert "organic cotton" not in footprint["v1"]
     assert footprint["v2"]["organic cotton"] > 0
+    # The factor bump is planted on polyester alone: every other shared material
+    # keeps its v1 factor, so the intensity effect is isolable.
+    shared = footprint["v1"].keys() & footprint["v2"].keys()
+    assert {m for m in shared if factor["v2"][m] != factor["v1"][m]} == {"polyester"}
     # Every material carries a positive footprint, and the catalog total moves.
     assert all(value > 0 for basket in footprint.values() for value in basket.values())
     delta = sum(footprint["v2"].values()) - sum(footprint["v1"].values())

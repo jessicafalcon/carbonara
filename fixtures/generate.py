@@ -74,12 +74,15 @@ GROUND_TRUTH_COLUMNS: tuple[str, ...] = (
 )
 
 #: Ground-truth production-weighted footprint schema: the *true* (pre-corruption)
-#: quantity and footprint per vintage × material, from which the v1→v2 explanation
-#: is validated (brief §6, §9). One row per (vintage, material).
+#: mass and factor per vintage × material, from which the v1→v2 explanation is
+#: validated (brief §6, §9). ``true_mass_kg`` is the decomposition's count
+#: (volume + material-mix) and ``factor_kgco2e_per_kg`` its fact (intensity), so
+#: this basis feeds icanexplain directly. One row per (vintage, material).
 DECOMPOSITION_TRUTH_COLUMNS: tuple[str, ...] = (
     "vintage",
     "material",
-    "true_quantity",
+    "true_mass_kg",
+    "factor_kgco2e_per_kg",
     "true_footprint_kgco2e",
 )
 
@@ -915,32 +918,42 @@ def _check_ground_truth(rows: list[dict[str, str]], ground_truth: list[dict[str,
 
 
 def truth_basis(vintage: Vintage = V1) -> list[dict[str, str]]:
-    """Clean-truth production-weighted footprint per material for one vintage.
+    """Known-true production-weighted footprint basis per material for one vintage.
 
-    Computes ``Σ_line quantity × weight_kg × factor(material)`` grouped by material
-    from the *pre-corruption* clean rows, at the vintage's factor version — the
-    known-exact basis the v1→v2 explanation is validated against (brief §6, §9).
-    Rows are ordered by material for a byte-stable file.
+    Reconstructs what the connector *should* cost if every fill were perfect: it
+    reads the same rows the pipeline receives, restores each blanked or
+    unit-corrupted weight from the retained ground truth, drops the re-emitted
+    duplicate, and keeps a component only when its raw material resolves to a known
+    factor — exactly the pipeline's costed universe, so the two decompositions
+    compare like for like (brief §6, §9). Mass ``Σ_line quantity × weight_kg`` is
+    the decomposition's count (volume + material-mix) and the emission factor its
+    fact (intensity). Rows are ordered by material for a byte-stable file.
     """
-    rows = _clean_rows(random.Random(SEED), vintage)
+    rows, ground_truth = generate(vintage=vintage)
+    true_weight = {
+        row["source_row_id"]: row["true_value"] for row in ground_truth if row["column"] == "component_weight_g"
+    }
+    duplicates = {row["source_row_id"] for row in ground_truth if row["case"] == "duplicate_key"}
     factors = material_factors(vintage.factor_version)
-    quantities: dict[str, int] = {}
-    footprints: dict[str, float] = {}
+    masses: dict[str, float] = {}
     for row in rows:
+        source_row_id = row["source_row_id"]
         material = row["material"]
-        quantity = int(row["quantity"])
-        weight_kg = _parse_grams(row["net_weight"]) / 1000
-        factor = factors[material].factor_kgco2e_per_kg
-        quantities[material] = quantities.get(material, 0) + quantity
-        footprints[material] = footprints.get(material, 0.0) + quantity * weight_kg * factor
+        # Skip the re-emitted duplicate and any material the connector leaves
+        # unmapped (e.g. the "Organic cottn" typo is proposed, never auto-applied).
+        if source_row_id in duplicates or material not in factors:
+            continue
+        grams = float(true_weight[source_row_id]) if source_row_id in true_weight else _parse_grams(row["net_weight"])
+        masses[material] = masses.get(material, 0.0) + int(row["quantity"]) * grams / 1000
     return [
         {
             "vintage": vintage.label,
             "material": material,
-            "true_quantity": str(quantities[material]),
-            "true_footprint_kgco2e": f"{footprints[material]:.6f}",
+            "true_mass_kg": f"{masses[material]:.6f}",
+            "factor_kgco2e_per_kg": f"{factors[material].factor_kgco2e_per_kg:.4f}",
+            "true_footprint_kgco2e": f"{masses[material] * factors[material].factor_kgco2e_per_kg:.6f}",
         }
-        for material in sorted(quantities)
+        for material in sorted(masses)
     ]
 
 

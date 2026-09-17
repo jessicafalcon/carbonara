@@ -57,3 +57,13 @@ dev = [
   "ruff>=0.14.6",
   "ty>=0.0.1a27",
 ]
+# Phase-6 (stretch) analytics layer only: the Lea DAG + the icanexplain
+# decomposition live outside carbonara/, so their heavier deps stay out of the
+# connector's runtime dependencies. ibis runs on its pandas backend (its duckdb
+# backend pins duckdb<1.2, which the connector and lea outrun).
+analytics = [
+  "lea>=4.4.0",
+  "icanexplain>=0.3.0",
+  "pyarrow>=25.0.1",
+  "pyarrow-hotfix>=0.7",
+]
