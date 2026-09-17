@@ -215,7 +215,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   Exit gate green: walkthrough reproducible from a clean checkout; the approved cell
   carries a two-entry lineage (original + approval); re-run byte-identical; empty
   approvals reproduces the single-pass output. `pytest` (203) + `pre-commit` pass.
-  **Open: push branch + open PR #9; merge is the user's call. Next after merge:
-  Phase 8 is the last §16 phase — project complete.**
+  **Open: PR #9 (pushed, awaiting merge); merge is the user's call. Next after
+  merge: Phase 8 is the last §16 phase — project complete.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
