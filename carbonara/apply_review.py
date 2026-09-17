@@ -18,7 +18,7 @@ sorted, stable order. Empty approvals is a no-op that returns the records unchan
 >>> from carbonara.rules import SourceType
 >>> record = SourceRecord(
 ...     record=CanonicalRecord(
-...         record_id="r0065", source_row_id="65", style_id="TSH-11", sku="TSH-11-WHT-XS",
+...         record_id="r0065", source_row_id="65", style_id="TSH-11", category="TSH", sku="TSH-11-WHT-XS",
 ...         component="shell fabric", material_raw="Organic cottn", supplier_raw="Acme Textiles",
 ...     ),
 ...     raw={},

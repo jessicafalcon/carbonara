@@ -112,10 +112,6 @@ class Breakdown:
     filled_share: float
 
 
-def _category(style_id: str) -> str:
-    return style_id.split("-")[0]
-
-
 def _filled_weight_events(fill_events: list[RuleEvent]) -> dict[str, RuleEvent]:
     """Index weight-fill events by record id, to label observed vs. filled."""
     tiers = {SourceType.GROUPED_MEDIAN, SourceType.REFERENCE_CONSTANT, SourceType.DERIVED_FORMULA}
@@ -135,8 +131,8 @@ def compute_footprint(
     ``DERIVED_FORMULA`` event.
 
     >>> from carbonara.contract import CanonicalRecord
-    >>> rec = CanonicalRecord(record_id="r0001", source_row_id="1", style_id="TSH-1", sku="S",
-    ...     component="shell fabric", material_raw="cotton", material_normalized="cotton",
+    >>> rec = CanonicalRecord(record_id="r0001", source_row_id="1", style_id="TSH-1", category="TSH",
+    ...     sku="S", component="shell fabric", material_raw="cotton", material_normalized="cotton",
     ...     component_weight_g=200.0, supplier_raw="Acme")
     >>> result = compute_footprint([SourceRecord(record=rec, raw={})], [])
     >>> round(result.components[0].estimated_kgco2e, 3)  # 0.2 kg × 3.4151
@@ -187,7 +183,7 @@ def compute_footprint(
             ComponentFootprint(
                 record_id=record.record_id,
                 style_id=record.style_id,
-                category=_category(record.style_id),
+                category=record.category,
                 component=record.component,
                 factor_version=factor_version,
                 material=material,
@@ -237,7 +233,7 @@ def _uncosted(
     return ComponentFootprint(
         record_id=record.record_id,
         style_id=record.style_id,
-        category=_category(record.style_id),
+        category=record.category,
         component=record.component,
         factor_version=factor_version,
         material=record.material_normalized,

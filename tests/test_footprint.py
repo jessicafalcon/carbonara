@@ -20,6 +20,7 @@ def _record(
         record_id=rid,
         source_row_id=rid.lstrip("r"),
         style_id="TSH-1",
+        category="TSH",
         sku="S",
         component="shell fabric",
         material_raw=material_raw,
