@@ -33,9 +33,17 @@ isolation. No new detector; wire the one that exists.
   disjoint from the existing MAPPING/PLAUSIBILITY findings, so merging cannot
   collide. `detect_anomalies` already emits in a fixed order, so the run stays
   byte-reproducible (guard-clean — no data-path change beyond a call).
-- **Completeness overlaps coverage by design.** A "missing weight" finding is
-  per-cell and reviewable; the observed/filled share is the aggregate. They are
-  two views of the same fact, both intended by §7.3 and §10 — not a duplicate.
+- **Weight completeness is residual, not raw.** Flagging every originally-missing
+  weight floods the queue with cells the ladder resolves (97 of 123 on the
+  fixture, all filled) and buries the actionable findings — while the weights the
+  ladder *cannot* resolve raised no finding at all (`fill.py` set
+  `ACTION_REQUIRED` silently). So weight completeness is owned by the fill stage:
+  it flags only the residual null the ladder leaves (§7.4 tier 5, MEDIUM), the
+  gap that actually needs a decision. `detect_anomalies` keeps country
+  completeness (no ladder resolves country). The "was imputed" fact is still
+  carried by the observed/filled share, the per-cell fill lineage, and the
+  `no weight` coverage tag — it does not need a queue item. (Decision taken
+  mid-branch after the review showed the queue was 79% non-actionable.)
 - **View: summarize, do not hide.** The review queue lists all findings, already
   sorted HIGH → LOW. Add a by-severity summary to the readiness panel (§10) so a
   reviewer sees `high/medium/low` counts at a glance instead of scrolling. Nothing

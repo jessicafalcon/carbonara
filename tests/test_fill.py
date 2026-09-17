@@ -6,7 +6,7 @@ from carbonara.contract import QualityStatus
 from carbonara.fill import fill_weights
 from carbonara.materialize import materialize
 from carbonara.normalize import normalize_records
-from carbonara.rules import AnomalyCategory, SourceType
+from carbonara.rules import AnomalyCategory, Severity, SourceType
 
 
 def _row(row_id: str, **over: str) -> dict[str, str]:
@@ -71,6 +71,10 @@ def test_component_without_a_reference_is_left_action_required():
     assert result.events == []
     assert _by_id(result.records, 1).record.component_weight_g is None
     assert _by_id(result.records, 1).record.quality_status is QualityStatus.ACTION_REQUIRED
+    # The residual null is surfaced for review — the completeness gap the ladder
+    # could not resolve, not the missing weights it filled (§7.4 tier 5).
+    [finding] = [f for f in result.findings if f.category is AnomalyCategory.COMPLETENESS]
+    assert finding.column == "component_weight_g" and finding.severity is Severity.MEDIUM
 
 
 def test_implausible_observed_weight_is_flagged_not_changed():

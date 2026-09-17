@@ -59,9 +59,15 @@ def test_extreme_price_is_a_distribution_finding():
     assert any(f.column == "unit_price" and f.record_id == "r0099" for f in findings)
 
 
-def test_missing_weight_is_a_completeness_finding():
+def test_unresolved_country_is_a_completeness_finding():
+    findings = _categories(_findings([_row("1", country="")]), AnomalyCategory.COMPLETENESS)
+    assert any(f.column == "factory_country_iso" for f in findings)
+
+
+def test_missing_weight_is_not_flagged_here():
+    # Weight completeness is owned by the fill stage (residual only), not detected here.
     findings = _categories(_findings([_row("1", net_weight="")]), AnomalyCategory.COMPLETENESS)
-    assert any(f.column == "component_weight_g" for f in findings)
+    assert not any(f.column == "component_weight_g" for f in findings)
 
 
 def test_composition_not_summing_to_100_is_cross_field():

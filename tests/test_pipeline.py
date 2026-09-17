@@ -133,10 +133,12 @@ def test_re_run_with_approvals_is_byte_identical():
 
 def test_run_surfaces_the_wired_anomaly_net():
     # The pipeline carries the anomaly net (§7.3), not just mapping/plausibility:
-    # the planted validity, completeness, duplicate-key, cross-field, and
-    # distribution cases reach findings instead of passing through silently.
+    # the planted validity, duplicate-key, cross-field, and distribution cases reach
+    # findings instead of passing through silently. (Completeness is country-only
+    # plus the ladder's residual weight gap; the fixture resolves every country and
+    # fills every weight, so it plants no completeness case — covered in unit tests.)
     categories = {f.category.value for f in _run().findings}
-    assert {"validity", "completeness", "duplicate_key", "cross_field", "distribution"} <= categories
+    assert {"validity", "duplicate_key", "cross_field", "distribution"} <= categories
 
 
 def test_findings_reproduce_across_runs():
