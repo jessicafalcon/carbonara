@@ -14,6 +14,9 @@ dist/
 # Local caches for external reference data (fetched, not versioned)
 .cache/
 
+# Secrets — API tokens for build-time reference fetches (never committed)
+.env
+
 # DuckDB working files
 *.duckdb
 *.duckdb.wal

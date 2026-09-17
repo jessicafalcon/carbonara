@@ -1,0 +1,9 @@
+material,factor_kgco2e_per_kg,source,source_version,source_ref
+cotton,3.4151,Ecobalyse / ADEME Base Empreinte,ecoinvent-3.9.1 via Ecobalyse,"Coton — climate change (cch), material stage, 1 kg, default origin — https://ecobalyse.beta.gouv.fr/"
+organic cotton,0.9991,Ecobalyse / ADEME Base Empreinte,ecoinvent-3.9.1 via Ecobalyse,"Coton biologique — climate change (cch), material stage, 1 kg, default origin — https://ecobalyse.beta.gouv.fr/"
+polyester,4.8288,Ecobalyse / ADEME Base Empreinte,ecoinvent-3.9.1 via Ecobalyse,"Polyester — climate change (cch), material stage, 1 kg, default origin — https://ecobalyse.beta.gouv.fr/"
+nylon,12.3703,Ecobalyse / ADEME Base Empreinte,ecoinvent-3.9.1 via Ecobalyse,"Nylon — climate change (cch), material stage, 1 kg, default origin — https://ecobalyse.beta.gouv.fr/"
+viscose,4.9672,Ecobalyse / ADEME Base Empreinte,ecoinvent-3.9.1 via Ecobalyse,"Viscose — climate change (cch), material stage, 1 kg, default origin — https://ecobalyse.beta.gouv.fr/"
+elastane,7.915,Ecobalyse / ADEME Base Empreinte,ecoinvent-3.9.1 via Ecobalyse,"Elasthane — climate change (cch), material stage, 1 kg, default origin — https://ecobalyse.beta.gouv.fr/"
+brass,4.2,ADEME Base Empreinte,base-empreinte-2024,metal component hardware (representative) — https://base-empreinte.ademe.fr/
+metal,3.5,ADEME Base Empreinte,base-empreinte-2024,metal component hardware (representative) — https://base-empreinte.ademe.fr/

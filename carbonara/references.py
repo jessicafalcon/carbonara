@@ -9,23 +9,59 @@ from __future__ import annotations
 import csv
 import dataclasses
 import functools
+import hashlib
 import pathlib
 
 __all__ = [
+    "MaterialFactor",
     "MaterialVocab",
     "ReferenceWeight",
     "country_iso",
+    "factor_digest",
+    "material_factors",
     "material_vocab",
+    "reference_digest",
     "reference_weights",
     "supplier_names",
 ]
 
 _REFERENCES_DIR = pathlib.Path(__file__).resolve().parent.parent / "references"
 
+#: The reference vocabularies that feed a run, besides the versioned factor table.
+#: Hashed into the run id so a change to any of them is a new, detectable run.
+_RUN_REFERENCE_FILES = ("countries_iso_v1.csv", "materials_v1.csv", "suppliers_v1.csv", "reference_weights_v1.csv")
+
 
 def _read(name: str) -> list[dict[str, str]]:
     with (_REFERENCES_DIR / name).open(newline="") as handle:
         return list(csv.DictReader(handle))
+
+
+def _digest(names: tuple[str, ...]) -> str:
+    """A content hash over the named reference files (order-independent, 16 hex)."""
+    hasher = hashlib.sha256()
+    for name in sorted(names):
+        hasher.update(name.encode())
+        hasher.update(b"\0")
+        hasher.update((_REFERENCES_DIR / name).read_bytes())
+        hasher.update(b"\0")
+    return hasher.hexdigest()[:16]
+
+
+@functools.cache
+def factor_digest(version: str = "v1") -> str:
+    """Content hash of one factor table — its identity by bytes, not by filename."""
+    return _digest((f"material_factors_{version}.csv",))
+
+
+@functools.cache
+def reference_digest(factor_version: str = "v1") -> str:
+    """Content hash of every reference file a run reads (vocabularies + factors).
+
+    Folded into the run id so any edit to reference data — even without a version
+    rename — yields a new run and is caught by the reproducibility check (§8.3).
+    """
+    return _digest((*_RUN_REFERENCE_FILES, f"material_factors_{factor_version}.csv"))
 
 
 @functools.cache
@@ -81,4 +117,38 @@ def reference_weights() -> dict[str, ReferenceWeight]:
             band_high_g=float(row["band_high_g"]),
         )
         for row in _read("reference_weights_v1.csv")
+    }
+
+
+@dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
+class MaterialFactor:
+    """A material's climate-change emission factor and its citation.
+
+    References
+    ----------
+    [1] Ecobalyse / ADEME Base Empreinte — https://ecobalyse.beta.gouv.fr/
+    """
+
+    factor_kgco2e_per_kg: float
+    source: str
+    source_version: str
+    source_ref: str
+
+
+@functools.cache
+def material_factors(version: str = "v1") -> dict[str, MaterialFactor]:
+    """Emission factor (kgCO₂e/kg) per material, from the versioned factor table.
+
+    The table is a pinned, in-repo snapshot of Ecobalyse/ADEME material impacts so
+    the data path stays offline and reproducible; it is a labeled assumption set,
+    not a precise claim (brief §15). ``version`` selects ``material_factors_<v>.csv``.
+    """
+    return {
+        row["material"]: MaterialFactor(
+            factor_kgco2e_per_kg=float(row["factor_kgco2e_per_kg"]),
+            source=row["source"],
+            source_version=row["source_version"],
+            source_ref=row["source_ref"],
+        )
+        for row in _read(f"material_factors_{version}.csv")
     }

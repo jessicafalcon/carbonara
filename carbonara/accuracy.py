@@ -53,7 +53,9 @@ def fill_accuracy(events: list[RuleEvent], truth: dict[str, float]) -> AccuracyR
     per_tier: dict[str, list[tuple[float, float]]] = defaultdict(list)
     overall: list[tuple[float, float]] = []
     for event in events:
-        if event.source_type not in _FILL_TIERS or event.value_after is None:
+        # Scope to weight fills: the footprint also emits DERIVED_FORMULA events,
+        # on the estimated_kgco2e column, which are not weight fills to score.
+        if event.column != "component_weight_g" or event.source_type not in _FILL_TIERS or event.value_after is None:
             continue
         true = truth.get(event.record_id)
         if true is None:
