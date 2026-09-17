@@ -106,13 +106,12 @@ def test_rerun_reprocesses_without_duplicating_bytes(tmp_path):
 
 
 def test_xlsx_is_parsed_through_the_same_gate(tmp_path):
-    store = tmp_path / "store"
-    result = admit(_write(tmp_path, "book.xlsx", _clean_xlsx_bytes()), store)
+    # A schema-matching XLSX is parsed and accepted just as the CSV path is;
+    # storage/baseline is format-agnostic and already covered by the CSV accept test.
+    result = admit(_write(tmp_path, "book.xlsx", _clean_xlsx_bytes()), tmp_path / "store")
     assert result.source_format is SourceFormat.XLSX
-    assert result.status is IngestStatus.ACCEPTED  # same schema → accepted, like the CSV
+    assert result.status is IngestStatus.ACCEPTED
     assert result.encoding == "utf-8"
-    assert (store / "accepted_schema.json").exists()
-    assert result.stored_path.read_bytes() == _clean_xlsx_bytes()
 
 
 def test_read_rows_reads_xlsx_cells_faithfully(tmp_path):

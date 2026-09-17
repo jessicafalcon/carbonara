@@ -124,9 +124,12 @@ def _read_csv(raw: bytes) -> tuple[tuple[str, ...], list[dict[str, str]], str]:
 def _cell_str(value: object) -> str:
     """Convert one XLSX cell to the canonical string the CSV path would carry.
 
-    Deterministic and locale-free: an integer keeps no trailing ``.0``, a date
-    cell becomes an ISO date (matching the CSV convention for ``order_date``),
-    and a blank cell is the empty string.
+    Only three openpyxl cell types need more than ``str(value)``, so only those
+    are special-cased: a blank is ``""`` (not ``"None"``), an integer-valued float
+    keeps no trailing ``.0``, and an Excel date cell — a ``datetime`` at midnight —
+    becomes an ISO date so ``order_date`` parses like the CSV convention. Text,
+    ints, and a genuine timestamp already stringify correctly. Deterministic and
+    locale-free.
 
     >>> _cell_str(7), _cell_str(6.26), _cell_str(3400.0), _cell_str(None)
     ('7', '6.26', '3400', '')
@@ -135,17 +138,10 @@ def _cell_str(value: object) -> str:
     """
     if value is None:
         return ""
-    if isinstance(value, bool):
-        return "TRUE" if value else "FALSE"
-    if isinstance(value, int):
-        return str(value)
     if isinstance(value, float):
         return str(int(value)) if value.is_integer() else str(value)
-    if isinstance(value, datetime.datetime):
-        midnight = value.hour == value.minute == value.second == value.microsecond == 0
-        return value.date().isoformat() if midnight else value.isoformat(sep=" ")
-    if isinstance(value, datetime.date | datetime.time):
-        return value.isoformat()
+    if isinstance(value, datetime.datetime) and value.hour == value.minute == value.second == value.microsecond == 0:
+        return value.date().isoformat()
     return str(value)
 
 
