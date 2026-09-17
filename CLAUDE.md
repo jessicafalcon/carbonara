@@ -151,8 +151,8 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   cross-field, duplicate key); the review queue approves/rejects with history and
   mints alias rules; every populated cell carries a RuleEvent; re-runs are
   identical; `pytest` (96) + `pre-commit` pass. Scoped out: fills, plausibility
-  band, persistent ledger + Bloodline, implausible-claim. **Open PR (this
-  branch)** — merge is the user's call. **Next after merge: Phase 4 — fill ladder
+  band, persistent ledger + Bloodline, implausible-claim. **Open PR #4** — merge
+  is the user's call. **Next after merge: Phase 4 — fill ladder
   + rule ledger + Bloodline lineage (M4);** start a `phase-4-*` branch and spec.
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
