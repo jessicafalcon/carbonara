@@ -140,15 +140,19 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
 
 - **Phase 0 — build harness + repo skeleton: done** (on `main`).
 - **Phase 1 — contract + fixture generator: done** (merged, PR #2).
-- **Phase 2 — ingest + schema-drift gate: at exit gate, awaiting merge.**
-  Branch `phase-2-ingest-and-schema-drift`; all 5 spec steps committed (spec,
-  profile, source schema + drift diff + mapping proposal, ingest orchestration,
-  §12 fixture-behavior tests). Exit gate green: a clean file is accepted and
-  recorded as baseline, a renamed header halts review-required with a
-  `vendor → supplier` proposal, duplicate bytes are a no-op, admit is
-  deterministic, and `pytest` + `pre-commit` pass. XLSX parsing is scoped out
-  (detected, raises). **Open PR #3** — merge is the user's call.
-  **Next after merge: Phase 3 — normalize + validate + anomaly events (M3);**
-  start a `phase-3-*` branch and spec.
+- **Phase 2 — ingest + schema-drift gate: done** (merged, PR #3).
+- **Phase 3 — normalize + validate + anomaly events: at exit gate, awaiting merge.**
+  Branch `phase-3-normalize-validate-anomalies`; spec + steps committed (rules
+  records, reference data + loaders, materialize, value + reference normalizers,
+  anomaly detectors, review queue, §12 fixture tests). Exit gate green: the
+  normalize+validate pass over `bom_v1` produces every §12 event (shorthand
+  composition, mixed g/kg with raw preserved, material typo as a proposal,
+  supplier variant normalized, malformed date, extreme price, zero-weight
+  cross-field, duplicate key); the review queue approves/rejects with history and
+  mints alias rules; every populated cell carries a RuleEvent; re-runs are
+  identical; `pytest` (96) + `pre-commit` pass. Scoped out: fills, plausibility
+  band, persistent ledger + Bloodline, implausible-claim. **Open PR #4** — merge
+  is the user's call. **Next after merge: Phase 4 — fill ladder
+  + rule ledger + Bloodline lineage (M4);** start a `phase-4-*` branch and spec.
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
