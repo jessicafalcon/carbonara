@@ -84,6 +84,7 @@ def test_pass_normalizes_and_records_events():
     types = {event.source_type for event in result.events}
     assert SourceType.NORMALIZE_UNIT in types
     assert SourceType.NORMALIZE_SUPPLIER in types
+    assert SourceType.NORMALIZE_AMOUNT in types  # coercion is logged, not silent
 
 
 def test_pass_emits_material_proposal_finding_without_editing():

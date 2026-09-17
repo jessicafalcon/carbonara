@@ -31,6 +31,7 @@ class SourceType(enum.StrEnum):
 
     NORMALIZE_DATE = "normalize_date"
     NORMALIZE_UNIT = "normalize_unit"
+    NORMALIZE_AMOUNT = "normalize_amount"
     NORMALIZE_COMPOSITION = "normalize_composition"
     NORMALIZE_COUNTRY = "normalize_country"
     NORMALIZE_SUPPLIER = "normalize_supplier"

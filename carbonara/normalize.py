@@ -205,14 +205,35 @@ def normalize_records(records: list[SourceRecord]) -> NormalizeResult:
         raw = source.raw
         changes: dict[str, object] = {}
 
-        # Lossless type coercion of the amount fields; a parse failure leaves the
-        # cell null for the validity detector to flag.
+        # Coerce the amount fields; a parse failure leaves the cell null for the
+        # validity detector to flag. Even a lossless coercion writes an event, so
+        # no populated cell is without a rule (invariant 2).
         quantity = _to_int(raw["quantity"])
         if quantity is not None:
             changes["quantity"] = quantity
+            events.append(
+                _event(
+                    record.record_id,
+                    "quantity",
+                    "amount_coerce",
+                    SourceType.NORMALIZE_AMOUNT,
+                    raw["quantity"],
+                    str(quantity),
+                )
+            )
         price = _to_float(raw["unit_price"])
         if price is not None:
             changes["unit_price"] = price
+            events.append(
+                _event(
+                    record.record_id,
+                    "unit_price",
+                    "amount_coerce",
+                    SourceType.NORMALIZE_AMOUNT,
+                    raw["unit_price"],
+                    str(price),
+                )
+            )
 
         weight = parse_weight(raw["net_weight"])
         if weight is not None:
