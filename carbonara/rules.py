@@ -36,6 +36,10 @@ class SourceType(enum.StrEnum):
     NORMALIZE_COUNTRY = "normalize_country"
     NORMALIZE_SUPPLIER = "normalize_supplier"
     NORMALIZE_MATERIAL = "normalize_material"
+    DERIVED_FORMULA = "derived_formula"
+    REFERENCE_RESOLVE = "reference_resolve"
+    GROUPED_MEDIAN = "grouped_median"
+    REFERENCE_CONSTANT = "reference_constant"
     UNKNOWN = "unknown"
 
 
@@ -59,6 +63,7 @@ class AnomalyCategory(enum.StrEnum):
     DUPLICATE_KEY = "duplicate_key"
     CROSS_FIELD = "cross_field"
     DISTRIBUTION = "distribution"
+    PLAUSIBILITY = "plausibility"
     MAPPING = "mapping"
 
 
@@ -90,6 +95,7 @@ class RuleEvent:
     value_after: str | None
     is_original_null: bool
     method_params: dict[str, object] = dataclasses.field(default_factory=dict)
+    uncertainty_range: tuple[float, float] | None = None
 
     @classmethod
     def create(
@@ -103,6 +109,7 @@ class RuleEvent:
         value_before: str | None,
         value_after: str | None,
         method_params: dict[str, object] | None = None,
+        uncertainty_range: tuple[float, float] | None = None,
     ) -> RuleEvent:
         """Build an event, deriving the id and ``is_original_null`` from the inputs."""
         return cls(
@@ -116,6 +123,7 @@ class RuleEvent:
             value_after=value_after,
             is_original_null=value_before is None or value_before == "",
             method_params=method_params or {},
+            uncertainty_range=uncertainty_range,
         )
 
 
