@@ -93,6 +93,36 @@ Build the reconciled explanation as an artifact:
 uv run python scripts/build_explanation.py   # writes build/explanation.json
 ```
 
+## Cell lineage lifecycle
+
+The Bloodline spine records one source per cell — the *current* value's origin —
+so a later rule replaces the earlier one. When a cell is touched by more than one
+rule, `carbonara.augment` keeps the whole ordered lifecycle inline: the head
+source stays the latest rule (every Bloodline read still works), and the prior
+rules ride in its metadata as an oldest-first list, each with its id, version,
+and confidence. It is the append-only counterpart to the fill-ladder lineage; the
+per-cell list is a projection, not a second copy of the cross-cell ledger.
+
+```python
+>>> import bloodline as bl
+>>> from carbonara.augment import RuleRecord, augment_source, lineage_history
+>>> # A material cell first normalized, then resolved against the reference list.
+>>> normalized = bl.Source(
+...     source_type="normalize_material",
+...     source_metadata={"rule_id": "material_lower", "rule_version": "v1"},
+... )
+>>> resolved = RuleRecord(
+...     rule_id="material_resolve", rule_version="v1",
+...     source_type="reference_resolve", confidence=0.9,
+... )
+>>> head = augment_source(normalized, resolved)
+>>> head.source_type  # the head is the latest rule
+'reference_resolve'
+>>> [r["source_type"] for r in lineage_history(head)]
+['normalize_material', 'reference_resolve']
+
+```
+
 ## Install
 
 ```sh

@@ -172,16 +172,21 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   with icanexplain's ibis + BigQuery dependency bloat; the DAG is plain DuckDB SQL (see
   the spec's Dependencies section). Added a `carbonara-pr` PR-writing skill. `pytest`
   (172) + `pre-commit` pass.
-- **Phase 7 — (aspiration) Bloodline augmentation-rule helper (M7): in progress.**
-  Branch `phase-7-augmentation-rule-helper`; spec written (`specs/phase-7-augmentation-rule-helper.md`,
-  4 ordered steps). Closes the source-vs-lifecycle gap (§8.1): an in-repo helper
-  (`carbonara/augment.py`) preserves a cell's original Bloodline lineage while
-  attaching an ordered rule record (rule id/version, inputs, confidence) inside the
-  head `Source`'s metadata — one `Source` per cell kept, lifecycle as an oldest-first
-  `"lineage"` list, no parallel store, no clobber. Uses `apply_data_lineage`/`Source`
-  as intended (liftable upstream; no upstream PR this phase). Deterministic → stays in
-  `carbonara/`, passes the guard. The live pipeline still clobbers with `override=True`
-  (one rule per cell today); the helper is demonstrated on a two-rule cell. **Next:
-  step 2 — write `carbonara/augment.py` + module doctest.**
+- **Phase 7 — (aspiration) Bloodline augmentation-rule helper (M7): at exit gate, awaiting merge.**
+  Branch `phase-7-augmentation-rule-helper`; spec + 4 steps committed. Closes the
+  source-vs-lifecycle gap (§8.1): the in-repo helper `carbonara/augment.py`
+  (`RuleRecord`, `augment_source`, `augment_lineage`, `lineage_history`) preserves a
+  cell's original Bloodline lineage while attaching an ordered rule record (rule
+  id/version, inputs, confidence) inside the head `Source`'s metadata — one `Source`
+  per cell kept, lifecycle as an oldest-first `"lineage"` list, no parallel store, no
+  clobber. Uses `apply_data_lineage`/`Source` as intended and depends only on
+  Bloodline + pandas + stdlib, so it is liftable upstream (no upstream PR this phase,
+  per §11). Deterministic → lives in `carbonara/`, passes the guard. The live pipeline
+  still clobbers with `override=True` (one rule per cell today); the helper is
+  demonstrated on a two-rule cell (`tests/test_augment.py`, 7 regression tests) and a
+  module + README doctest. Also fixed a pre-existing E501 in
+  `scripts/build_explanation.py` that slipped past PR #7's gate. `pytest` (181) +
+  `pre-commit` pass. **Open: push branch + open PR #8 (this step); merge is the
+  user's call. Next after merge: Phase 8 — demo + limitations note (M8).**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
