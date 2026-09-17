@@ -195,7 +195,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   (`.github/workflows/ci.yml`: `pytest` + `pre-commit` on push/PR) since the gate was
   only ever local, and installed the pre-push hook. `pytest` (181) + `pre-commit`
   pass.
-- **Phase 8 — demo + limitations note, review loop applied (M8): at exit gate, awaiting merge.**
+- **Phase 8 — demo + limitations note, review loop applied (M8): done** (merged, PR #9).
   Branch `phase-8-applied-review-loop`; spec + 8 steps committed. Wires
   `review.approved_rules()` back into the pipeline as a deterministic second pass
   (`carbonara/apply_review.py`): an approved mapping (`Organic cottn` → `organic cotton`)
@@ -215,7 +215,13 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   Exit gate green: walkthrough reproducible from a clean checkout; the approved cell
   carries a two-entry lineage (original + approval); re-run byte-identical; empty
   approvals reproduces the single-pass output. `pytest` (203) + `pre-commit` pass.
-  **Open: PR #9 (pushed, awaiting merge); merge is the user's call. Next after
-  merge: Phase 8 is the last §16 phase — project complete.**
+  Phase 8 was the last §16 phase — **the build is complete.**
+- **Post-project audit follow-ups: open (PR #10).** Branch `chore/audit-followups`
+  off `main`, no connector behavior change. Corrects three stale spec claims
+  against the shipped code (Phase 1 row count ~300 not ~500; Phase 5 excludes
+  plausibility-`FLAGGED` weights from headline totals; Phase 6 ground-truth
+  validation is direction-only with the ~10% gap reported as QA), and renames the
+  four phase-named test suites to behavior names. `pytest` (203) + `pre-commit`
+  pass. **Merge is the user's call.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
