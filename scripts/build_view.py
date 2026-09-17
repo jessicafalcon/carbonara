@@ -13,16 +13,19 @@ import csv
 import pathlib
 import sys
 
+from carbonara.apply_review import applications_from
 from carbonara.fill import fill_weights
 from carbonara.footprint import factor_diff
 from carbonara.ingest import content_hash
 from carbonara.materialize import materialize
 from carbonara.normalize import normalize_records
 from carbonara.pipeline import run
+from carbonara.review import ReviewQueue
 from carbonara.view import render_view
 
 _ROOT = pathlib.Path(__file__).resolve().parent.parent
 _BOM_V1 = _ROOT / "fixtures" / "bom_v1.csv"
+_DECISIONS = _ROOT / "fixtures" / "review_decisions.jsonl"
 _MAPPING = {"vendor": "supplier"}
 _CREATED_AT = "2026-01-01T00:00:00Z"  # injected, not wall-clock — keeps the page reproducible
 
@@ -31,7 +34,14 @@ def main(out: pathlib.Path) -> None:
     with _BOM_V1.open(newline="") as handle:
         rows = list(csv.DictReader(handle))
 
-    result = run(rows, _MAPPING, content_hash=content_hash(_BOM_V1.read_bytes()), created_at=_CREATED_AT)
+    digest = content_hash(_BOM_V1.read_bytes())
+    # Replay the approved mapping so the page shows the applied review loop: the
+    # Organic cottn cells resolved and costed, their lineage chained (§10).
+    findings = run(rows, _MAPPING, content_hash=digest, created_at=_CREATED_AT).findings
+    queue = ReviewQueue(findings)
+    queue.replay(_DECISIONS.read_text(encoding="utf-8"))
+
+    result = run(rows, _MAPPING, content_hash=digest, created_at=_CREATED_AT, approvals=applications_from(queue))
 
     filled = fill_weights(normalize_records(materialize(rows, _MAPPING)).records)
     diff = factor_diff(filled.records, filled.events, from_version="v1", to_version="v2")

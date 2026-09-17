@@ -123,6 +123,66 @@ per-cell list is a projection, not a second copy of the cross-cell ledger.
 
 ```
 
+## Walkthrough — the review loop, applied
+
+An uncertain mapping is surfaced for review, never auto-applied. When a reviewer
+approves it, the approval is re-applied to the cell it corrects as a deterministic
+second pass: the approved alias chains onto the cell's normalize source
+(`normalize_material → reference_resolve`) instead of overwriting it, and writes a
+ledger event like any rule. The decision (actor, status, timestamp) is injected, so
+the re-run stays byte-identical.
+
+```python
+>>> from carbonara.pipeline import run
+>>> from carbonara.review import ReviewQueue
+>>> from carbonara.apply_review import applications_from
+>>> from carbonara.augment import lineage_history
+>>> rows = [{"source_row_id": "65", "style_id": "TSH-11", "sku": "TSH-11-WHT-XS",
+...          "component": "shell fabric", "material": "Organic cottn", "composition": "100% cotton",
+...          "net_weight": "131 g", "vendor": "Acme Textiles", "country": "Portugal",
+...          "order_date": "2024-10-16", "quantity": "3400", "unit_price": "6.26"}]
+>>> ctx = dict(content_hash="demo", created_at="2026-01-01T00:00:00Z")
+>>> before = run(rows, {"vendor": "supplier"}, **ctx)
+>>> before.frame["material_normalized"][0] is None  # 'Organic cottn' is proposed, not applied
+True
+>>> queue = ReviewQueue(before.findings)
+>>> mapping = next(f for f in before.findings if f.category.value == "mapping")
+>>> _ = queue.approve(mapping.finding_id, actor="reviewer", at="2026-01-01T00:00:00Z")
+>>> after = run(rows, {"vendor": "supplier"}, approvals=applications_from(queue), **ctx)
+>>> after.frame["material_normalized"][0]  # the approved alias is re-applied
+'organic cotton'
+>>> cell = after.frame["data_lineage"][0]["material_normalized"]
+>>> [e["source_type"] for e in lineage_history(cell)]  # original + approval, chained
+['normalize_material', 'reference_resolve']
+
+```
+
+Run the full narrated story (upload → drift gate → review → approve → re-run →
+fill → footprint → provenance trace) over the fixture BOM:
+
+```sh
+uv run python scripts/demo.py
+```
+
+## Limitations
+
+The connector is deliberate about what it asserts and what it does not (brief §15):
+
+- A filled or approved value is a labeled estimate, never exact. Imputed weights
+  carry an uncertainty range; an approved mapping is a recorded reviewer decision,
+  not ground truth. Fill accuracy is *measured* against planted ground truth, never
+  claimed.
+- A footprint that rests materially on filled inputs is reported with its coverage
+  and factor assumptions, not as a precise figure.
+- An anomaly is not an error until a reviewer decides. Uncertain mappings are
+  surfaced for review and applied only through a versioned, approved rule — never
+  guessed, never silently corrected.
+- Emission factors are external reference data (Ecobalyse / ADEME Base Empreinte),
+  versioned in-repo and cited per row; an estimate is only as current as the factor
+  table it names.
+- Scope is one file at a time — an apparel BOM / catalog / PO in CSV, offline. No
+  identity resolution across sources, and no network in the data path.
+
 ## Install
 
 ```sh

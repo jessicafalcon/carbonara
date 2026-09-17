@@ -178,7 +178,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   with icanexplain's ibis + BigQuery dependency bloat; the DAG is plain DuckDB SQL (see
   the spec's Dependencies section). Added a `carbonara-pr` PR-writing skill. `pytest`
   (172) + `pre-commit` pass.
-- **Phase 7 — (aspiration) Bloodline augmentation-rule helper (M7): at exit gate, awaiting merge.**
+- **Phase 7 — (aspiration) Bloodline augmentation-rule helper (M7): done** (merged, PR #8).
   Branch `phase-7-augmentation-rule-helper`; spec + 4 steps committed. Closes the
   source-vs-lifecycle gap (§8.1): the in-repo helper `carbonara/augment.py`
   (`RuleRecord`, `augment_source`, `augment_lineage`, `lineage_history`) preserves a
@@ -194,8 +194,28 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   `scripts/build_explanation.py` that slipped past PR #7's gate, added a CI workflow
   (`.github/workflows/ci.yml`: `pytest` + `pre-commit` on push/PR) since the gate was
   only ever local, and installed the pre-push hook. `pytest` (181) + `pre-commit`
-  pass. **Open: PR #8 (pushed, awaiting merge); merge is the user's call. Next after
-  merge: Phase 8 — demo + limitations note (M8), now including the applied review
-  loop (re-apply approved rules, chained via `augment_lineage`; brief §16 Phase 8).**
+  pass.
+- **Phase 8 — demo + limitations note, review loop applied (M8): at exit gate, awaiting merge.**
+  Branch `phase-8-applied-review-loop`; spec + 8 steps committed. Wires
+  `review.approved_rules()` back into the pipeline as a deterministic second pass
+  (`carbonara/apply_review.py`): an approved mapping (`Organic cottn` → `organic cotton`)
+  is re-applied to the cell it corrects and chained onto the cell's normalize source
+  via `augment_lineage` (normalize_material → reference_resolve, not clobber; §8.1),
+  writing a ledger event like any rule (§8.2). The decision (actor/status/`at`) is
+  injected as an `approvals` param on `pipeline.run()` — no clock, passes the guard —
+  and the pass slots in right after normalize so the three planted `Organic cottn`
+  cells flow into fill + footprint (unresolved → costed). Scope **broader** (confirmed):
+  `approved_rules` generalized to any approved finding with a `proposed_value` (MAPPING
+  stays a reusable alias, others per-cell); review decisions persist/replay as JSONL
+  (`fixtures/review_decisions.jsonl`); the static view marks resolved findings "applied"
+  and the drawer shows the chained spine lineage; `scripts/demo.py` is the narrated
+  eight-step walkthrough; README has doctested `Walkthrough` + `Limitations` (§15)
+  sections. Two bounded cuts recorded in the spec — generalization keyed to
+  `proposed_value` (no invented per-category semantics), view stays static HTML.
+  Exit gate green: walkthrough reproducible from a clean checkout; the approved cell
+  carries a two-entry lineage (original + approval); re-run byte-identical; empty
+  approvals reproduces the single-pass output. `pytest` (203) + `pre-commit` pass.
+  **Open: PR #9 (pushed, awaiting merge); merge is the user's call. Next after
+  merge: Phase 8 is the last §16 phase — project complete.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
