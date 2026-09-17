@@ -62,3 +62,15 @@ def test_extreme_price_is_a_distribution_finding():
 def test_missing_weight_is_a_completeness_finding():
     findings = _categories(_findings([_row("1", net_weight="")]), AnomalyCategory.COMPLETENESS)
     assert any(f.column == "component_weight_g" for f in findings)
+
+
+def test_composition_not_summing_to_100_is_cross_field():
+    findings = _categories(
+        _findings([_row("1", composition="80% cotton / 30% polyester")]), AnomalyCategory.CROSS_FIELD
+    )
+    assert findings and findings[0].column == "composition"
+
+
+def test_negative_quantity_is_a_validity_finding():
+    findings = _categories(_findings([_row("1", quantity="-5")]), AnomalyCategory.VALIDITY)
+    assert any(f.column == "quantity" and f.severity is Severity.HIGH for f in findings)

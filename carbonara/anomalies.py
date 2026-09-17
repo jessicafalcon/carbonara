@@ -7,6 +7,7 @@ import statistics
 from collections import Counter
 
 from carbonara.materialize import SourceRecord
+from carbonara.normalize import parse_composition
 from carbonara.rules import AnomalyCategory, Finding, Severity
 
 __all__ = ["detect_anomalies"]
@@ -14,6 +15,8 @@ __all__ = ["detect_anomalies"]
 #: Modified z-score cutoff (median/MAD on log values) for a distribution outlier.
 _MAD_THRESHOLD = 3.5
 _MAD_SCALE = 0.6745
+#: A composition's fractions must sum to 1.0 within this tolerance.
+_COMPOSITION_TOLERANCE = 0.001
 
 
 def _validity(records: list[SourceRecord]) -> list[Finding]:
@@ -105,6 +108,19 @@ def _cross_field(records: list[SourceRecord]) -> list[Finding]:
                     message="zero weight on a line with positive value",
                 )
             )
+        pairs = parse_composition(source.raw["composition"])
+        if pairs is not None:
+            total = sum(fraction for fraction, _ in pairs)
+            if abs(total - 1.0) > _COMPOSITION_TOLERANCE:
+                findings.append(
+                    Finding.create(
+                        record_id=record.record_id,
+                        column="composition",
+                        category=AnomalyCategory.CROSS_FIELD,
+                        severity=Severity.MEDIUM,
+                        message=f"composition sums to {round(total * 100)}%, not 100%",
+                    )
+                )
     return findings
 
 
