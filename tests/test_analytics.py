@@ -5,6 +5,7 @@ from __future__ import annotations
 import duckdb
 import pandas as pd
 
+from analytics.explain import decompose
 from analytics.mart import footprint_mart
 from analytics.vintages import RAW_TABLE, footprint_lines, load_raw_footprint_lines
 
@@ -65,3 +66,36 @@ def test_mart_is_one_row_per_vintage_material_with_the_mix_shift() -> None:
     v2 = mart[mart["vintage"] == "v2"]
     assert "organic cotton" in set(v2["material"])
     assert "organic cotton" not in set(mart.loc[mart["vintage"] == "v1", "material"])
+
+
+# --- icanexplain decomposition ----------------------------------------------
+
+
+def test_decomposition_reconciles_to_the_observed_delta() -> None:
+    result = decompose(footprint_mart())
+    assert result.reconciles()
+    assert abs(result.residual) < 1e-6
+    assert abs((result.intensity_effect + result.volume_mix_effect) - result.observed_delta) < 1e-6
+
+
+def test_intensity_effect_is_isolated_to_the_planted_factor_bump() -> None:
+    # Only polyester's factor changed v1→v2, so the intensity (inner) effect must
+    # sit entirely on polyester and be ~0 for every other material.
+    by_material = decompose(footprint_mart()).by_material.set_index("material")["intensity_effect"]
+    assert abs(by_material["polyester"]) > 1.0
+    others = by_material.drop("polyester")
+    assert others.abs().max() < 1e-6
+
+
+def test_volume_mix_effect_carries_the_material_shift() -> None:
+    by_material = decompose(footprint_mart()).by_material.set_index("material")["volume_mix_effect"]
+    # Organic cotton is new in v2: its whole footprint is a volume/mix contribution.
+    assert by_material["organic cotton"] > 0
+
+
+def test_decomposition_is_reproducible() -> None:
+    first, second = decompose(footprint_mart()), decompose(footprint_mart())
+    assert first.observed_delta == second.observed_delta
+    assert first.intensity_effect == second.intensity_effect
+    assert first.volume_mix_effect == second.volume_mix_effect
+    pd.testing.assert_frame_equal(first.by_material, second.by_material)
