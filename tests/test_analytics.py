@@ -5,8 +5,8 @@ from __future__ import annotations
 import duckdb
 import pandas as pd
 
-from analytics.explain import decompose
-from analytics.mart import footprint_mart
+from analytics.explain import decompose, intensity_from_factor_change
+from analytics.mart import footprint_mart, truth_mart
 from analytics.vintages import RAW_TABLE, footprint_lines, load_raw_footprint_lines
 
 
@@ -99,3 +99,41 @@ def test_decomposition_is_reproducible() -> None:
     assert first.intensity_effect == second.intensity_effect
     assert first.volume_mix_effect == second.volume_mix_effect
     pd.testing.assert_frame_equal(first.by_material, second.by_material)
+
+
+# --- validation against the planted ground truth ----------------------------
+
+
+def test_ground_truth_decomposition_recovers_the_planted_structure() -> None:
+    truth = truth_mart()
+    result = decompose(truth)
+    assert result.reconciles()
+    by_material = result.by_material.set_index("material")["intensity_effect"]
+    assert abs(by_material["polyester"]) > 1.0
+    assert by_material.drop("polyester").abs().max() < 1e-6
+    # The intensity effect is exactly the factor bump on polyester's true v1 mass.
+    assert abs(result.intensity_effect - intensity_from_factor_change(truth, material="polyester")) < 1e-6
+
+
+def test_pipeline_intensity_matches_the_planted_factor_bump() -> None:
+    mart = footprint_mart()
+    result = decompose(mart)
+    assert abs(result.intensity_effect - intensity_from_factor_change(mart, material="polyester")) < 1e-6
+
+
+def test_pipeline_decomposition_agrees_with_ground_truth() -> None:
+    pipeline, truth = decompose(footprint_mart()), decompose(truth_mart())
+    # Same direction on every effect: the connector recovers the planted story.
+    assert (pipeline.intensity_effect > 0) == (truth.intensity_effect > 0)
+    assert (pipeline.volume_mix_effect < 0) == (truth.volume_mix_effect < 0)
+    assert (pipeline.observed_delta < 0) == (truth.observed_delta < 0)
+
+    # Magnitudes agree within a loose bound; the residual is propagated fill error
+    # (the two vintages fill different blanked cells), a reported QA figure — not a
+    # decomposition defect. This bound only catches gross regressions.
+    def gap(observed: float, reference: float) -> float:
+        return abs(observed - reference) / max(abs(reference), 1.0)
+
+    assert gap(pipeline.observed_delta, truth.observed_delta) < 0.5
+    assert gap(pipeline.intensity_effect, truth.intensity_effect) < 0.5
+    assert gap(pipeline.volume_mix_effect, truth.volume_mix_effect) < 0.5

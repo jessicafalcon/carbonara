@@ -20,7 +20,7 @@ import ibis
 import icanexplain as ice
 import pandas as pd
 
-__all__ = ["Decomposition", "decompose"]
+__all__ = ["Decomposition", "decompose", "intensity_from_factor_change"]
 
 _GROUP = "material"
 _PERIOD = "vintage"
@@ -50,6 +50,22 @@ class Decomposition:
         """True when the effects sum to the observed delta within ``tol`` (relative)."""
         scale = max(abs(self.observed_delta), 1.0)
         return abs(self.residual) <= tol * scale
+
+
+def intensity_from_factor_change(
+    mart: pd.DataFrame, *, material: str, period_from: str = "v1", period_to: str = "v2"
+) -> float:
+    """The exact intensity effect for one material: ``mass_from × (factor_to − factor_from)``.
+
+    icanexplain weights the intensity (inner) effect by the before-period count, so
+    this closed form equals that material's ``intensity_effect`` exactly — a check
+    that ties the number to the known factor change (brief §9).
+    """
+    rows = mart.set_index([_PERIOD, _GROUP])
+    mass_from = float(rows.loc[(period_from, material), "mass_kg"])
+    factor_from = float(rows.loc[(period_from, material), "factor"])
+    factor_to = float(rows.loc[(period_to, material), "factor"])
+    return mass_from * (factor_to - factor_from)
 
 
 def _use_pandas_backend() -> None:

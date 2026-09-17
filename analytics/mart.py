@@ -15,9 +15,14 @@ import pandas as pd
 
 from analytics.vintages import VINTAGES, VintageSpec, load_raw_footprint_lines
 
-__all__ = ["MODELS", "MART_TABLE", "build_mart", "footprint_mart"]
+__all__ = ["MODELS", "MART_TABLE", "MART_COLUMNS", "build_mart", "footprint_mart", "truth_mart"]
 
+_ROOT = pathlib.Path(__file__).resolve().parent.parent
 _DAG_DIR = pathlib.Path(__file__).resolve().parent / "dag"
+_TRUTH_CSV = _ROOT / "fixtures" / "decomposition_truth.csv"
+
+#: The mart schema the decomposition reads (count = mass_kg, fact = factor).
+MART_COLUMNS = ("vintage", "material", "mass_kg", "factor", "footprint_kgco2e")
 
 #: The DAG models, in dependency order (staging → core → mart).
 MODELS = ("staging.sql", "core.sql", "mart.sql")
@@ -38,3 +43,19 @@ def footprint_mart(specs: tuple[VintageSpec, ...] = VINTAGES) -> pd.DataFrame:
     con = duckdb.connect()
     load_raw_footprint_lines(con, specs)
     return build_mart(con)
+
+
+def truth_mart() -> pd.DataFrame:
+    """The known-true mart from ``fixtures/decomposition_truth.csv``.
+
+    The same shape as :func:`footprint_mart`, so the two feed the identical
+    decomposition — the pipeline's explanation is validated against this one.
+    """
+    truth = pd.read_csv(_TRUTH_CSV).rename(
+        columns={
+            "true_mass_kg": "mass_kg",
+            "factor_kgco2e_per_kg": "factor",
+            "true_footprint_kgco2e": "footprint_kgco2e",
+        }
+    )
+    return truth.loc[:, list(MART_COLUMNS)].sort_values(["vintage", "material"]).reset_index(drop=True)
