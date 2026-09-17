@@ -5,8 +5,20 @@ connector package forbids (carbonara-correctness §1). It builds a clean, true
 table, then plants the messy conditions and fill-ladder cases the later phases
 are tested against, retaining the true value of every corrupted or blanked cell.
 
-Run ``python fixtures/generate.py`` to (re)write ``bom_v1.csv`` and
-``ground_truth_v1.csv``; the same seed yields byte-identical files.
+Two vintages share one clean skeleton (brief §6): **v1 (2024)** and **v2 (2025)**
+differ only in planted ways — a per-archetype volume multiplier, a named
+material-mix shift, and the ``material_factors_v2`` factor bump. Planting runs on
+the untransformed rows and the volume/mix deltas are applied *after* it, so both
+vintages corrupt exactly the same cells and fill identically — the fill error then
+cancels in the v1→v2 delta rather than compounding. Because v2 is a deterministic
+transform of v1 (not an independent re-seed), the true production-weighted
+footprint of each vintage is known exactly and written to
+``decomposition_truth.csv`` — the ground truth the Phase-6 explanation validates
+against.
+
+Run ``python fixtures/generate.py`` to (re)write both vintages' ``bom`` and
+``ground_truth`` files and ``decomposition_truth.csv``; the same seed yields
+byte-identical files.
 """
 
 from __future__ import annotations
@@ -18,8 +30,20 @@ import random
 from collections.abc import Callable
 
 from carbonara.contract import CANONICAL_COLUMNS
+from carbonara.references import material_factors
 
-__all__ = ["SOURCE_COLUMNS", "GROUND_TRUTH_COLUMNS", "generate", "write_fixtures"]
+__all__ = [
+    "SOURCE_COLUMNS",
+    "GROUND_TRUTH_COLUMNS",
+    "DECOMPOSITION_TRUTH_COLUMNS",
+    "Vintage",
+    "V1",
+    "V2",
+    "VINTAGES",
+    "generate",
+    "truth_basis",
+    "write_fixtures",
+]
 
 SEED = 42
 
@@ -52,6 +76,19 @@ GROUND_TRUTH_COLUMNS: tuple[str, ...] = (
     "expected",
 )
 
+#: Ground-truth production-weighted footprint schema: the *true* (pre-corruption)
+#: mass and factor per vintage × material, from which the v1→v2 explanation is
+#: validated (brief §6, §9). ``true_mass_kg`` is the decomposition's count
+#: (volume + material-mix) and ``factor_kgco2e_per_kg`` its fact (intensity), so
+#: this basis feeds icanexplain directly. One row per (vintage, material).
+DECOMPOSITION_TRUTH_COLUMNS: tuple[str, ...] = (
+    "vintage",
+    "material",
+    "true_mass_kg",
+    "factor_kgco2e_per_kg",
+    "true_footprint_kgco2e",
+)
+
 
 @dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
 class ComponentSpec:
@@ -82,6 +119,68 @@ class SupplierSpec:
     country_raw: str
     country_iso: str
     spellings: tuple[str, ...]
+
+
+@dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
+class MixShift:
+    """A planted material-mix shift: named component lines change material in a vintage.
+
+    Identifies lines by component name and the styles it applies to, so the same
+    rule both rewrites the clean row and marks it protected from corruption.
+    """
+
+    component: str
+    style_ids: frozenset[str]
+    from_material: str
+    to_material: str
+    to_composition: str
+
+
+@dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
+class Vintage:
+    """One BOM vintage: the year stamp, its factor version, and its planted deltas.
+
+    v2 is a deterministic transform of v1's clean skeleton (brief §6): the same
+    rows, with a per-archetype ``volume_mult`` on quantity and any ``mix_shifts``
+    applied, and ``order_date`` stamped to ``year``. v1 leaves all three empty, so
+    it reproduces the original fixture byte-for-byte.
+    """
+
+    label: str
+    year: int
+    factor_version: str
+    volume_mult: dict[str, float] = dataclasses.field(default_factory=dict)
+    mix_shifts: tuple[MixShift, ...] = ()
+
+
+V1 = Vintage(label="v1", year=2024, factor_version="v1")
+#: v2 (2025): hoodies and t-shirts up, trousers and dresses down (volume + a mix
+#: shift across archetypes), half the t-shirt bodies moved to organic cotton (the
+#: material-mix shift), and the ``material_factors_v2`` polyester bump (intensity).
+V2 = Vintage(
+    label="v2",
+    year=2025,
+    factor_version="v2",
+    volume_mult={"TSH": 1.20, "HOO": 1.10, "TRO": 0.90, "DRS": 0.85},
+    mix_shifts=(
+        MixShift(
+            component="shell fabric",
+            style_ids=frozenset(f"TSH-{index:02d}" for index in range(1, 7)),
+            from_material="cotton",
+            to_material="organic cotton",
+            to_composition="100% organic cotton",
+        ),
+    ),
+)
+VINTAGES: dict[str, Vintage] = {V1.label: V1, V2.label: V2}
+
+
+def _mix_shift(vintage: Vintage, style_id: str, component: str) -> MixShift | None:
+    """Return the mix shift that rewrites this component line in this vintage, if any."""
+    for shift in vintage.mix_shifts:
+        if component == shift.component and style_id in shift.style_ids:
+            return shift
+    return None
 
 
 # Trims shared across archetypes: small, low-variance components that make good
@@ -283,8 +382,14 @@ def _draw_weight(rng: random.Random, spec: ComponentSpec) -> int:
     return max(1, round(grams))
 
 
-def _clean_rows(rng: random.Random) -> list[dict[str, str]]:
-    """Build the clean, valid BOM: every cell well-formed, nothing yet corrupted."""
+def _clean_rows(rng: random.Random, year: int = 2024) -> list[dict[str, str]]:
+    """Build the clean, valid BOM: every cell well-formed, nothing yet corrupted.
+
+    Only the ``year`` stamp varies by vintage here — it feeds no plant's predicate,
+    so it leaves the rng sequence (and thus the planting layout) untouched. The
+    vintage's volume and mix changes are applied *after* planting
+    (:func:`_apply_vintage`), so both vintages corrupt exactly the same cells.
+    """
     rows: list[dict[str, str]] = []
     source_row_id = 0
     for archetype in ARCHETYPES:
@@ -294,7 +399,6 @@ def _clean_rows(rng: random.Random) -> list[dict[str, str]]:
             size = SIZES[rng.randrange(len(SIZES))]
             sku = f"{style_id}-{colorway}-{size}"
             supplier = SUPPLIERS[rng.randrange(len(SUPPLIERS))]
-            year = 2024
             month = rng.randrange(1, 13)
             day = rng.randrange(1, 28)
             order_date = f"{year}-{month:02d}-{day:02d}"
@@ -745,10 +849,51 @@ def _plant_missingness_band(
         )
 
 
-def generate(seed: int = SEED) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
-    """Generate the raw BOM rows and the ground-truth rows for the fixture."""
+#: Columns a mix shift rewrites — a planted corruption here is superseded by the
+#: shift, so its ground-truth entry is dropped to keep the truth faithful.
+_MIX_SHIFT_COLUMNS = {"material_normalized", "composition"}
+
+
+def _apply_vintage(rows: list[dict[str, str]], ground_truth: list[dict[str, str]], vintage: Vintage) -> None:
+    """Apply the vintage's volume and material-mix changes, in place, after planting.
+
+    Scales each line's quantity by its archetype multiplier and switches the named
+    mix-shift lines to their new material and composition — the deltas that make v2
+    differ from v1. Applied *after* planting so both vintages corrupt exactly the
+    same cells and fill identically, so the fill error cancels in the v1→v2 delta.
+
+    A shift overwrites the whole material/composition cell, superseding any planted
+    corruption there (a shifted line is deliberately organic cotton, not a typo or
+    a shorthand to parse); the now-invalid ground-truth entries are dropped so the
+    ground truth stays faithful to the emitted BOM. v1 shifts nothing, so it is a
+    no-op — its ground truth and rows are untouched.
+    """
+    shifted: set[str] = set()
+    for row in rows:
+        multiplier = vintage.volume_mult.get(row["style_id"].split("-")[0], 1.0)
+        if multiplier != 1.0:
+            row["quantity"] = str(round(int(row["quantity"]) * multiplier))
+        shift = _mix_shift(vintage, row["style_id"], row["component"])
+        if shift is not None:
+            row["material"] = shift.to_material
+            row["composition"] = shift.to_composition
+            shifted.add(row["source_row_id"])
+    ground_truth[:] = [
+        entry
+        for entry in ground_truth
+        if not (entry["source_row_id"] in shifted and entry["column"] in _MIX_SHIFT_COLUMNS)
+    ]
+
+
+def generate(seed: int = SEED, *, vintage: Vintage = V1) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    """Generate the raw BOM rows and the ground-truth rows for one vintage.
+
+    Plants the messy cases on the untransformed rows — vintage-invariant, so every
+    vintage corrupts the same cells — then applies the vintage's volume and mix
+    deltas (:func:`_apply_vintage`).
+    """
     rng = random.Random(seed)
-    rows = _clean_rows(rng)
+    rows = _clean_rows(rng, vintage.year)
     ground_truth: list[dict[str, str]] = []
     used: set[str] = set()
     _plant_renamed_header(ground_truth)
@@ -766,6 +911,7 @@ def generate(seed: int = SEED) -> tuple[list[dict[str, str]], list[dict[str, str
     _plant_dense_tight_blanks(rng, rows, ground_truth, used)
     _plant_missingness_band(rng, rows, ground_truth, used)
     _plant_file_level_cases(ground_truth)
+    _apply_vintage(rows, ground_truth, vintage)
     return rows, ground_truth
 
 
@@ -806,12 +952,56 @@ def _check_ground_truth(rows: list[dict[str, str]], ground_truth: list[dict[str,
             raise ValueError(f"blanked weight has no retained truth: row {row['source_row_id']}")
 
 
+def truth_basis(vintage: Vintage = V1) -> list[dict[str, str]]:
+    """Known-true production-weighted footprint basis per material for one vintage.
+
+    Reconstructs what the connector *should* cost if every fill were perfect: it
+    reads the same rows the pipeline receives, restores each blanked or
+    unit-corrupted weight from the retained ground truth, drops the re-emitted
+    duplicate, and keeps a component only when its raw material resolves to a known
+    factor — exactly the pipeline's costed universe, so the two decompositions
+    compare like for like (brief §6, §9). Mass ``Σ_line quantity × weight_kg`` is
+    the decomposition's count (volume + material-mix) and the emission factor its
+    fact (intensity). Rows are ordered by material for a byte-stable file.
+    """
+    rows, ground_truth = generate(vintage=vintage)
+    true_weight = {
+        row["source_row_id"]: row["true_value"] for row in ground_truth if row["column"] == "component_weight_g"
+    }
+    duplicates = {row["source_row_id"] for row in ground_truth if row["case"] == "duplicate_key"}
+    factors = material_factors(vintage.factor_version)
+    masses: dict[str, float] = {}
+    for row in rows:
+        source_row_id = row["source_row_id"]
+        material = row["material"]
+        # Skip the re-emitted duplicate and any material the connector leaves
+        # unmapped (e.g. the "Organic cottn" typo is proposed, never auto-applied).
+        if source_row_id in duplicates or material not in factors:
+            continue
+        grams = float(true_weight[source_row_id]) if source_row_id in true_weight else _parse_grams(row["net_weight"])
+        masses[material] = masses.get(material, 0.0) + int(row["quantity"]) * grams / 1000
+    return [
+        {
+            "vintage": vintage.label,
+            "material": material,
+            "true_mass_kg": f"{masses[material]:.6f}",
+            "factor_kgco2e_per_kg": f"{factors[material].factor_kgco2e_per_kg:.4f}",
+            "true_footprint_kgco2e": f"{masses[material] * factors[material].factor_kgco2e_per_kg:.6f}",
+        }
+        for material in sorted(masses)
+    ]
+
+
 def write_fixtures(out_dir: pathlib.Path, seed: int = SEED) -> None:
-    """Generate and write ``bom_v1.csv`` and ``ground_truth_v1.csv`` into ``out_dir``."""
-    rows, ground_truth = generate(seed)
-    _check_ground_truth(rows, ground_truth)
-    _write_bom(out_dir / "bom_v1.csv", rows)
-    _write_csv(out_dir / "ground_truth_v1.csv", GROUND_TRUTH_COLUMNS, ground_truth)
+    """Write both vintages' BOM + ground-truth files and ``decomposition_truth.csv``."""
+    decomposition: list[dict[str, str]] = []
+    for vintage in VINTAGES.values():
+        rows, ground_truth = generate(seed, vintage=vintage)
+        _check_ground_truth(rows, ground_truth)
+        _write_bom(out_dir / f"bom_{vintage.label}.csv", rows)
+        _write_csv(out_dir / f"ground_truth_{vintage.label}.csv", GROUND_TRUTH_COLUMNS, ground_truth)
+        decomposition.extend(truth_basis(vintage))
+    _write_csv(out_dir / "decomposition_truth.csv", DECOMPOSITION_TRUTH_COLUMNS, decomposition)
 
 
 def main() -> None:

@@ -1,0 +1,140 @@
+"""Phase-6 analytics layer: staging the vintages and the staging→core→mart DAG."""
+
+from __future__ import annotations
+
+import duckdb
+import pandas as pd
+
+from analytics.explain import decompose, intensity_from_factor_change
+from analytics.mart import footprint_mart, truth_mart
+from analytics.vintages import RAW_TABLE, footprint_lines, load_raw_footprint_lines
+
+
+def test_footprint_lines_are_deterministic() -> None:
+    pd.testing.assert_frame_equal(footprint_lines(), footprint_lines())
+
+
+def test_footprint_lines_cover_both_vintages_and_only_costed_lines() -> None:
+    lines = footprint_lines()
+    assert set(lines["vintage"]) == {"v1", "v2"}
+    # Every staged line is costed: non-negative mass/footprint (a zero-weight line
+    # costs at zero) and a positive factor, with footprint = mass × factor.
+    assert (lines["mass_kg"] >= 0).all()
+    assert (lines["footprint_kgco2e"] >= 0).all()
+    assert (lines["factor"] > 0).all()
+    assert (lines["footprint_kgco2e"] - lines["mass_kg"] * lines["factor"]).abs().max() < 1e-9
+
+
+def test_footprint_lines_show_the_material_mix_shift() -> None:
+    lines = footprint_lines()
+    v1_materials = set(lines.loc[lines["vintage"] == "v1", "material"])
+    v2_materials = set(lines.loc[lines["vintage"] == "v2", "material"])
+    assert "organic cotton" in v2_materials
+    assert "organic cotton" not in v1_materials
+
+
+def test_raw_table_matches_the_frame() -> None:
+    con = duckdb.connect()
+    lines = load_raw_footprint_lines(con)
+    row = con.execute(f"SELECT count(*) FROM {RAW_TABLE}").fetchone()
+    assert row is not None
+    assert row[0] == len(lines)
+
+
+# --- staging → core → mart DAG ----------------------------------------------
+
+
+def test_mart_matches_the_python_reference_aggregate() -> None:
+    mart = footprint_mart()
+    reference = (
+        footprint_lines()
+        .groupby(["vintage", "material"], as_index=False)
+        .agg(mass_kg=("mass_kg", "sum"), factor=("factor", "min"), footprint_kgco2e=("footprint_kgco2e", "sum"))
+        .sort_values(["vintage", "material"])
+        .reset_index(drop=True)
+    )
+    pd.testing.assert_frame_equal(mart, reference, check_exact=False, atol=1e-6)
+
+
+def test_mart_is_reproducible() -> None:
+    pd.testing.assert_frame_equal(footprint_mart(), footprint_mart())
+
+
+def test_mart_is_one_row_per_vintage_material_with_the_mix_shift() -> None:
+    mart = footprint_mart()
+    assert not mart.duplicated(subset=["vintage", "material"]).any()
+    v2 = mart[mart["vintage"] == "v2"]
+    assert "organic cotton" in set(v2["material"])
+    assert "organic cotton" not in set(mart.loc[mart["vintage"] == "v1", "material"])
+
+
+# --- icanexplain decomposition ----------------------------------------------
+
+
+def test_decomposition_reconciles_to_the_observed_delta() -> None:
+    result = decompose(footprint_mart())
+    assert result.reconciles()
+    assert abs(result.residual) < 1e-6
+    assert abs((result.intensity_effect + result.volume_mix_effect) - result.observed_delta) < 1e-6
+
+
+def test_intensity_effect_is_isolated_to_the_planted_factor_bump() -> None:
+    # Only polyester's factor changed v1→v2, so the intensity (inner) effect must
+    # sit entirely on polyester and be ~0 for every other material.
+    by_material = decompose(footprint_mart()).by_material.set_index("material")["intensity_effect"]
+    assert abs(by_material["polyester"]) > 1.0
+    others = by_material.drop("polyester")
+    assert others.abs().max() < 1e-6
+
+
+def test_volume_mix_effect_carries_the_material_shift() -> None:
+    by_material = decompose(footprint_mart()).by_material.set_index("material")["volume_mix_effect"]
+    # Organic cotton is new in v2: its whole footprint is a volume/mix contribution.
+    assert by_material["organic cotton"] > 0
+
+
+def test_decomposition_is_reproducible() -> None:
+    first, second = decompose(footprint_mart()), decompose(footprint_mart())
+    assert first.observed_delta == second.observed_delta
+    assert first.intensity_effect == second.intensity_effect
+    assert first.volume_mix_effect == second.volume_mix_effect
+    pd.testing.assert_frame_equal(first.by_material, second.by_material)
+
+
+# --- validation against the planted ground truth ----------------------------
+
+
+def test_ground_truth_decomposition_recovers_the_planted_structure() -> None:
+    truth = truth_mart()
+    result = decompose(truth)
+    assert result.reconciles()
+    by_material = result.by_material.set_index("material")["intensity_effect"]
+    assert abs(by_material["polyester"]) > 1.0
+    assert by_material.drop("polyester").abs().max() < 1e-6
+    # The intensity effect is exactly the factor bump on polyester's true v1 mass.
+    assert abs(result.intensity_effect - intensity_from_factor_change(truth, material="polyester")) < 1e-6
+
+
+def test_pipeline_intensity_matches_the_planted_factor_bump() -> None:
+    mart = footprint_mart()
+    result = decompose(mart)
+    assert abs(result.intensity_effect - intensity_from_factor_change(mart, material="polyester")) < 1e-6
+
+
+def test_pipeline_decomposition_agrees_with_ground_truth() -> None:
+    pipeline, truth = decompose(footprint_mart()), decompose(truth_mart())
+    # Same direction on every effect: the connector recovers the planted story.
+    assert (pipeline.intensity_effect > 0) == (truth.intensity_effect > 0)
+    assert (pipeline.volume_mix_effect < 0) == (truth.volume_mix_effect < 0)
+    assert (pipeline.observed_delta < 0) == (truth.observed_delta < 0)
+
+    # Magnitudes agree within a bound; the residual (~10% on the delta) is
+    # propagated per-vintage fill error scaled by the volume change, a reported QA
+    # figure — not a decomposition defect. Both vintages corrupt the same cells, so
+    # the asymmetry that once dominated is gone; 0.20 leaves headroom over fill error.
+    def gap(observed: float, reference: float) -> float:
+        return abs(observed - reference) / max(abs(reference), 1.0)
+
+    assert gap(pipeline.observed_delta, truth.observed_delta) < 0.20
+    assert gap(pipeline.intensity_effect, truth.intensity_effect) < 0.20
+    assert gap(pipeline.volume_mix_effect, truth.volume_mix_effect) < 0.20

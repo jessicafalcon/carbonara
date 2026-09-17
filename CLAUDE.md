@@ -58,6 +58,7 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
 | `carbonara-correctness` | landing anything in the data path, adding a rule, reviewing |
 | `carbonara-tests` | writing or changing any test |
 | `carbonara-voice` | writing a commit, PR, comment/docstring, or any `.md` file |
+| `carbonara-pr` | opening or finalizing a phase PR (structure/process; pairs with `carbonara-voice`) |
 | `carbonara-efficiency` | fan-out reads, wiring an external source, long multi-turn work |
 
 ### Hooks — fire automatically, no action needed
@@ -143,27 +144,35 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
 - **Phase 2 — ingest + schema-drift gate: done** (merged, PR #3).
 - **Phase 3 — normalize + validate + anomaly events: done** (merged, PR #4).
 - **Phase 4 — fill ladder + rule ledger + Bloodline lineage: done** (merged, PR #5).
-- **Phase 5 — footprint + brand-facing view + provenance drawer: at exit gate, awaiting merge.**
-  Branch `phase-5-footprint-and-view`; spec + 8 steps committed (Ecobalyse/ADEME
-  material factors, footprint as the `DERIVED_FORMULA` case, pipeline orchestrator,
-  factor-revision diff, slate-dashboard view, demo builder + trace journey, §12
-  exit-gate capstone + docs), plus exact factor figures fetched from Ecobalyse
-  (`scripts/fetch_factors.py`, token-gated `cch` via a gitignored `.env`) and a
-  determinism-guard scoping fix, and reference-data content-hashing folded into
-  the run id + ledger (`reference_digest`, `factor_content_hash`) so a factor
-  edit is a new detectable run, not a silent change. Exit gate green: the footprint costs
-  `weight_kg × factor(material)` with factor source/version, mapping confidence,
-  observed-vs-filled share, and an uncertainty range; each estimate carries a ledger
-  event + Bloodline source; unresolved material is flagged (not costed), a flagged
-  weight is derived but excluded from the total. A factor revision (`_v2`) recomputes
-  under a new `run_id` with a version diff and no history corruption. The view
-  (`carbonara/view.py`, `render_view`) renders readiness / review queue / material
-  basket / factor diff / a per-number provenance drawer to self-contained offline
-  HTML, byte-reproducibly; `scripts/build_view.py` writes `build/view.html`. Trace
-  journey confirmed by test and in-browser (displayed number → footprint row →
-  rules → source row + factor version). `pytest` (149) + `pre-commit` pass. Scoped
-  out: factor uncertainty ranges, composition-weighted factors, Lea/icanexplain
-  (Phase 6). **Open PR #6** — merge is the user's call. **Next after merge: Phase 6
-  (stretch) — Lea DAG / icanexplain (M6).**
+- **Phase 5 — footprint + brand-facing view + provenance drawer: done** (merged, PR #6).
+  Footprint costs `weight_kg × factor(material)` with factor source/version, mapping
+  confidence, observed-vs-filled share, and an uncertainty range; each estimate carries
+  a ledger event + Bloodline source; unresolved material is flagged (not costed).
+  Exact Ecobalyse `cch` factors (`scripts/fetch_factors.py`, token-gated), reference-data
+  content-hashing in the run id (`reference_digest`), the slate-dashboard view
+  (`carbonara/view.py`), and the trace journey all landed.
+- **Phase 6 — (stretch) two-vintage change explanation: at exit gate, awaiting merge.**
+  Branch `phase-6-lea-and-icanexplain`; spec + 8 steps committed. The v1→v2 change in a
+  **production-weighted** catalog total `F = Σ mass_kg × factor` (quantity does not enter
+  the Phase-5 per-line footprint, so a real volume effect needs this new mart aggregate)
+  is decomposed with **icanexplain** into an intensity effect (the polyester factor bump)
+  and a volume/mix effect (production mass + the cotton→organic-cotton shift), reconciled
+  to the observed delta and validated against planted ground truth. The **v2 (2025)**
+  vintage is a deterministic transform of v1's clean skeleton (per-archetype volume
+  multiplier + named mix shift + 2025 stamp); `fixtures/generate.py` writes `bom_v2`,
+  `ground_truth_v2`, and `decomposition_truth.csv`. A new `analytics/` package (outside
+  `carbonara/`, heavier deps in an `analytics` group) runs both vintages through the
+  pipeline, a tiny staging→core→mart **DuckDB SQL DAG** rolls per-line footprints up to
+  `F` by material×vintage, and `analytics/explain.py` decomposes + reconciles;
+  `scripts/build_explanation.py` writes the artifact. Exit gate green: reconciliation is
+  exact, the intensity effect sits on polyester alone and equals the planted factor bump,
+  and pipeline vs ground truth agree in direction and within ~10% (the residual is
+  propagated fill error, reported as QA). Planting runs before the volume/mix transform,
+  so both vintages corrupt the same cells and fill error cancels in the delta. **Lea (`lea-cli`) not adopted** — hard `sqlglot` conflict
+  with icanexplain's ibis + BigQuery dependency bloat; the DAG is plain DuckDB SQL (see
+  the spec's Dependencies section). Added a `carbonara-pr` PR-writing skill. `pytest`
+  (172) + `pre-commit` pass. **Open: push branch + open PR #7 (this step); merge is the
+  user's call. Next after merge: Phase 7 (aspiration) — Bloodline augmentation-rule
+  helper (M7).**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
