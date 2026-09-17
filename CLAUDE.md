@@ -178,7 +178,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   with icanexplain's ibis + BigQuery dependency bloat; the DAG is plain DuckDB SQL (see
   the spec's Dependencies section). Added a `carbonara-pr` PR-writing skill. `pytest`
   (172) + `pre-commit` pass.
-- **Phase 7 — (aspiration) Bloodline augmentation-rule helper (M7): at exit gate, awaiting merge.**
+- **Phase 7 — (aspiration) Bloodline augmentation-rule helper (M7): done** (merged, PR #8).
   Branch `phase-7-augmentation-rule-helper`; spec + 4 steps committed. Closes the
   source-vs-lifecycle gap (§8.1): the in-repo helper `carbonara/augment.py`
   (`RuleRecord`, `augment_source`, `augment_lineage`, `lineage_history`) preserves a
@@ -194,8 +194,21 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   `scripts/build_explanation.py` that slipped past PR #7's gate, added a CI workflow
   (`.github/workflows/ci.yml`: `pytest` + `pre-commit` on push/PR) since the gate was
   only ever local, and installed the pre-push hook. `pytest` (181) + `pre-commit`
-  pass. **Open: PR #8 (pushed, awaiting merge); merge is the user's call. Next after
-  merge: Phase 8 — demo + limitations note (M8), now including the applied review
-  loop (re-apply approved rules, chained via `augment_lineage`; brief §16 Phase 8).**
+  pass.
+- **Phase 8 — demo + limitations note, review loop applied (M8): in progress.**
+  Branch `phase-8-applied-review-loop`; spec committed (`specs/phase-8-applied-review-loop.md`,
+  8 ordered steps). Wires `review.approved_rules()` back into the pipeline as a
+  deterministic second pass: an approved mapping (`Organic cottn` → `organic cotton`)
+  is re-applied to the cell it corrects and chained onto the cell's original source
+  via `carbonara.augment.augment_lineage` (normalize → approved alias, not clobber;
+  §8.1), writing a ledger event like any rule (§8.2). The decision (actor/status/`at`)
+  is injected as an `approvals` param on `pipeline.run()` — no clock, passes the guard;
+  the pass slots in right after normalize so the corrected material flows into
+  fill + footprint. Scope is **broader** (confirmed): also persists/replays review
+  decisions (fixture-driven) and reflects the applied loop in the static view, with two
+  bounded cuts recorded in the spec — generalization keyed to `proposed_value` (no
+  invented per-category semantics), and the view stays static HTML. Demo is a scripted
+  `scripts/demo.py` walkthrough + README `Walkthrough`/`Limitations` sections (§15).
+  **Next spec step: step 2 — generalize `approved_rules` beyond MAPPING.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
