@@ -39,6 +39,17 @@ back-off would silently degrade to one level. Add `category` as an explicit
 `_category` helpers. Deterministic — the value moves from a string convention to
 a named cell with its own lineage.
 
+**Done** (`feat/category-in-contract`). `category` is a required `str` on
+`CanonicalRecord`, resolved once in `materialize` via `derive_category(style_id)`
+— treated as an identity-derived projection like `record_id` (a deterministic
+function of an identity field, not an imputed value), so it carries no separate
+Bloodline source or ledger event; its "own lineage" is being a first-class named
+cell in the canonical frame, traceable beside the `style_id` it comes from. Both
+`_category` helpers are gone; `fill` and `footprint` read `record.category`. This
+leaves the real-file gap the item names — a brand export that does not encode the
+archetype in the style id — for item 3's exercise to expose, since the derivation
+still assumes the fixture convention.
+
 ### 2. Parse XLSX, not just detect it
 
 Ingest detects XLSX by ZIP magic bytes (`ingest.py:86`) and then raises
