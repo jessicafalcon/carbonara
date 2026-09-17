@@ -259,6 +259,11 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   file (was a silent 0 kgCO₂e). A wrong path stays a loud `FileNotFoundError` (a
   caller error, deliberately not dignified as data). Deterministic — fixed decode
   order, `content_hash`/`run_id` unchanged. `pytest` (214) + `pre-commit` pass.
-  **Open: PR to push; merge is the user's call.**
+  **Done** (merged, PR #12).
+- **Harness tweak (direct to `main`):** `ruff-on-edit.sh` now runs
+  `ruff check --fix --unfixable F401`, so a not-yet-used import is no longer
+  deleted mid-edit (it broke add-import-then-use edit sequences). F401 is still
+  reported by the hook (non-blocking) and still removed by the pre-commit gate
+  (`ruff-check --fix`), so nothing unused reaches a commit.
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._

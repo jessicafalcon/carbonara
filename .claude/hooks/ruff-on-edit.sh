@@ -23,7 +23,11 @@ else
 fi
 
 ruff format "$file_path" >/dev/null 2>&1 || true
-ruff check --fix "$file_path" >/dev/null 2>&1 || true
+# Fix everything except unused imports (F401): deleting a not-yet-used import
+# mid-edit breaks add-import-then-use-it edit sequences. F401 is still reported
+# below (non-blocking) and still removed by the pre-commit/pre-push gate, so
+# nothing unused reaches a commit — it is just not stripped on every keystroke.
+ruff check --fix --unfixable F401 "$file_path" >/dev/null 2>&1 || true
 
 # Surface anything ruff could not auto-fix, as feedback (non-blocking).
 remaining="$(ruff check "$file_path" 2>/dev/null || true)"
