@@ -18,6 +18,7 @@ from carbonara.ledger import Ledger, run_id_for
 from carbonara.lineage import apply_lineage, to_frame
 from carbonara.materialize import SourceRecord, materialize
 from carbonara.normalize import normalize_records
+from carbonara.references import reference_digest
 from carbonara.rules import Finding, RuleEvent
 
 __all__ = ["PipelineResult", "run"]
@@ -36,6 +37,7 @@ class PipelineResult:
     run_id: str
     ruleset_version: str
     factor_version: str
+    reference_digest: str
 
 
 def run(
@@ -60,7 +62,10 @@ def run(
 
     events = normalized.events + filled.events + footprint.events
     findings = normalized.findings + filled.findings + footprint.findings
-    run_id = run_id_for(content_hash, f"{ruleset_version}:{footprint.factor_version}")
+    # Key the run to the reference data's bytes, not just the version label: an edit
+    # to any factor or vocabulary is then a new, detectable run (§8.3).
+    ref_digest = reference_digest(footprint.factor_version)
+    run_id = run_id_for(content_hash, f"{ruleset_version}:{footprint.factor_version}:{ref_digest}")
 
     ledger = Ledger()
     ledger.extend(events, run_id=run_id, created_at=created_at)
@@ -80,4 +85,5 @@ def run(
         run_id=run_id,
         ruleset_version=ruleset_version,
         factor_version=footprint.factor_version,
+        reference_digest=ref_digest,
     )

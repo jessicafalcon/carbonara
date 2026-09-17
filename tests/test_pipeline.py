@@ -8,7 +8,9 @@ import pathlib
 import pytest
 
 from carbonara.ingest import content_hash
+from carbonara.ledger import run_id_for
 from carbonara.pipeline import PipelineResult, run
+from carbonara.references import reference_digest
 from carbonara.rules import SourceType
 
 _BOM_V1 = pathlib.Path(__file__).resolve().parent.parent / "fixtures" / "bom_v1.csv"
@@ -50,6 +52,15 @@ def test_ledger_holds_the_footprint_events(result):
 
 def test_run_id_is_deterministic_and_factor_scoped():
     assert _run("v1").run_id == _run("v1").run_id
+
+
+def test_run_id_is_keyed_to_reference_data_bytes(result):
+    # The run id folds in a content hash of the reference data, not just the
+    # version label — so editing a factor value (even keeping the name) is a new
+    # run, and the reproducibility check catches it (§8.3).
+    expected = run_id_for(content_hash(_BOM_V1.read_bytes()), f"v1:v1:{reference_digest('v1')}")
+    assert result.run_id == expected
+    assert result.reference_digest == reference_digest("v1")
 
 
 def test_re_run_reproduces_records_events_and_ledger():

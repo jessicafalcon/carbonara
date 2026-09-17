@@ -16,7 +16,7 @@ from collections.abc import Callable
 
 from carbonara.contract import CanonicalRecord, QualityStatus
 from carbonara.materialize import SourceRecord
-from carbonara.references import material_factors
+from carbonara.references import factor_digest, material_factors
 from carbonara.rules import AnomalyCategory, Finding, RuleEvent, Severity, SourceType
 
 __all__ = [
@@ -145,6 +145,7 @@ def compute_footprint(
     <FootprintStatus.COSTED: 'costed'>
     """
     factors = material_factors(factor_version)
+    factor_hash = factor_digest(factor_version)
     filled = _filled_weight_events(fill_events)
 
     components: list[ComponentFootprint] = []
@@ -216,6 +217,7 @@ def compute_footprint(
                     "factor_source": factor.source,
                     "factor_source_version": factor.source_version,
                     "factor_table_version": factor_version,
+                    "factor_content_hash": factor_hash,
                     "weight_g": weight,
                     "weight_source": weight_source,
                     "mapping_confidence": _EXACT_CONFIDENCE,

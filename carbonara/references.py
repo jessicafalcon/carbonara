@@ -9,6 +9,7 @@ from __future__ import annotations
 import csv
 import dataclasses
 import functools
+import hashlib
 import pathlib
 
 __all__ = [
@@ -16,18 +17,51 @@ __all__ = [
     "MaterialVocab",
     "ReferenceWeight",
     "country_iso",
+    "factor_digest",
     "material_factors",
     "material_vocab",
+    "reference_digest",
     "reference_weights",
     "supplier_names",
 ]
 
 _REFERENCES_DIR = pathlib.Path(__file__).resolve().parent.parent / "references"
 
+#: The reference vocabularies that feed a run, besides the versioned factor table.
+#: Hashed into the run id so a change to any of them is a new, detectable run.
+_RUN_REFERENCE_FILES = ("countries_iso_v1.csv", "materials_v1.csv", "suppliers_v1.csv", "reference_weights_v1.csv")
+
 
 def _read(name: str) -> list[dict[str, str]]:
     with (_REFERENCES_DIR / name).open(newline="") as handle:
         return list(csv.DictReader(handle))
+
+
+def _digest(names: tuple[str, ...]) -> str:
+    """A content hash over the named reference files (order-independent, 16 hex)."""
+    hasher = hashlib.sha256()
+    for name in sorted(names):
+        hasher.update(name.encode())
+        hasher.update(b"\0")
+        hasher.update((_REFERENCES_DIR / name).read_bytes())
+        hasher.update(b"\0")
+    return hasher.hexdigest()[:16]
+
+
+@functools.cache
+def factor_digest(version: str = "v1") -> str:
+    """Content hash of one factor table — its identity by bytes, not by filename."""
+    return _digest((f"material_factors_{version}.csv",))
+
+
+@functools.cache
+def reference_digest(factor_version: str = "v1") -> str:
+    """Content hash of every reference file a run reads (vocabularies + factors).
+
+    Folded into the run id so any edit to reference data — even without a version
+    rename — yields a new run and is caught by the reproducibility check (§8.3).
+    """
+    return _digest((*_RUN_REFERENCE_FILES, f"material_factors_{factor_version}.csv"))
 
 
 @functools.cache

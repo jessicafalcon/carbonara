@@ -73,9 +73,12 @@ The footprint is parameterized by factor version. A revision ships as
 `references/material_factors_v2.csv` (a hypothetical polyester revision, cited as
 such — Ecobalyse serves one live snapshot). Recomputing under v2:
 
-- writes **new** `DERIVED_FORMULA` events under a new `run_id`
-  (`run_id_for(content_hash, ruleset+factor_version)`) — the ledger is append-only,
-  so the v1 events are untouched (no history corruption);
+- writes **new** `DERIVED_FORMULA` events under a new `run_id` — the ledger is
+  append-only, so the v1 events are untouched (no history corruption). The run id
+  is keyed to a **content hash of the reference data** (`reference_digest`), not
+  just the version label, and each footprint event records the factor table's
+  `factor_content_hash`; an edit to any factor or vocabulary is therefore a new,
+  detectable run (§8.3), never a silent change under a reused id;
 - yields a **version diff** (`carbonara/footprint.py`): per material / product, the
   v1 estimate, the v2 estimate, the delta, and the factor-version change.
 

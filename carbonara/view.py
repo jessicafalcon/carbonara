@@ -270,7 +270,8 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
 </head><body>
 <h1>{_esc(title)} — catalog footprint</h1>
 <p class="sig">run <b>{_esc(result.run_id)}</b> · ruleset <b>{_esc(result.ruleset_version)}</b>
-  · factor table <b>{_esc(result.factor_version)}</b> · deterministic re-render</p>
+  · factor table <b>{_esc(result.factor_version)}</b> · reference data <b>{_esc(result.reference_digest)}</b>
+  · deterministic re-render</p>
 
 <div class="grid">
   <section class="panel">
