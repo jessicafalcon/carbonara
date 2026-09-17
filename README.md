@@ -23,7 +23,10 @@ plan.
 The pipeline runs end to end: ingest and schema-drift gate, normalize and
 validate, the gap-fill ladder with dual-store provenance, and the
 component-level footprint with a brand-facing view and a per-number provenance
-drawer. Stretch work (Lea, icanexplain) is not built (see the brief).
+drawer. The stretch work is built too: a two-vintage change explanation — a
+DuckDB SQL DAG that rolls the footprint up to a production-weighted catalog total
+and an icanexplain decomposition of the v1→v2 change — lives in `analytics/`,
+outside the connector (see the brief).
 
 ```python
 >>> import carbonara
@@ -58,6 +61,36 @@ Render the view over the fixture BOM to a standalone HTML file:
 
 ```sh
 uv run python scripts/build_view.py   # writes build/view.html
+```
+
+## Change explanation (v1 → v2)
+
+Two BOM vintages (2024 and 2025) differ in planted ways — production volume, a
+material-mix shift, and one emission-factor revision. A tiny DuckDB SQL DAG rolls
+each vintage up to a production-weighted catalog total `F = Σ mass_kg × factor`,
+and icanexplain decomposes the change into an **intensity** effect (the factor
+revision) and a **volume/mix** effect (production mass and its material mix). The
+two contributions reconcile to the observed change, and the intensity effect
+lands on the one material whose factor moved:
+
+```python
+>>> from analytics.mart import footprint_mart
+>>> from analytics.explain import decompose
+>>> change = decompose(footprint_mart())
+>>> change.reconciles()  # intensity + volume/mix == observed ΔF
+True
+>>> round(change.intensity_effect + change.volume_mix_effect - change.observed_delta, 6)
+0.0
+>>> by_material = change.by_material.set_index("material")["intensity_effect"]
+>>> [m for m in by_material.index if abs(by_material[m]) > 1e-6]
+['polyester']
+
+```
+
+Build the reconciled explanation as an artifact:
+
+```sh
+uv run python scripts/build_explanation.py   # writes build/explanation.json
 ```
 
 ## Install

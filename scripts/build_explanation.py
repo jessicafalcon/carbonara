@@ -78,9 +78,8 @@ def main(out: pathlib.Path) -> None:
         f"ΔF = {pipeline['observed_delta']:,} kgCO2e"
         f"  =  intensity {pipeline['intensity_effect']:,}  +  volume/mix {pipeline['volume_mix_effect']:,}"
     )
-    print(
-        f"reconciles={pipeline['reconciles']}  intensity_matches_factor_bump={pipeline['intensity_matches_factor_bump']}"
-    )
+    matches = pipeline["intensity_matches_factor_bump"]
+    print(f"reconciles={pipeline['reconciles']}  intensity_matches_factor_bump={matches}")
 
 
 def _json_default(value: object) -> object:

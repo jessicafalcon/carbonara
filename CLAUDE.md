@@ -151,20 +151,27 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   Exact Ecobalyse `cch` factors (`scripts/fetch_factors.py`, token-gated), reference-data
   content-hashing in the run id (`reference_digest`), the slate-dashboard view
   (`carbonara/view.py`), and the trace journey all landed.
-- **Phase 6 — (stretch) Lea DAG + icanexplain on two vintages: in progress.**
-  Branch `phase-6-lea-and-icanexplain`. Scope confirmed with the user: **both**
-  libraries, decomposing a **production-weighted** catalog total `F = Σ qty × weight_kg ×
-  factor` (quantity does not enter the Phase-5 per-line footprint, so a real volume
-  effect needs this new mart aggregate). The **v2 (2025)** vintage is a deterministic
-  transform of v1's clean skeleton (per-archetype volume multiplier + a named
-  material-mix shift + 2025 stamp), so the planted ground-truth decomposition stays
-  exactly known. Architecture: the carbonara pipeline stays the deterministic core;
-  a new `analytics/` package (outside `carbonara/`, carrying the heavier deps) runs
-  both vintages through the pipeline, a tiny Lea staging→core→mart DuckDB DAG rolls
-  per-line footprints up to `F` by material×vintage, and icanexplain decomposes ΔF into
-  volume/mix/intensity — reconciled to the observed delta and validated against
-  `decomposition_truth.csv`, both within tolerance. Spec + 8 steps in
-  `specs/phase-6-lea-and-icanexplain.md`. Also adds a `carbonara-pr` PR-writing skill.
-  **Next: step 1 committed (spec + this status); step 2 — the PR-writing skill.**
+- **Phase 6 — (stretch) two-vintage change explanation: at exit gate, awaiting merge.**
+  Branch `phase-6-lea-and-icanexplain`; spec + 8 steps committed. The v1→v2 change in a
+  **production-weighted** catalog total `F = Σ mass_kg × factor` (quantity does not enter
+  the Phase-5 per-line footprint, so a real volume effect needs this new mart aggregate)
+  is decomposed with **icanexplain** into an intensity effect (the polyester factor bump)
+  and a volume/mix effect (production mass + the cotton→organic-cotton shift), reconciled
+  to the observed delta and validated against planted ground truth. The **v2 (2025)**
+  vintage is a deterministic transform of v1's clean skeleton (per-archetype volume
+  multiplier + named mix shift + 2025 stamp); `fixtures/generate.py` writes `bom_v2`,
+  `ground_truth_v2`, and `decomposition_truth.csv`. A new `analytics/` package (outside
+  `carbonara/`, heavier deps in an `analytics` group) runs both vintages through the
+  pipeline, a tiny staging→core→mart **DuckDB SQL DAG** rolls per-line footprints up to
+  `F` by material×vintage, and `analytics/explain.py` decomposes + reconciles;
+  `scripts/build_explanation.py` writes the artifact. Exit gate green: reconciliation is
+  exact, the intensity effect sits on polyester alone and equals the planted factor bump,
+  and pipeline vs ground truth agree in direction (the ~24% magnitude gap is propagated
+  fill error, reported as QA). **Lea (`lea-cli`) not adopted** — hard `sqlglot` conflict
+  with icanexplain's ibis + BigQuery dependency bloat; the DAG is plain DuckDB SQL (see
+  the spec's Dependencies section). Added a `carbonara-pr` PR-writing skill. `pytest`
+  (172) + `pre-commit` pass. **Open: push branch + open PR #7 (this step); merge is the
+  user's call. Next after merge: Phase 7 (aspiration) — Bloodline augmentation-rule
+  helper (M7).**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
