@@ -85,6 +85,22 @@ footprint claim, purely to prove the drift gate and normalizers survive real
 mess. Keep it out of the QA suite (no ground truth); it is an exercise, not a
 determinism fixture.
 
+**Done** (`feat/real-file-exercise`). The file is a real U.S. textile-import table
+(`samples/us_textile_imports_by_fiber.csv`, USDA ERS from Census/Commerce trade
+data — a quoted field with an embedded comma), run by
+`scripts/real_file_exercise.py`. It lives in `scripts/`/`samples/`, so pytest never
+collects it — out of the QA suite, as required. Findings: ingest parses the
+quoted-comma CSV; the drift gate returns `review_required` with no mapping (no
+column matches the BOM contract), so a real non-BOM file is stopped, not processed;
+`resolve_material` resolves `Cotton → cotton` and flags `Wool`/`Silk`/`Linen`/
+`Synthetic` (not in the vocabulary) instead of guessing; `parse_date` nulls the
+year-only periods — no crashes. Decision: the file is aggregate statistics with no
+per-component weights/suppliers/SKUs (and no public per-component apparel BOM
+exists), so the exercise proves the **drift gate + field normalizers** survive real
+mess but does not exercise the full fill→footprint path — the gate is the safety
+net that stops exactly this. Chosen file is USDA ERS (published from Census data)
+because the strict-Census OTEXA tables are not served as a direct CSV.
+
 ### 4. A live upload → review → re-run surface
 
 The brief describes "a thin, clean full-stack surface"; the shipped artifact is a
