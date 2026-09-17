@@ -85,6 +85,12 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
   its own commit. **Write it as a senior data architect:** choose the simplest,
   most elegant solution that meets the contract — boring over clever — and cut
   anything speculative. No overengineering.
+- **Record every design or decision change in the spec.** The spec stays the
+  source of truth. If a choice changes mid-phase — the approach, a dependency, a
+  scope cut, an interface, a deferral — update `specs/phase-<n>-<slug>.md` (or the
+  brief §16 entry when the phase has not started) in the same commit as the change,
+  authored with `carbonara-voice`. A decision that lives only in the chat or the
+  code is a decision the next session cannot see.
 - **One step = one commit.** Work the phase step by step; each step is a single
   atomic commit, made once it is green (`uv run pytest` + `uv run pre-commit run
   --all-files` clean). Never bundle a whole phase into one commit; never commit
@@ -151,7 +157,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   Exact Ecobalyse `cch` factors (`scripts/fetch_factors.py`, token-gated), reference-data
   content-hashing in the run id (`reference_digest`), the slate-dashboard view
   (`carbonara/view.py`), and the trace journey all landed.
-- **Phase 6 — (stretch) two-vintage change explanation: at exit gate, awaiting merge.**
+- **Phase 6 — (stretch) two-vintage change explanation: done** (merged, PR #7).
   Branch `phase-6-lea-and-icanexplain`; spec + 8 steps committed. The v1→v2 change in a
   **production-weighted** catalog total `F = Σ mass_kg × factor` (quantity does not enter
   the Phase-5 per-line footprint, so a real volume effect needs this new mart aggregate)
@@ -171,8 +177,25 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   so both vintages corrupt the same cells and fill error cancels in the delta. **Lea (`lea-cli`) not adopted** — hard `sqlglot` conflict
   with icanexplain's ibis + BigQuery dependency bloat; the DAG is plain DuckDB SQL (see
   the spec's Dependencies section). Added a `carbonara-pr` PR-writing skill. `pytest`
-  (172) + `pre-commit` pass. **Open: push branch + open PR #7 (this step); merge is the
-  user's call. Next after merge: Phase 7 (aspiration) — Bloodline augmentation-rule
-  helper (M7).**
+  (172) + `pre-commit` pass.
+- **Phase 7 — (aspiration) Bloodline augmentation-rule helper (M7): at exit gate, awaiting merge.**
+  Branch `phase-7-augmentation-rule-helper`; spec + 4 steps committed. Closes the
+  source-vs-lifecycle gap (§8.1): the in-repo helper `carbonara/augment.py`
+  (`RuleRecord`, `augment_source`, `augment_lineage`, `lineage_history`) preserves a
+  cell's original Bloodline lineage while attaching an ordered rule record (rule
+  id/version, inputs, confidence) inside the head `Source`'s metadata — one `Source`
+  per cell kept, lifecycle as an oldest-first `"lineage"` list, no parallel store, no
+  clobber. Uses `apply_data_lineage`/`Source` as intended and depends only on
+  Bloodline + pandas + stdlib, so it is liftable upstream (no upstream PR this phase,
+  per §11). Deterministic → lives in `carbonara/`, passes the guard. The live pipeline
+  still clobbers with `override=True` (one rule per cell today); the helper is
+  demonstrated on a two-rule cell (`tests/test_augment.py`, 7 regression tests) and a
+  module + README doctest. Also fixed a pre-existing E501 in
+  `scripts/build_explanation.py` that slipped past PR #7's gate, added a CI workflow
+  (`.github/workflows/ci.yml`: `pytest` + `pre-commit` on push/PR) since the gate was
+  only ever local, and installed the pre-push hook. `pytest` (181) + `pre-commit`
+  pass. **Open: PR #8 (pushed, awaiting merge); merge is the user's call. Next after
+  merge: Phase 8 — demo + limitations note (M8), now including the applied review
+  loop (re-apply approved rules, chained via `augment_lineage`; brief §16 Phase 8).**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._

@@ -269,7 +269,9 @@ Component-level, aggregated to product and catalog. Always display the factor so
 Effort goes to one genuinely usable brand-facing view rather than a second provenance subsystem.
 
 - **Readiness panel:** schema-drift status; material/weight/country coverage; observed/derived/referenced/imputed shares; anomalies by severity and review status; prioritized next action.
-- **Review queue:** anomalies, missing values, uncertain mappings — raw value, evidence, proposed rule, method, confidence, approve/reject. Approvals become versioned reusable rules.
+- **Review queue:** anomalies, missing values, uncertain mappings — raw value, evidence, proposed rule, method, confidence, approve/reject. Approvals become versioned reusable rules, re-applied
+to the corrected cell (Phase 8) with their lineage chained onto the original
+source ([§8.1](#81-bloodline--the-provenance-spine)), not overwriting it.
 - **Footprint + material basket:** estimate over material/category/country, with the factor/coverage/uncertainty labels.
 - **Provenance drawer (per number):** `metric → footprint rows → rules applied → source file/row + factor version`, read from the ledger and the Bloodline spine.
 
@@ -438,10 +440,11 @@ Gated, and merge timing is not ours ([§11](#11-open-source-library-usage)). A h
 
 ### Phase 8 — Demo + limitations note *(M8)*
 
-**Objective.** Make the story repeatable in five minutes.
+**Objective.** Make the story repeatable in five minutes, with the review loop applied end to end.
 
-- A scripted, deterministic walkthrough (upload → drift gate → review → fill → footprint → provenance trace); a short limitations note ([§15](#15-claims-boundaries)); README with tested doctests.
-- **Exit gate.** The five-minute walkthrough is reproducible from a clean checkout; `uv run pytest` (unit + doctest + README) is green; claims in the README stay inside the [§15](#15-claims-boundaries) boundaries.
+- **Apply the review loop.** Wire `review.approved_rules()` back into the pipeline as a second pass: an approved mapping (e.g. `Organic cottn` → `organic cotton`) is re-applied to the cell it corrects, not merely minted. The re-apply pass attaches its lineage with `carbonara.augment.augment_lineage` (Phase 7), so the reviewer's rule **chains onto the cell's original source** (normalize → approved alias) instead of clobbering it ([§8.1](#81-bloodline--the-provenance-spine)); it writes a ledger event like any rule ([§8.2](#82-rule-event-ledger--the-ordered-history)). The decision (actor, status, timestamp) is injected, so the pass stays deterministic.
+- A scripted, deterministic walkthrough (upload → drift gate → review → **approve → re-run** → fill → footprint → provenance trace) that shows a chained cell lineage in the provenance drawer; a short limitations note ([§15](#15-claims-boundaries)); README with tested doctests.
+- **Exit gate.** The five-minute walkthrough is reproducible from a clean checkout; an approved mapping re-applies and its cell carries a two-entry lineage (original + approval); `uv run pytest` (unit + doctest + README) is green; claims in the README stay inside the [§15](#15-claims-boundaries) boundaries.
 
 ---
 
