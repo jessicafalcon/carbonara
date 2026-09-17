@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from carbonara.materialize import materialize
+import pytest
+
+from carbonara.materialize import SourceSchemaError, materialize
 
 
 def _row(source_row_id: str, **over: str) -> dict[str, str]:
@@ -37,3 +39,15 @@ def test_materialize_is_deterministic():
     first = materialize(rows, {"vendor": "supplier"})
     second = materialize(rows, {"vendor": "supplier"})
     assert [sr.record for sr in first] == [sr.record for sr in second]
+
+
+def test_missing_required_column_names_the_column():
+    row = _row("1")
+    del row["vendor"]  # supplier is then absent after mapping
+    with pytest.raises(SourceSchemaError, match="supplier"):
+        materialize([row], {"vendor": "supplier"})
+
+
+def test_non_integer_source_row_id_is_a_clear_error():
+    with pytest.raises(SourceSchemaError, match="source_row_id must be an integer"):
+        materialize([_row("R-001")], {"vendor": "supplier"})
