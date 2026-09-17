@@ -36,11 +36,14 @@ The rules are sized to `fixtures/bom_v1.csv`, not to a hypothetical file:
   mapping is a `Finding` (category, severity, evidence, proposed value, review
   history) — a thing to *decide*, not a value that changed. The review queue owns
   findings; approving one yields a versioned reusable rule.
-- **The canonical frame.** Rules operate on a pandas frame keyed to
-  `CANONICAL_COLUMNS`, raw columns preserved beside their normalized forms
-  (`material_raw`/`material_normalized`, `net_weight` raw beside
-  `component_weight_g`). The per-value functions stay pure and doctested; the pass
-  applies them across the frame. Aligns with the Phase 4/5 frame + DuckDB path.
+- **Records, not a frame (yet).** The contract is a frozen, typed
+  `CanonicalRecord`; a rule emits a *new* record rather than mutating one
+  (governance). So Phase 3 works on records, each paired with its raw source row
+  (a `SourceRecord`) — the raw is preserved in full there and in `material_raw` /
+  `supplier_raw`, while `component_weight_g` / `order_date` / `factory_country_iso`
+  stay properly typed. The per-value functions are pure and doctested. Phase 4
+  builds a pandas frame from these records where the grouped median wants it, and
+  Phase 5's DuckDB layer reads them.
 - **Confident vs uncertain, split by footprint impact.** Suppliers do not drive
   the footprint, so a high-confidence fuzzy match is applied and logged (visible,
   not silent). Materials do drive it (§15 claims boundary), so a near-miss like
