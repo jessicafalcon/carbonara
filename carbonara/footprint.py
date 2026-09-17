@@ -22,6 +22,8 @@ from carbonara.rules import AnomalyCategory, Finding, RuleEvent, Severity, Sourc
 __all__ = [
     "Breakdown",
     "ComponentFootprint",
+    "FactorDiff",
+    "FactorDiffRow",
     "FootprintResult",
     "FootprintStatus",
     "FootprintSummary",
@@ -30,6 +32,7 @@ __all__ = [
     "by_material",
     "by_product",
     "compute_footprint",
+    "factor_diff",
     "summarize",
 ]
 
@@ -63,6 +66,7 @@ class ComponentFootprint:
     material: str | None
     factor_kgco2e_per_kg: float | None
     factor_source: str | None
+    factor_source_version: str | None
     factor_version: str
     weight_g: float | None
     weight_source: str
@@ -141,7 +145,6 @@ def compute_footprint(
     <FootprintStatus.COSTED: 'costed'>
     """
     factors = material_factors(factor_version)
-    factor_source_version = next(iter(factors.values())).source_version if factors else factor_version
     filled = _filled_weight_events(fill_events)
 
     components: list[ComponentFootprint] = []
@@ -154,14 +157,12 @@ def compute_footprint(
         material = record.material_normalized
 
         if weight is None:
-            components.append(_uncosted(record, factor_source_version, weight_g=None, status=FootprintStatus.NO_WEIGHT))
+            components.append(_uncosted(record, factor_version, weight_g=None, status=FootprintStatus.NO_WEIGHT))
             continue
 
         factor = factors.get(material) if material is not None else None
         if factor is None:
-            components.append(
-                _uncosted(record, factor_source_version, weight_g=weight, status=FootprintStatus.UNMAPPED)
-            )
+            components.append(_uncosted(record, factor_version, weight_g=weight, status=FootprintStatus.UNMAPPED))
             findings.append(
                 Finding.create(
                     record_id=record.record_id,
@@ -187,10 +188,11 @@ def compute_footprint(
                 style_id=record.style_id,
                 category=_category(record.style_id),
                 component=record.component,
-                factor_version=factor_source_version,
+                factor_version=factor_version,
                 material=material,
                 factor_kgco2e_per_kg=factor.factor_kgco2e_per_kg,
                 factor_source=factor.source,
+                factor_source_version=factor.source_version,
                 weight_g=weight,
                 weight_source=weight_source,
                 estimated_kgco2e=estimate,
@@ -212,7 +214,8 @@ def compute_footprint(
                     "material": material,
                     "factor_kgco2e_per_kg": factor.factor_kgco2e_per_kg,
                     "factor_source": factor.source,
-                    "factor_version": factor.source_version,
+                    "factor_source_version": factor.source_version,
+                    "factor_table_version": factor_version,
                     "weight_g": weight,
                     "weight_source": weight_source,
                     "mapping_confidence": _EXACT_CONFIDENCE,
@@ -222,9 +225,7 @@ def compute_footprint(
             )
         )
 
-    return FootprintResult(
-        components=components, events=events, findings=findings, factor_version=factor_source_version
-    )
+    return FootprintResult(components=components, events=events, findings=findings, factor_version=factor_version)
 
 
 def _uncosted(
@@ -240,6 +241,7 @@ def _uncosted(
         material=record.material_normalized,
         factor_kgco2e_per_kg=None,
         factor_source=None,
+        factor_source_version=None,
         weight_g=weight_g,
         weight_source="missing" if weight_g is None else "observed",
         estimated_kgco2e=None,
@@ -357,3 +359,77 @@ def by_country(records: list[SourceRecord], result: FootprintResult) -> list[Bre
     """
     iso = {s.record.record_id: (s.record.factory_country_iso or "unknown") for s in records}
     return _aggregate(result.components, lambda c: iso.get(c.record_id, "unknown"))
+
+
+@dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
+class FactorDiffRow:
+    """One material's footprint under two factor versions, and the delta."""
+
+    material: str
+    factor_from: float
+    factor_to: float
+    total_from: float
+    total_to: float
+    delta_kgco2e: float
+
+
+@dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
+class FactorDiff:
+    """A footprint recomputed across a factor revision, catalog- and material-level.
+
+    The revision recomputes the estimate; it does not rewrite history — the
+    two runs live under distinct ``run_id``s in the append-only ledger (§8.2).
+    """
+
+    from_version: str
+    to_version: str
+    total_from: float
+    total_to: float
+    delta_kgco2e: float
+    rows: list[FactorDiffRow]
+
+
+def factor_diff(
+    records: list[SourceRecord], fill_events: list[RuleEvent], *, from_version: str, to_version: str
+) -> FactorDiff:
+    """Recompute the footprint under two factor versions and diff by material.
+
+    Rows are only those materials whose factor changed, largest absolute delta
+    first. Weights are held fixed — this isolates the factor (intensity) effect.
+    """
+    before = compute_footprint(records, fill_events, factor_version=from_version)
+    after = compute_footprint(records, fill_events, factor_version=to_version)
+    factors_from = material_factors(from_version)
+    factors_to = material_factors(to_version)
+    totals_from = {b.key: b.total_kgco2e for b in by_material(before)}
+    totals_to = {b.key: b.total_kgco2e for b in by_material(after)}
+
+    rows = []
+    for material in sorted(totals_from.keys() | totals_to.keys()):
+        f_from = factors_from[material].factor_kgco2e_per_kg
+        f_to = factors_to[material].factor_kgco2e_per_kg
+        if f_from == f_to:
+            continue
+        t_from = totals_from.get(material, 0.0)
+        t_to = totals_to.get(material, 0.0)
+        rows.append(
+            FactorDiffRow(
+                material=material,
+                factor_from=f_from,
+                factor_to=f_to,
+                total_from=t_from,
+                total_to=t_to,
+                delta_kgco2e=t_to - t_from,
+            )
+        )
+    rows.sort(key=lambda r: (-abs(r.delta_kgco2e), r.material))
+    total_from = summarize(before).total_kgco2e
+    total_to = summarize(after).total_kgco2e
+    return FactorDiff(
+        from_version=from_version,
+        to_version=to_version,
+        total_from=total_from,
+        total_to=total_to,
+        delta_kgco2e=total_to - total_from,
+        rows=rows,
+    )

@@ -48,7 +48,8 @@ def test_costed_component_emits_a_derived_formula_event_with_factor_version():
     [event] = result.events
     assert event.source_type is SourceType.DERIVED_FORMULA
     assert event.column == "estimated_kgco2e"
-    assert event.method_params["factor_version"] == "ecobalyse-2024.1"
+    assert event.method_params["factor_source_version"] == "ecobalyse-2024.1"
+    assert event.method_params["factor_table_version"] == "v1"
     assert event.method_params["weight_source"] == "observed"
 
 
