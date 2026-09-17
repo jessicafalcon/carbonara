@@ -69,7 +69,13 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
   package. If it fires on legitimately non-deterministic code, that code belongs
   *outside* `carbonara/` (a generator or script), or the value should be injected.
 
-## Git workflow — one branch + one PR per phase
+## Git workflow — one branch + one PR per phase or backlog item
+
+The §16 phases are complete; ongoing work is the [BACKLOG.md](BACKLOG.md) items.
+Both run on the **same one-branch-one-PR rule** — the phase rules below are the
+baseline, and the [Backlog items](#backlog-items-post-16-work) subsection at the
+end notes where a backlog item differs (no per-item spec; decisions recorded in
+the backlog, not a spec).
 
 - **Phase 0 was committed directly to `main`** (repo bootstrap). From **Phase 1
   on, every phase gets its own branch and one PR.**
@@ -104,6 +110,36 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
   it, so it must be current.
 - Confirm before force-push, history rewrite, or anything else hard to undo.
 
+### Backlog items (post-§16 work)
+
+Ongoing work is the [BACKLOG.md](BACKLOG.md) items. Each runs on the **same
+one-branch-one-PR rule as a phase**, with two differences: the backlog entry *is*
+the spec (no `specs/<branch>.md` file), and a mid-build decision change is
+recorded in `BACKLOG.md`, not a spec.
+
+- **Pick the next item** from the BACKLOG.md build-order table — top-down by
+  default, respecting the `Depends on` column. One item = one branch = one PR.
+- **Branch name:** `<type>/<slug>`, the type matching the change — `feat/…` for a
+  data-path or behavior item, `refacto/…` / `perf/…` / `docs/…` otherwise (e.g.
+  `feat/category-in-contract`, `refacto/closed-form-split`). Same house types as
+  commits (`carbonara-voice`).
+- **Start (local):** `git switch main && git pull --ff-only`, then
+  `git switch -c <type>/<slug>`.
+- **No per-item spec.** The BACKLOG.md entry already carries what to change, why,
+  where in the code, and whether it touches the data path — that is the spec.
+  Read it, then work the item step by step, one atomic commit per green step
+  (same commit rules and gates as a phase: `uv run pytest` + `uv run pre-commit
+  run --all-files` clean).
+- **Record decision changes in BACKLOG.md.** If a choice changes mid-build — a
+  dependency, a scope cut, an interface, a deferral — update that item's entry in
+  `BACKLOG.md` in the same commit as the change (`carbonara-voice`). The backlog
+  stays the source of truth; a decision that lives only in chat or code is lost to
+  the next session.
+- **Exit gate, PR, merge, status: identical to a phase.** The data-path and
+  correctness bars still apply (determinism guard, `carbonara-correctness`); at
+  the exit push the branch, open/finalize the PR, and **stop — the merge is the
+  user's call**; update Current status after every PR and merge.
+
 ### Commit best practices
 
 - **Atomic.** One logical change per commit — the step, nothing bundled in.
@@ -129,6 +165,11 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
    --all-files`): one atomic commit.
 5. At the exit gate: push the branch, open/finalize the PR, and stop — the user
    merges. Update Current status once told it's merged.
+
+For a **backlog item**, step 2 has no spec file — read the item's BACKLOG.md
+entry instead, branch `<type>/<slug>` off `main`, and record any mid-build
+decision change in that entry. Steps 3–5 are unchanged. See
+[Backlog items](#backlog-items-post-16-work).
 
 ## Project tooling
 
@@ -265,5 +306,14 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   deleted mid-edit (it broke add-import-then-use edit sequences). F401 is still
   reported by the hook (non-blocking) and still removed by the pre-commit gate
   (`ruff-check --fix`), so nothing unused reaches a commit.
+- **§16 build complete; now working the backlog.** [BACKLOG.md](BACKLOG.md) landed
+  on `main` (merged, PR #13) — an ordered list of six post-project items (build
+  order in its table). Backlog items follow the
+  [Backlog items](#backlog-items-post-16-work) workflow: one branch + one PR each,
+  the backlog entry as the spec, decisions recorded in `BACKLOG.md`.
+  - **Next up:** item 1 — lift `category` into the contract (small, data path, no
+    deps). Then 2 (parse XLSX), 3 (run a real messy file, gated on 1+2), 4 (live
+    upload→review→re-run surface), 5 (closed-form split), 6 (augment lifecycle in
+    the live pipeline).
 
-_Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
+_Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
