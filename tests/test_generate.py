@@ -108,13 +108,16 @@ def test_v2_plants_the_same_cases_as_v1() -> None:
     assert {row["case"] for row in ground_truth} == EXPECTED_CASES
 
 
-def test_v2_corrupts_exactly_the_same_cells_as_v1() -> None:
-    # The reorder (plant before transform) makes the corruption layout identical
-    # across vintages, so fill error cancels in the v1→v2 delta.
-    _, gt1 = generate.generate(vintage=generate.V1)
-    _, gt2 = generate.generate(vintage=generate.V2)
-    cells = lambda gt: {(row["source_row_id"], row["column"], row["case"]) for row in gt}  # noqa: E731
-    assert cells(gt1) == cells(gt2)
+def test_v2_blanks_exactly_the_same_weight_cells_as_v1() -> None:
+    # Planting runs before the transform, so both vintages blank the same weights
+    # and fill them identically — the invariant that makes fill error cancel in the
+    # v1→v2 delta. (The mix shift then supersedes a few material/composition cells;
+    # weight blanking, which drives fill error, is untouched.)
+    v1_rows, _ = generate.generate(vintage=generate.V1)
+    v2_rows, _ = generate.generate(vintage=generate.V2)
+    blanked = lambda rows: {r["source_row_id"] for r in rows if r["net_weight"] == ""}  # noqa: E731
+    assert blanked(v1_rows) == blanked(v2_rows)
+    assert len(blanked(v1_rows)) > 0
 
 
 def test_v2_volume_multiplier_scales_quantity() -> None:

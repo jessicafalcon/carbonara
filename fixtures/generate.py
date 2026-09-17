@@ -849,15 +849,26 @@ def _plant_missingness_band(
         )
 
 
-def _apply_vintage(rows: list[dict[str, str]], vintage: Vintage) -> None:
+#: Columns a mix shift rewrites — a planted corruption here is superseded by the
+#: shift, so its ground-truth entry is dropped to keep the truth faithful.
+_MIX_SHIFT_COLUMNS = {"material_normalized", "composition"}
+
+
+def _apply_vintage(rows: list[dict[str, str]], ground_truth: list[dict[str, str]], vintage: Vintage) -> None:
     """Apply the vintage's volume and material-mix changes, in place, after planting.
 
     Scales each line's quantity by its archetype multiplier and switches the named
-    mix-shift lines to their new material — the deltas that make v2 differ from v1.
-    Applied *after* planting so both vintages corrupt exactly the same cells and
-    fill identically, so the fill error cancels in the v1→v2 delta. v1 leaves both
-    empty, so it is a no-op.
+    mix-shift lines to their new material and composition — the deltas that make v2
+    differ from v1. Applied *after* planting so both vintages corrupt exactly the
+    same cells and fill identically, so the fill error cancels in the v1→v2 delta.
+
+    A shift overwrites the whole material/composition cell, superseding any planted
+    corruption there (a shifted line is deliberately organic cotton, not a typo or
+    a shorthand to parse); the now-invalid ground-truth entries are dropped so the
+    ground truth stays faithful to the emitted BOM. v1 shifts nothing, so it is a
+    no-op — its ground truth and rows are untouched.
     """
+    shifted: set[str] = set()
     for row in rows:
         multiplier = vintage.volume_mult.get(row["style_id"].split("-")[0], 1.0)
         if multiplier != 1.0:
@@ -866,6 +877,12 @@ def _apply_vintage(rows: list[dict[str, str]], vintage: Vintage) -> None:
         if shift is not None:
             row["material"] = shift.to_material
             row["composition"] = shift.to_composition
+            shifted.add(row["source_row_id"])
+    ground_truth[:] = [
+        entry
+        for entry in ground_truth
+        if not (entry["source_row_id"] in shifted and entry["column"] in _MIX_SHIFT_COLUMNS)
+    ]
 
 
 def generate(seed: int = SEED, *, vintage: Vintage = V1) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
@@ -894,7 +911,7 @@ def generate(seed: int = SEED, *, vintage: Vintage = V1) -> tuple[list[dict[str,
     _plant_dense_tight_blanks(rng, rows, ground_truth, used)
     _plant_missingness_band(rng, rows, ground_truth, used)
     _plant_file_level_cases(ground_truth)
-    _apply_vintage(rows, vintage)
+    _apply_vintage(rows, ground_truth, vintage)
     return rows, ground_truth
 
 

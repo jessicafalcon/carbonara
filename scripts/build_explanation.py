@@ -57,7 +57,7 @@ def build_explanation() -> dict[str, object]:
             "delta_gap": round(gap(pipeline_dec.observed_delta, truth_dec.observed_delta), 4),
             "intensity_gap": round(gap(pipeline_dec.intensity_effect, truth_dec.intensity_effect), 4),
             "volume_mix_gap": round(gap(pipeline_dec.volume_mix_effect, truth_dec.volume_mix_effect), 4),
-            "note": "residual gaps are propagated fill error; the two vintages fill different blanked cells",
+            "note": "residual gaps are per-vintage fill error scaled by the volume change; both vintages fill the same cells, so the cross-vintage asymmetry is gone",
         },
         "by_material": {
             "pipeline": pipeline_dec.by_material.to_dict(orient="records"),

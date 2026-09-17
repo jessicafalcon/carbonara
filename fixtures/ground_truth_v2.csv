@@ -27,7 +27,6 @@ source_row_id,column,true_value,case,expected
 145,material_normalized,organic cotton,material_typo,"proposed alias, not silent correction"
 65,material_normalized,organic cotton,material_typo,"proposed alias, not silent correction"
 178,material_normalized,organic cotton,material_typo,"proposed alias, not silent correction"
-12,composition,70% cotton / 30% polyester,composition_shorthand,"composition parsed, sums to 100%"
 280,composition,70% cotton / 30% polyester,composition_shorthand,"composition parsed, sums to 100%"
 225,composition,70% cotton / 30% polyester,composition_shorthand,"composition parsed, sums to 100%"
 135,component_weight_g,492,mixed_units_kg,normalized value + preserved raw value/unit
