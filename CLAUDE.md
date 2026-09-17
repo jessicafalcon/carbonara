@@ -152,7 +152,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   range; fill accuracy reported per tier (grouped-median MAE ≈ 7.9 g / 12.8%,
   constant ≈ 1.2 g / 16.6%); fills, ledger, and lineage reproduce exactly; `pytest`
   (121) + `pre-commit` pass. Scoped out: formula/reference-resolve fill tiers (no
-  applicable weight gap), footprint + view. **Open PR (this branch)** — merge is the
+  applicable weight gap), footprint + view. **Open PR #5** — merge is the
   user's call. **Next after merge: Phase 5 — footprint + brand-facing view +
   provenance drawer (M5);** start a `phase-5-*` branch and spec.
 
