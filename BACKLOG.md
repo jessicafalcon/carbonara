@@ -49,6 +49,20 @@ profile/schema-drift gate, so an XLSX file follows the identical path a CSV does
 Data path — must stay deterministic (fixed sheet selection, no locale-dependent
 parsing).
 
+**Done** (`feat/parse-xlsx`). `ingest._read_xlsx` reads the first sheet with
+`openpyxl` directly and converts each cell to a string (`_cell_str`), rather than
+`pandas.read_excel`. Decision: `read_excel` renders a native Excel **date** cell
+as `"2024-01-08 00:00:00"` (not the ISO `order_date` the CSV path carries) and
+leaves number/blank handling to pandas' type inference; reading cells directly
+gives a faithful, locale-free conversion (integers without a trailing `.0`, date
+cells to ISO, blanks to `""`) — the determinism the item requires. `openpyxl` is
+the one new connector dependency, and pandas is a transitive user of it anyway.
+`read_source`/`read_rows` are the shared format-agnostic readers (a caller feeds
+either format to `pipeline.run` identically); `admit` dispatches on the detected
+format and a malformed XLSX raises a clear `UnsupportedFormatError`. The demo
+scripts still read the CSV fixture with `csv.DictReader` (unchanged); routing them
+through `read_rows` is left out of scope to avoid touching their output.
+
 ### 3. Run one real, messy source file end to end
 
 Every input today is synthetic. That is the right call for the fill-accuracy
