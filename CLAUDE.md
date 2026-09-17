@@ -58,6 +58,7 @@ pyproject.toml    uv/ruff/ty/pytest config     uv.lock  pinned deps
 | `carbonara-correctness` | landing anything in the data path, adding a rule, reviewing |
 | `carbonara-tests` | writing or changing any test |
 | `carbonara-voice` | writing a commit, PR, comment/docstring, or any `.md` file |
+| `carbonara-pr` | opening or finalizing a phase PR (structure/process; pairs with `carbonara-voice`) |
 | `carbonara-efficiency` | fan-out reads, wiring an external source, long multi-turn work |
 
 ### Hooks — fire automatically, no action needed
