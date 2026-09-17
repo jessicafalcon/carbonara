@@ -229,7 +229,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   findings the live pipeline never surfaces) + a view stage-boundary caption; and
   input-boundary hardening (crashes → reviewable findings). **Merge is the user's
   call.**
-- **Wire the anomaly net into the pipeline: at exit gate, awaiting merge.** Branch
+- **Wire the anomaly net into the pipeline: done** (merged, PR #11). Branch
   `feat/wire-anomaly-net` off `main`; spec `specs/feat-wire-anomaly-net.md` + steps
   committed. Closes the resilience-audit gap: `detect_anomalies` (validity,
   completeness, duplicate-key, cross-field, distribution) was called only from
@@ -246,7 +246,19 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   summary (§10) and the material-stage caption (fixture queue 123 → 26: 2 high /
   24 medium / 0 low); the demo names the split (`6 mappings + 23 anomalies`); a new
   test proves the §12 cases surface through `run()`, not only `detect_anomalies`.
-  `pytest` (210) + `pre-commit` pass. Deferred to its own branch: input-boundary
-  hardening. **Open: PR #11; merge is the user's call.**
+  `pytest` (210) + `pre-commit` pass.
+- **Input-boundary hardening: at exit gate, awaiting merge.** Branch
+  `feat/input-boundary-hardening` off `main`; spec
+  `specs/feat-input-boundary-hardening.md` + steps committed. Closes the second
+  half of the resilience audit — the messy input the connector accepts raised raw
+  tracebacks. Now: `ingest._read_csv` decodes UTF-8 → CP1252 (Western vendor files
+  never crash) and records the encoding on the result + registry; `materialize`
+  validates the row schema and raises `SourceSchemaError` naming a missing required
+  column or a non-integer `source_row_id` instead of a raw `KeyError`/`ValueError`;
+  `run` surfaces a high-severity "source has no data rows" finding for a header-only
+  file (was a silent 0 kgCO₂e). A wrong path stays a loud `FileNotFoundError` (a
+  caller error, deliberately not dignified as data). Deterministic — fixed decode
+  order, `content_hash`/`run_id` unchanged. `pytest` (214) + `pre-commit` pass.
+  **Open: PR to push; merge is the user's call.**
 
 _Update after every PR and merge (rule above): phase, branch, open PR, next spec step._
