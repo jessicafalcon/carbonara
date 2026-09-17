@@ -12,8 +12,11 @@ set -euo pipefail
 file_path="$(python3 -c 'import json,sys; print((json.load(sys.stdin).get("tool_input") or {}).get("file_path",""))' 2>/dev/null || true)"
 
 # Only guard Python modules inside the connector package; skip tests.
-case "$file_path" in
-  *"/carbonara/"*.py) ;;
+# Match on the project-relative path: the repo root is itself named carbonara/,
+# so a bare */carbonara/*.py would wrongly catch fixtures/ and scripts/ too.
+rel="${file_path#"$CLAUDE_PROJECT_DIR"/}"
+case "$rel" in
+  carbonara/*.py) ;;
   *) exit 0 ;;
 esac
 case "$file_path" in
