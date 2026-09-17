@@ -11,7 +11,14 @@ import dataclasses
 import functools
 import pathlib
 
-__all__ = ["MaterialVocab", "country_iso", "material_vocab", "supplier_names"]
+__all__ = [
+    "MaterialVocab",
+    "ReferenceWeight",
+    "country_iso",
+    "material_vocab",
+    "reference_weights",
+    "supplier_names",
+]
 
 _REFERENCES_DIR = pathlib.Path(__file__).resolve().parent.parent / "references"
 
@@ -49,3 +56,29 @@ def material_vocab() -> MaterialVocab:
         canonical=tuple(row["canonical"] for row in rows),
         code_to_canonical={row["code"]: row["canonical"] for row in rows if row["code"]},
     )
+
+
+@dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
+class ReferenceWeight:
+    """A representative component weight and its plausibility band (grams)."""
+
+    ref_weight_g: float
+    band_low_g: float
+    band_high_g: float
+
+    def in_band(self, grams: float) -> bool:
+        """Whether a weight falls inside the plausibility band (inclusive)."""
+        return self.band_low_g <= grams <= self.band_high_g
+
+
+@functools.cache
+def reference_weights() -> dict[str, ReferenceWeight]:
+    """Representative weight + plausibility band per component (grams)."""
+    return {
+        row["component"]: ReferenceWeight(
+            ref_weight_g=float(row["ref_weight_g"]),
+            band_low_g=float(row["band_low_g"]),
+            band_high_g=float(row["band_high_g"]),
+        )
+        for row in _read("reference_weights_v1.csv")
+    }
