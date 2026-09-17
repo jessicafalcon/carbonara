@@ -1,0 +1,22 @@
+# Run the same gate each phase commits to, so a lint/type slip can't reach main
+# even when a local pre-push hook is missing. Tests are offline; only dependency
+# and hook installation touches the network.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.5"
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run pytest
+      - run: uv run pre-commit run --all-files
