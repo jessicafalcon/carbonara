@@ -147,7 +147,9 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   Branch `phase-5-footprint-and-view`; spec + 8 steps committed (Ecobalyse/ADEME
   material factors, footprint as the `DERIVED_FORMULA` case, pipeline orchestrator,
   factor-revision diff, slate-dashboard view, demo builder + trace journey, §12
-  exit-gate capstone + docs). Exit gate green: the footprint costs
+  exit-gate capstone + docs), plus exact factor figures fetched from Ecobalyse
+  (`scripts/fetch_factors.py`, token-gated `cch` via a gitignored `.env`) and a
+  determinism-guard scoping fix. Exit gate green: the footprint costs
   `weight_kg × factor(material)` with factor source/version, mapping confidence,
   observed-vs-filled share, and an uncertainty range; each estimate carries a ledger
   event + Bloodline source; unresolved material is flagged (not costed), a flagged
