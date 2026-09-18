@@ -10,10 +10,10 @@ truth), not a QA fixture.
 
 The mapping is the reviewer step a real import needs: the fibre column becomes the
 material, the gram weight is annotated with its unit, and a row id and a single
-`garment` component are assigned. Whatever the connector cannot resolve — a fibre
-absent from the factor table (`wool`, `polyamide or nylon`), an ISO-3 country code
-the name lookup does not know, a blank fibre stored as ``NaN`` — is flagged, never
-guessed.
+`garment` component are assigned. Whatever the connector cannot resolve — the
+ambiguous label `"polyamide or nylon"`, a fibre with no Ecobalyse factor (`silk`),
+an ISO-3 country code the name lookup does not know, a blank fibre stored as
+``NaN`` — is flagged, never guessed.
 
 Run: ``uv run python scripts/npcga_footprint.py``.
 """

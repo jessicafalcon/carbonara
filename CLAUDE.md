@@ -334,14 +334,16 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     unlocking NPCGA. Item 8: a versioned `aliases` column resolves `polyamide →
     nylon` exactly (an ambiguous `"polyamide or nylon"` stays a review proposal).
     Together they drive `scripts/npcga_footprint.py` — a real material-stage
-    footprint (101.1 kgCO₂e over 200 real garments) from real fibre + weight data
-    (`samples/npcga_subset.csv`, CC BY-SA 4.0).
+    footprint (157.2 kgCO₂e over 200 real garments, 116 costed) from real fibre +
+    weight data (`samples/npcga_subset.csv`, CC BY-SA 4.0).
   - **Workflow tweak (merged, PR #17):** run `/simplify` before opening a PR.
-  - **Item 7/8 follow-ups (also on PR #19):** a UTF-8 BOM reader (`_decode` uses
-    `utf-8-sig`) is done; the factor expansion is now **item 9** (wool/acrylic are
-    fetchable from Ecobalyse, `silk` is not — token-gated, not a fabricated value).
+  - **Item 7/8 follow-ups (also on PR #19, both done):** a UTF-8 BOM reader
+    (`_decode` uses `utf-8-sig`); and **item 9** — `wool` (28.9) and `acrylic`
+    (11.1) factors fetched from Ecobalyse via `fetch_factors.py` (the pinned eight
+    unchanged) and added to the vocabulary, so they now cost in the NPCGA run.
+    `silk` stays unmapped — it is not in Ecobalyse's library and was not invented.
   - **Next up:** items 4 (live upload→review→re-run surface, large), 5 (closed-form
-    split), 6 (augment lifecycle in the live pipeline), 9 (factor expansion,
-    token-gated) — 4 and 5 independent, 6 and 9 land whenever.
+    split), 6 (augment lifecycle in the live pipeline) — 4 and 5 independent, 6
+    lands whenever.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._

@@ -171,6 +171,16 @@ values are unchanged (they are pinned by the footprint tests and the demo total)
 citable factor from a comparable source is found — do not invent one. Once the
 factors land, add the fibres to the vocabulary (item 8) so they resolve.
 
+**Done** (`feat/semicolon-csv-reader`). `fetch_factors.py` gained the Ecobalyse
+aliases `ei-laine-par-defaut` (wool) and `ei-acrylique` (acrylic); a token-gated
+re-fetch wrote `wool` (28.9041) and `acrylic` (11.0771) into
+`material_factors_v1.csv` (and the same values into v2, which revises only
+polyester) — the pinned eight came back byte-identical, so nothing shifted. Both
+were added to `materials_v1.csv`, so the NPCGA run now costs them: 116 of 200
+garments, 157.2 kgCO₂e, with `wool` the second-largest material despite six
+garments (its factor is ~5× cotton). `silk` was **not** invented — it stays
+unmapped.
+
 ### 5. Replace icanexplain with the closed-form split
 
 The v1→v2 decomposition pulls `icanexplain` and `ibis`, and then pins ibis's
