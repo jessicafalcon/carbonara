@@ -193,6 +193,18 @@ library earns little. The closed form is already written and tested:
 Keep the DuckDB staging→core→mart DAG (`analytics/dag/*.sql`) — the SQL modeling
 is worth showing; the decomposition library is not.
 
+**Done** (`refacto/closed-form-split`). `analytics/explain.decompose` computes both
+effects directly from the mart — `intensity = mass_from × (factor_to − factor_from)`
+per material (i.e. `intensity_from_factor_change` summed over materials), volume/mix
+the remainder of each material's footprint delta — so reconciliation holds by
+arithmetic and the intensity total sits on the planted polyester bump exactly, as
+under icanexplain. `icanexplain` and its `ibis` stack are gone, and the pandas
+backend pin with them. Decision: the whole `analytics` dependency **group was
+removed**, not only `icanexplain` — `pyarrow`/`pyarrow-hotfix` were there only for
+the ibis arrow bridge, so once the library is gone the layer needs nothing beyond
+the connector's own pandas + duckdb (the 17 analytics tests pass with those deps
+uninstalled). The DuckDB staging→core→mart DAG (`analytics/dag/*.sql`) is unchanged.
+
 ## Root-cause items and known limits
 
 ### 6. Use the augment lifecycle in the live pipeline
