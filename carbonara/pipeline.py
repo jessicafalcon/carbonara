@@ -14,7 +14,6 @@ import pandas as pd
 
 from carbonara.anomalies import detect_anomalies
 from carbonara.apply_review import AppliedApproval, apply_approvals
-from carbonara.augment import augment_lineage
 from carbonara.fill import fill_weights
 from carbonara.footprint import FootprintResult, compute_footprint
 from carbonara.ledger import Ledger, run_id_for
@@ -77,11 +76,11 @@ def run(
     filled = fill_weights(applied.records)
     footprint = compute_footprint(filled.records, filled.events, factor_version=factor_version)
 
-    # The approval events are recorded in the ledger like any rule, but their
-    # lineage is attached via augment (chained), so they are kept out of the
-    # clobbering apply_lineage pass below.
-    lineage_events = normalized.events + applied.seed_events + filled.events + footprint.events
-    events = normalized.events + applied.seed_events + applied.approval_events + filled.events + footprint.events
+    # One event list feeds both the ledger and the lineage spine. An approval's seed
+    # precedes its approval in applied.events, so apply_lineage writes the seed as the
+    # cell's head Source and chains the approval on top — the same chaining it applies
+    # to any multi-rule cell, so approvals need no separate augment pass (§8.1).
+    events = normalized.events + applied.events + filled.events + footprint.events
     # Anomalies are detected on the pre-fill records: "missing weight" must fire on
     # the cell as it arrived, before the ladder fills it (a filled weight is an
     # estimate, not the observed value). Additive and reviewable — never a silent
@@ -113,10 +112,7 @@ def run(
     estimates = {c.record_id: c.estimated_kgco2e for c in footprint.components if c.estimated_kgco2e is not None}
     frame = to_frame(filled.records)
     frame = frame.assign(estimated_kgco2e=frame["record_id"].map(estimates))
-    frame = apply_lineage(frame, lineage_events)
-    for chain in applied.chains:
-        mask = frame["record_id"].isin(chain.record_ids)
-        frame = augment_lineage(frame, record=chain.record, row_mask=mask, column=chain.column)
+    frame = apply_lineage(frame, events)
 
     return PipelineResult(
         records=filled.records,
@@ -129,5 +125,5 @@ def run(
         ruleset_version=ruleset_version,
         factor_version=footprint.factor_version,
         reference_digest=ref_digest,
-        resolved_cells=frozenset((e.record_id, e.column) for e in applied.approval_events),
+        resolved_cells=applied.resolved_cells,
     )

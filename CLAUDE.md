@@ -376,8 +376,20 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     pure router offline (238 pytest). `/simplify` run and applied. Two deferrals
     (spec): cross-restart persistence + auth/multi-user, and hand-editing the
     mapping.
-  - **Next up:** item 10 (unify the approval re-apply into `apply_lineage`, unlocked
-    by item 6, medium, data path) is the last remaining backlog item; items 1–9
-    done.
+  - **Item 10 — unify the approval re-apply into `apply_lineage`: at exit gate,
+    awaiting merge.** Branch `refacto/unify-approval-lineage` (PR #23); the BACKLOG
+    item-10 entry is the spec. `apply_approvals` now returns one ordered `events`
+    list (seed before approval per cell) + `resolved_cells`, dropping `ApprovalChain`,
+    the seed/approval split, and the parallel `augment_lineage` loop in `run`; the
+    single list feeds both the ledger and `apply_lineage`, whose item-6 chaining
+    heads on the seed and chains the approval — the same path any multi-rule cell
+    takes. The approved cell's lifecycle, `resolved_cells`, ledger, and drawer are
+    unchanged (the approval tier's `data_lineage` `inputs` no longer duplicates the
+    resolved `value`, which is not rendered and not in the ledger; decision in
+    BACKLOG item 10). `/simplify` self-reviewed (small deletion-heavy diff), clean.
+    `pytest` (238) + `pre-commit` + determinism guard pass. **Merge is the user's
+    call.**
+  - **Backlog status:** with item 10 merged, all ten BACKLOG items (1–10) are done —
+    the §16 build and the post-project backlog are both complete.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._

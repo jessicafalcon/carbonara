@@ -5,8 +5,10 @@ rule; this pass re-applies it to the cell it corrects (brief §10). The correcti
 chains onto the cell's original source rather than clobbering it: for a material
 alias, the deterministic normalize step (lowercasing the raw material — the form
 the reviewer saw) seeds the cell, and the approved resolution chains on top, so the
-cell's lifecycle reads `normalize_material → reference_resolve` (§8.1, via
-:func:`carbonara.augment.augment_lineage`). Both steps write ledger events (§8.2).
+cell's lifecycle reads `normalize_material → reference_resolve` (§8.1). Both steps
+are ordinary rule events (seed before approval per cell); the shared lineage spine
+(:func:`carbonara.lineage.apply_lineage`) chains them like any other multi-rule
+cell, so there is no parallel augment mechanism here. Both write ledger events (§8.2).
 
 The pass is deterministic: the decision (actor, status, ``at``) is injected on each
 :class:`AppliedApproval`, never read from the clock, and approvals are applied in a
@@ -33,11 +35,10 @@ sorted, stable order. Empty approvals is a no-op that returns the records unchan
 >>> result = apply_approvals([record], [approval])
 >>> result.records[0].record.material_normalized  # the cell is corrected
 'organic cotton'
->>> [e.rule_id for e in result.seed_events], [e.rule_id for e in result.approval_events]
-(['material_lower'], ['alias:Organic cottn'])
->>> chain = result.chains[0]
->>> chain.column, chain.record.source_type, chain.record_ids
-('material_normalized', 'reference_resolve', ('r0065',))
+>>> [e.rule_id for e in result.events]  # seed then approval, in one ordered list
+['material_lower', 'alias:Organic cottn']
+>>> sorted(result.resolved_cells)  # the cells the approvals resolved
+[('r0065', 'material_normalized')]
 >>> apply_approvals([record], []).records is not None  # empty approvals: no-op
 True
 """
@@ -47,12 +48,11 @@ from __future__ import annotations
 import dataclasses
 from collections.abc import Sequence
 
-from carbonara.augment import RuleRecord
 from carbonara.materialize import SourceRecord
 from carbonara.review import ApprovedRule, ReviewDecision, ReviewQueue
 from carbonara.rules import RuleEvent, SourceType
 
-__all__ = ["AppliedApproval", "ApplyResult", "ApprovalChain", "apply_approvals", "applications_from"]
+__all__ = ["AppliedApproval", "ApplyResult", "apply_approvals", "applications_from"]
 
 #: The base normalize step a material alias chains onto — the lowercasing the
 #: reviewer saw before approving the resolution.
@@ -73,28 +73,20 @@ def applications_from(queue: ReviewQueue) -> list[AppliedApproval]:
 
 
 @dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
-class ApprovalChain:
-    """One approval's lineage chain: a rule record to append to a column's cells."""
-
-    column: str
-    record: RuleRecord
-    record_ids: tuple[str, ...]
-
-
-@dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
 class ApplyResult:
-    """The corrected records and the provenance the re-apply produced.
+    """The corrected records and the events the re-apply produced.
 
-    ``seed_events`` are the base normalize events that seed each corrected cell's
-    head source (they go to both the ledger and ``apply_lineage``); ``approval_events``
-    are the approvals (ledger only — their lineage is attached via ``chains`` so it
-    chains rather than clobbers).
+    ``events`` is one ordered list — for a material alias, each corrected cell's
+    normalize seed comes before its approval, so the shared lineage spine
+    (``apply_lineage``) writes the seed as the head Source and chains the approval on
+    top, exactly as it chains any other multi-rule cell. The same list feeds the
+    ledger. ``resolved_cells`` are the ``(record_id, column)`` cells the approvals
+    corrected — what the view marks as an applied review decision.
     """
 
     records: list[SourceRecord]
-    seed_events: list[RuleEvent]
-    approval_events: list[RuleEvent]
-    chains: list[ApprovalChain]
+    events: list[RuleEvent]
+    resolved_cells: frozenset[tuple[str, str]]
 
 
 def _decision_params(decision: ReviewDecision) -> dict[str, object]:
@@ -112,16 +104,15 @@ def apply_approvals(records: list[SourceRecord], approvals: Sequence[AppliedAppr
     rule already produced. Returns a new record list; the input is not mutated.
     """
     if not approvals:
-        return ApplyResult(records=list(records), seed_events=[], approval_events=[], chains=[])
+        return ApplyResult(records=list(records), events=[], resolved_cells=frozenset())
 
     out = list(records)
     seed_events: list[RuleEvent] = []
     approval_events: list[RuleEvent] = []
-    chains: list[ApprovalChain] = []
+    resolved: set[tuple[str, str]] = set()
 
     for approval in sorted(approvals, key=lambda a: a.rule.rule_id):
         rule = approval.rule
-        matched_ids: list[str] = []
         for position, source in enumerate(out):
             record = source.record
             if getattr(record, rule.column) is not None:
@@ -135,7 +126,7 @@ def apply_approvals(records: list[SourceRecord], approvals: Sequence[AppliedAppr
             before = record.material_raw if rule.key is not None else None
             if rule.key is not None:
                 # A material alias chains onto the normalize step the reviewer saw:
-                # emit the lowercasing base so the cell has a source to chain onto.
+                # emit the lowercasing base so the cell has a head source to chain onto.
                 lowered = record.material_raw.strip().lower()
                 seed_events.append(
                     RuleEvent.create(
@@ -163,20 +154,9 @@ def apply_approvals(records: list[SourceRecord], approvals: Sequence[AppliedAppr
                 )
             )
             out[position] = dataclasses.replace(source, record=dataclasses.replace(record, **{rule.column: rule.value}))
-            matched_ids.append(record.record_id)
+            resolved.add((record.record_id, rule.column))
 
-        if matched_ids:
-            chains.append(
-                ApprovalChain(
-                    column=rule.column,
-                    record=RuleRecord(
-                        rule_id=rule.rule_id,
-                        rule_version=rule.rule_version,
-                        source_type=rule.source_type.value,
-                        inputs={"value": rule.value, **_decision_params(approval.decision)},
-                    ),
-                    record_ids=tuple(matched_ids),
-                )
-            )
-
-    return ApplyResult(records=out, seed_events=seed_events, approval_events=approval_events, chains=chains)
+    # Seeds before approvals: apply_lineage takes each cell's first event as the head
+    # Source and chains the rest, so this order gives the seed the head and chains the
+    # approval — the same lifecycle the ledger records, from the one shared spine.
+    return ApplyResult(records=out, events=[*seed_events, *approval_events], resolved_cells=frozenset(resolved))

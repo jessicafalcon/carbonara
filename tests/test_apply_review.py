@@ -41,6 +41,10 @@ def _alias_approval(*, actor: str = "reviewer", at: str = "2026-01-01T00:00:00Z"
     )
 
 
+def _by_rule(result, rule_id: str):
+    return [e for e in result.events if e.rule_id == rule_id]
+
+
 def test_alias_corrects_every_matching_unresolved_cell():
     records = [
         _record("r0065", material_raw="Organic cottn"),
@@ -51,22 +55,22 @@ def test_alias_corrects_every_matching_unresolved_cell():
     corrected = {r.record.record_id: r.record.material_normalized for r in result.records}
     assert corrected == {"r0065": "organic cotton", "r0100": "cotton", "r0145": "organic cotton"}
     # One reusable approval -> two matched cells, each with a seed + approval event.
-    assert [e.record_id for e in result.seed_events] == ["r0065", "r0145"]
-    assert [e.record_id for e in result.approval_events] == ["r0065", "r0145"]
-    assert result.chains[0].record_ids == ("r0065", "r0145")
+    assert [e.record_id for e in _by_rule(result, "material_lower")] == ["r0065", "r0145"]
+    assert [e.record_id for e in _by_rule(result, "alias:Organic cottn")] == ["r0065", "r0145"]
+    assert result.resolved_cells == {("r0065", "material_normalized"), ("r0145", "material_normalized")}
 
 
 def test_already_resolved_cell_is_never_clobbered():
     records = [_record("r0065", material_raw="Organic cottn", material_normalized="cotton")]
     result = apply_approvals(records, [_alias_approval()])
     assert result.records[0].record.material_normalized == "cotton"  # untouched
-    assert result.seed_events == [] and result.approval_events == [] and result.chains == []
+    assert result.events == [] and result.resolved_cells == frozenset()
 
 
-def test_seed_chains_normalize_then_reference_resolve():
+def test_seed_precedes_approval_so_the_spine_chains_normalize_then_reference_resolve():
     result = apply_approvals([_record("r0065", material_raw="Organic cottn")], [_alias_approval()])
-    [seed] = result.seed_events
-    [approval] = result.approval_events
+    # events are ordered seed-first so apply_lineage heads on the seed and chains the approval.
+    [seed, approval] = result.events
     assert (seed.source_type, seed.value_before, seed.value_after) == (
         SourceType.NORMALIZE_MATERIAL,
         "Organic cottn",
@@ -79,7 +83,6 @@ def test_seed_chains_normalize_then_reference_resolve():
         "organic cotton",
     )
     assert approval.method_params["actor"] == "reviewer"
-    assert result.chains[0].record.source_type == "reference_resolve"
 
 
 def test_per_cell_correction_matches_by_record_id_without_a_seed():
@@ -99,21 +102,22 @@ def test_per_cell_correction_matches_by_record_id_without_a_seed():
     result = apply_approvals(records, [approval])
     corrected = {r.record.record_id: r.record.factory_country_iso for r in result.records}
     assert corrected == {"r0088": "PT", "r0089": None}  # only the one record
-    assert result.seed_events == []  # per-cell correction synthesizes no normalize base
-    assert [e.record_id for e in result.approval_events] == ["r0088"]
+    assert _by_rule(result, "material_lower") == []  # per-cell correction synthesizes no normalize base
+    assert [e.rule_id for e in result.events] == ["approve:r0088:factory_country_iso:validity"]
+    assert result.resolved_cells == {("r0088", "factory_country_iso")}
 
 
 def test_empty_approvals_is_a_no_op():
     records = [_record("r0065", material_raw="Organic cottn")]
     result = apply_approvals(records, [])
     assert result.records == records
-    assert (result.seed_events, result.approval_events, result.chains) == ([], [], [])
+    assert result.events == [] and result.resolved_cells == frozenset()
 
 
 def test_re_apply_is_byte_identical_across_runs():
     records = [_record("r0145", material_raw="Organic cottn"), _record("r0065", material_raw="Organic cottn")]
     first = apply_approvals(records, [_alias_approval()])
     second = apply_approvals(records, [_alias_approval()])
-    assert [e.event_id for e in first.approval_events] == [e.event_id for e in second.approval_events]
-    assert first.chains == second.chains
+    assert [e.event_id for e in first.events] == [e.event_id for e in second.events]
+    assert first.resolved_cells == second.resolved_cells
     assert [r.record for r in first.records] == [r.record for r in second.records]
