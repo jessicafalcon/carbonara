@@ -130,7 +130,7 @@ everything the page needs), so the connector stays the single source of truth an
 the surface holds no business logic. Not in the data path; keep the determinism
 in `run`, not the transport.
 
-**In progress** (`feat/upload-review-surface`). Decisions: stdlib `http.server`
+**Done** (merged, PR #22, `feat/upload-review-surface`). Decisions: stdlib `http.server`
 (`ThreadingHTTPServer`, server-rendered HTML, plain form POSTs) — zero new
 dependencies, offline; the transport lives in a new top-level `webapp/` package
 outside `carbonara/` (like `analytics/`), so the determinism guard's domain stays

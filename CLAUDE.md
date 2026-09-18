@@ -362,8 +362,8 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     byte-identical (the 223 prior tests confirm no drift). Approval re-apply keeps its
     own chain step; unifying it is out of scope. 3 tests added. `pytest` (226) +
     `pre-commit` + determinism guard pass. Decision recorded in BACKLOG item 6.
-  - **Item 4 — live upload→review→re-run surface: at exit gate, awaiting merge.**
-    Branch `feat/upload-review-surface` (PR #22); spec
+  - **Item 4 — live upload→review→re-run surface: done** (merged, PR #22).
+    Branch `feat/upload-review-surface`; spec
     `specs/feat-upload-review-surface.md` + 6 steps committed. A thin web transport
     over `pipeline.run` + `review.ReviewQueue` — no business logic, no new deps
     (stdlib `http.server`), offline. New top-level `webapp/` package outside
@@ -375,8 +375,9 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     the router reads no clock (timestamp injected at the boundary). Tests drive the
     pure router offline (238 pytest). `/simplify` run and applied. Two deferrals
     (spec): cross-restart persistence + auth/multi-user, and hand-editing the
-    mapping. **Merge is the user's call.**
+    mapping.
   - **Next up:** item 10 (unify the approval re-apply into `apply_lineage`, unlocked
-    by item 6, medium, data path) is the last backlog item — lands whenever.
+    by item 6, medium, data path) is the last remaining backlog item; items 1–9
+    done.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
