@@ -11,18 +11,21 @@ from __future__ import annotations
 
 import html
 import json
+from collections import Counter
 
 from carbonara.augment import lineage_history
 from carbonara.footprint import (
     Breakdown,
+    ComponentFootprint,
     FactorDiff,
+    FactorDiffRow,
     FootprintResult,
     FootprintStatus,
     by_material,
     summarize,
 )
 from carbonara.pipeline import PipelineResult
-from carbonara.rules import Severity
+from carbonara.rules import Finding, Severity
 
 __all__ = ["CSS", "render_view"]
 
@@ -154,63 +157,67 @@ def _split(observed: float, filled: float) -> str:
     )
 
 
+def _material_row(breakdown: Breakdown, total: float) -> str:
+    share = breakdown.total_kgco2e / total if total else 0.0
+    return (
+        f"<tr><td>{_esc(breakdown.key)}</td>"
+        f'<td class="num">{_n(breakdown.total_kgco2e)}</td>'
+        f'<td style="width:120px">{_bar(share)}</td>'
+        f'<td class="num">{share * 100:.1f}%</td>'
+        f'<td style="width:110px">{_split(breakdown.observed_share, breakdown.filled_share)}</td>'
+        f'<td class="num">{breakdown.costed_n}</td></tr>'
+    )
+
+
 def _material_rows(breakdowns: list[Breakdown], total: float) -> str:
-    cells = []
-    for b in breakdowns:
-        share = b.total_kgco2e / total if total else 0.0
-        cells.append(
-            f"<tr><td>{_esc(b.key)}</td>"
-            f'<td class="num">{_n(b.total_kgco2e)}</td>'
-            f'<td style="width:120px">{_bar(share)}</td>'
-            f'<td class="num">{share * 100:.1f}%</td>'
-            f'<td style="width:110px">{_split(b.observed_share, b.filled_share)}</td>'
-            f'<td class="num">{b.costed_n}</td></tr>'
-        )
-    return "".join(cells)
+    return "".join(_material_row(b, total) for b in breakdowns)
+
+
+def _diff_row(row: FactorDiffRow) -> str:
+    cls = "delta-up" if row.delta_kgco2e > 0 else "delta-down"
+    return (
+        f"<tr><td>{_esc(row.material)}</td>"
+        f'<td class="num">{_n(row.factor_from, 2)} → {_n(row.factor_to, 2)}</td>'
+        f'<td class="num">{_n(row.total_from)} → {_n(row.total_to)}</td>'
+        f'<td class="num {cls}">{"+" if row.delta_kgco2e >= 0 else ""}{_n(row.delta_kgco2e)}</td></tr>'
+    )
 
 
 def _diff_rows(diff: FactorDiff) -> str:
-    cells = []
-    for r in diff.rows:
-        cls = "delta-up" if r.delta_kgco2e > 0 else "delta-down"
-        cells.append(
-            f"<tr><td>{_esc(r.material)}</td>"
-            f'<td class="num">{_n(r.factor_from, 2)} → {_n(r.factor_to, 2)}</td>'
-            f'<td class="num">{_n(r.total_from)} → {_n(r.total_to)}</td>'
-            f'<td class="num {cls}">{"+" if r.delta_kgco2e >= 0 else ""}{_n(r.delta_kgco2e)}</td></tr>'
-        )
-    return "".join(cells)
+    return "".join(_diff_row(r) for r in diff.rows)
+
+
+def _component_row(component: ComponentFootprint) -> str:
+    badge = "flagged" if component.status is FootprintStatus.FLAGGED else component.weight_source
+    return (
+        f"<tr><td>{_esc(component.style_id)}</td><td>{_esc(component.component)}</td><td>{_esc(component.material)}</td>"
+        f'<td class="num">{_n(component.weight_g or 0.0, 0)} g <span class="badge {badge}">{badge}</span></td>'
+        f'<td class="num">{_n(component.estimated_kgco2e or 0.0, 3)}</td>'
+        f'<td class="num">{_esc(component.factor_source_version)}</td>'
+        f'<td><button class="trace" onclick="openTrace(\'{_esc(component.record_id)}\')">trace ▸</button></td></tr>'
+    )
 
 
 def _component_rows(result: FootprintResult) -> str:
     priced = [c for c in result.components if c.estimated_kgco2e is not None]
     priced.sort(key=lambda c: (-(c.estimated_kgco2e or 0.0), c.record_id))
-    cells = []
-    for c in priced:
-        badge = "flagged" if c.status is FootprintStatus.FLAGGED else c.weight_source
-        cells.append(
-            f"<tr><td>{_esc(c.style_id)}</td><td>{_esc(c.component)}</td><td>{_esc(c.material)}</td>"
-            f'<td class="num">{_n(c.weight_g or 0.0, 0)} g <span class="badge {badge}">{badge}</span></td>'
-            f'<td class="num">{_n(c.estimated_kgco2e or 0.0, 3)}</td>'
-            f'<td class="num">{_esc(c.factor_source_version)}</td>'
-            f'<td><button class="trace" onclick="openTrace(\'{_esc(c.record_id)}\')">trace ▸</button></td></tr>'
-        )
-    return "".join(cells)
+    return "".join(_component_row(c) for c in priced)
+
+
+def _review_row(finding: Finding, resolved: frozenset[tuple[str, str]]) -> str:
+    applied = (finding.record_id, finding.column) in resolved
+    status = '<span class="tag applied">applied</span>' if applied else '<span class="kv">pending</span>'
+    return (
+        f"<tr><td>{_esc(finding.record_id)}</td><td>{_esc(finding.column)}</td><td>{_esc(finding.category)}</td>"
+        f'<td class="sev-{finding.severity.value}">{_esc(finding.severity)}</td>'
+        f"<td>{_esc(finding.message)}</td><td>{_esc(finding.proposed_value)}</td><td>{status}</td></tr>"
+    )
 
 
 def _review_rows(result: PipelineResult) -> str:
     order = {Severity.HIGH: 0, Severity.MEDIUM: 1, Severity.LOW: 2}
     findings = sorted(result.findings, key=lambda f: (order[f.severity], f.record_id))
-    cells = []
-    for f in findings:
-        applied = (f.record_id, f.column) in result.resolved_cells
-        status = '<span class="tag applied">applied</span>' if applied else '<span class="kv">pending</span>'
-        cells.append(
-            f"<tr><td>{_esc(f.record_id)}</td><td>{_esc(f.column)}</td><td>{_esc(f.category)}</td>"
-            f'<td class="sev-{f.severity.value}">{_esc(f.severity)}</td>'
-            f"<td>{_esc(f.message)}</td><td>{_esc(f.proposed_value)}</td><td>{status}</td></tr>"
-        )
-    return "".join(cells)
+    return "".join(_review_row(f, result.resolved_cells) for f in findings)
 
 
 def _material_lineage(result: PipelineResult, record_id: str) -> list[dict[str, object]]:
@@ -272,9 +279,10 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
     mapped = sum(1 for c in result.footprint.components if c.material is not None)
     with_country = sum(1 for s in result.records if s.record.factory_country_iso is not None)
     total_rows = len(result.footprint.components)
-    high = sum(1 for f in result.findings if f.severity is Severity.HIGH)
-    medium = sum(1 for f in result.findings if f.severity is Severity.MEDIUM)
-    low = sum(1 for f in result.findings if f.severity is Severity.LOW)
+    severities = Counter(f.severity for f in result.findings)
+    high = severities[Severity.HIGH]
+    medium = severities[Severity.MEDIUM]
+    low = severities[Severity.LOW]
 
     diff_panel = ""
     if diff is not None:
