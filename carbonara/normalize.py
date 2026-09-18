@@ -157,12 +157,19 @@ def resolve_material(raw: str) -> tuple[str, str] | None:
 
     >>> resolve_material("cotton")
     ('exact', 'cotton')
+    >>> resolve_material("polyamide")  # a versioned synonym of nylon, resolved exactly
+    ('exact', 'nylon')
     >>> resolve_material("Organic cottn")
     ('proposal', 'organic cotton')
     """
     vocab = material_vocab()
-    if raw.strip().lower() in vocab.canonical:
-        return ("exact", raw.strip().lower())
+    normalized = raw.strip().lower()
+    if normalized in vocab.canonical:
+        return ("exact", normalized)
+    # A versioned synonym is a citable equivalence (polyamide is nylon), so it
+    # resolves exactly like a canonical name — not a fuzzy guess.
+    if normalized in vocab.alias_to_canonical:
+        return ("exact", vocab.alias_to_canonical[normalized])
     scored = [(_ratio(raw, name), name) for name in vocab.canonical]
     ratio, name = max(scored, key=lambda pair: (pair[0], pair[1]))
     return ("proposal", name) if ratio >= _MATERIAL_PROPOSAL_THRESHOLD else None
