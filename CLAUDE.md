@@ -321,17 +321,25 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   - **Item 2 — parse XLSX: done** (merged, PR #16). `ingest._read_xlsx` (openpyxl,
     not `pandas.read_excel`) converts each cell to the CSV-path string faithfully;
     `read_rows`/`read_source` are the shared readers; `openpyxl` is the one new dep.
-  - **Item 3 — run a real messy file end to end: at exit gate.** Branch
-    `feat/real-file-exercise`. A real U.S. textile-import CSV
-    (`samples/us_textile_imports_by_fiber.csv`, USDA ERS / Census trade data) runs
-    through `scripts/real_file_exercise.py`: the drift gate refuses the non-BOM
-    shape for review and the normalizers resolve/flag its real values without
-    crashing. Exercise only — kept out of the QA suite (no ground truth, lives in
-    `scripts/`). The full fill→footprint path is not exercised (no per-component
-    columns; no public BOM to stand in), which the findings note states.
-  - **Workflow tweak (PR #17, open):** run `/simplify` before opening a PR.
+  - **Item 3 — run a real messy file end to end: done** (merged, PR #18). A real
+    U.S. textile-import CSV (`samples/us_textile_imports_by_fiber.csv`, USDA ERS /
+    Census trade data) runs through `scripts/real_file_exercise.py`: the drift gate
+    refuses the non-BOM shape and the normalizers resolve/flag real values without
+    crashing. Exercise only (lives in `scripts/`, not the QA suite). A follow-up
+    search found real apparel data *does* exist (NPCGA) but was blocked by format —
+    which items 7 and 8 then closed. Findings in `samples/README.md`.
+  - **Item 7 — parse semicolon-delimited (European) CSVs + item 8 — material
+    synonyms: at exit gate.** Branch `feat/semicolon-csv-reader` (PR #19). Item 7:
+    `ingest._detect_delimiter` picks `;` vs `,` from the header (deterministic),
+    unlocking NPCGA. Item 8: a versioned `aliases` column resolves `polyamide →
+    nylon` exactly (an ambiguous `"polyamide or nylon"` stays a review proposal).
+    Together they drive `scripts/npcga_footprint.py` — a real material-stage
+    footprint (101.1 kgCO₂e over 200 real garments) from real fibre + weight data
+    (`samples/npcga_subset.csv`, CC BY-SA 4.0).
+  - **Workflow tweak (merged, PR #17):** run `/simplify` before opening a PR.
   - **Next up:** items 4 (live upload→review→re-run surface, large), 5 (closed-form
     split), 6 (augment lifecycle in the live pipeline) — 4 and 5 independent, 6
-    lands whenever.
+    lands whenever. Noted follow-ups from item 7/8: a UTF-8 BOM reader (`utf-8-sig`)
+    and factors for `wool`/`silk`/`acrylic`.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
