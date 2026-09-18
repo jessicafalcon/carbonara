@@ -38,43 +38,43 @@ def _trace(body: str) -> dict:
     return json.loads(body[start:end].replace("<\\/", "</"))
 
 
-def _focus_mapping_finding_id(session: Session) -> str:
-    assert session.queue is not None
-    for item in session.queue.items():
-        finding = item.finding
-        if finding.record_id == _FOCUS and finding.category is AnomalyCategory.MAPPING:
-            return finding.finding_id
-    raise AssertionError(f"no mapping finding for {_FOCUS}")
-
-
-def test_empty_approvals_leaves_the_typo_uncosted(tmp_path):
-    session = _uploaded_and_confirmed(tmp_path)
-    result = handle("POST", "/rerun", session, now=_AT)
-    assert "catalog footprint" in result.body
-    assert _FOCUS not in _trace(result.body)  # unresolved material is not costed
-
-
-def test_approving_the_mapping_resolves_and_chains_the_cell(tmp_path):
-    session = _uploaded_and_confirmed(tmp_path)
-    finding_id = _focus_mapping_finding_id(session)
-    body = urllib.parse.urlencode({"finding_id": finding_id, "action": "approve"}).encode()
+def _reject(session, finding_id: str) -> None:
+    body = urllib.parse.urlencode({"finding_id": finding_id, "action": "reject"}).encode()
     handle("POST", "/decide", session, now=_AT, body=body)
 
+
+def _mapping_finding_ids(session) -> list[str]:
+    assert session.queue is not None
+    return [i.finding.finding_id for i in session.queue.items() if i.finding.category is AnomalyCategory.MAPPING]
+
+
+def test_confirm_defaults_all_findings_approved_so_the_mapping_costs_and_chains(tmp_path):
+    # No manual decision: confirm pre-approves every finding (item 11), so the mapping
+    # is applied on re-run and the cell resolves, costs, and chains its lineage.
+    session = _uploaded_and_confirmed(tmp_path)
     result = handle("POST", "/rerun", session, now=_AT)
     trace = _trace(result.body)
-    assert _FOCUS in trace  # now costed
+    assert _FOCUS in trace  # costed by the default approval
     assert trace[_FOCUS]["material"] == "organic cotton"
     # the approval chains onto the normalize source rather than clobbering it (§8.1)
     lineage = trace[_FOCUS]["material_lineage"]
-    assert len(lineage) == 2
     assert [tier["source_type"] for tier in lineage] == ["normalize_material", "reference_resolve"]
+
+
+def test_rejecting_the_mapping_leaves_the_typo_uncosted(tmp_path):
+    # The Organic cottn mapping is a reusable alias, so its finding recurs across the
+    # matching cells; rejecting all of them means no alias is applied, leaving r0065
+    # unresolved and uncosted (the opposite of the default-approved path above).
+    session = _uploaded_and_confirmed(tmp_path)
+    for finding_id in _mapping_finding_ids(session):
+        _reject(session, finding_id)
+    result = handle("POST", "/rerun", session, now=_AT)
+    assert "catalog footprint" in result.body
+    assert _FOCUS not in _trace(result.body)
 
 
 def test_rerun_is_byte_identical_on_the_same_decisions(tmp_path):
     session = _uploaded_and_confirmed(tmp_path)
-    finding_id = _focus_mapping_finding_id(session)
-    body = urllib.parse.urlencode({"finding_id": finding_id, "action": "approve"}).encode()
-    handle("POST", "/decide", session, now=_AT, body=body)
     first = handle("POST", "/rerun", session, now=_AT).body
     second = handle("POST", "/rerun", session, now=_AT).body
     assert first == second

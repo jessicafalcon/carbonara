@@ -27,6 +27,8 @@ button:hover, .btn:hover { border-color: var(--accent); }
 button.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
 button.approve { border-color: var(--observed); color: var(--observed); }
 button.reject { border-color: var(--flag); color: var(--flag); }
+button.approve.active { background: var(--observed); color: var(--bg); }
+button.reject.active { background: var(--flag); color: var(--bg); }
 input[type=file] { font-family: var(--mono); font-size: 12px; color: var(--ink); }
 .actions { display: flex; gap: 10px; margin-top: 16px; align-items: center; }
 .step { color: var(--muted); font-size: 12px; margin-bottom: 20px; }
@@ -109,28 +111,28 @@ def drift_panel(ingest: IngestResult) -> str:
 </section>"""
 
 
-def _decision_button(item: ReviewItem, action: str, label: str, css: str) -> str:
+def _decision_button(item: ReviewItem, action: str, *, active: bool) -> str:
+    css = f"{action} active" if active else action
     return (
         f'<form class="inline" method="post" action="/decide">'
         f'<input type="hidden" name="finding_id" value="{_esc(item.finding.finding_id)}">'
         f'<input type="hidden" name="action" value="{action}">'
-        f'<button type="submit" class="{css}">{label}</button></form>'
+        f'<button type="submit" class="{css}">{action}</button></form>'
     )
 
 
 def _queue_row(item: ReviewItem) -> str:
     finding = item.finding
     status = item.status
-    if status is ReviewStatus.PENDING:
-        controls = (
-            _decision_button(item, "approve", "approve", "approve")
-            + " "
-            + _decision_button(item, "reject", "reject", "reject")
-        )
-        status_cell = "<td>pending</td>"
-    else:
-        controls = "—"
-        status_cell = f'<td class="st-{status.value}">{_esc(status.value)}</td>'
+    # Both controls stay on every row so the reviewer can flip a default; the active
+    # one is marked. The queue defaults every finding to approved (a select-all), so
+    # a row is deselected by rejecting it, not by approving each one (item 11).
+    controls = (
+        _decision_button(item, "approve", active=status is ReviewStatus.APPROVED)
+        + " "
+        + _decision_button(item, "reject", active=status is ReviewStatus.REJECTED)
+    )
+    status_cell = f'<td class="st-{status.value}">{_esc(status.value)}</td>'
     return (
         f"<tr><td>{_esc(finding.record_id)}</td><td>{_esc(finding.column)}</td>"
         f"<td>{_esc(finding.category.value)}</td>"
@@ -143,17 +145,19 @@ def _queue_row(item: ReviewItem) -> str:
 def review_panel(queue: ReviewQueue) -> str:
     """The review queue: every finding with its status and approve/reject controls.
 
-    Approving a finding that carries a proposed value mints a correction the re-run
-    re-applies; rejecting records the decision and leaves the cell as it arrived.
-    Both are recorded through :class:`~carbonara.review.ReviewQueue` — the queue is
-    the source of truth, this panel only renders it.
+    Findings default to approved (the console pre-selects them, item 11); the
+    reviewer rejects the ones to drop. Approving a finding that carries a proposed
+    value mints a correction the re-run re-applies; rejecting records the decision
+    and leaves the cell as it arrived. Both are recorded through
+    :class:`~carbonara.review.ReviewQueue` — the queue is the source of truth, this
+    panel only renders it.
     """
     items = queue.items()
-    pending = len(queue.pending())
+    approved = sum(1 for item in items if item.status is ReviewStatus.APPROVED)
     rows = "".join(_queue_row(item) for item in items)
     return f"""
 <section class="panel wide">
-  <h2>Review queue · {len(items)} findings · {pending} pending</h2>
+  <h2>Review queue · {len(items)} findings · {approved} approved</h2>
   <div class="scroll"><table><thead><tr><th>record</th><th>column</th><th>category</th>
     <th>sev</th><th>finding</th><th>proposed</th><th>status</th><th>decide</th></tr></thead>
     <tbody>{rows}</tbody></table></div>

@@ -98,6 +98,11 @@ def _confirm(session: Session, now: str) -> Response:
     result = run(session.rows, mapping, content_hash=session.ingest.content_hash, created_at=now)
     session.mapping = mapping
     session.queue = ReviewQueue(result.findings)
+    # Default every finding to approved (a select-all, item 11): the reviewer rejects
+    # the ones to drop rather than approving each. The note marks these as a bulk
+    # default so the ledger distinguishes them from an explicit click.
+    for item in session.queue.items():
+        session.queue.approve(item.finding.finding_id, actor=_ACTOR, at=now, note="default")
     return _current(session)
 
 
