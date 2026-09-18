@@ -26,13 +26,15 @@ can land any time.
 | 9 | Expand the factor table (wool, acrylic) | small | yes (data) | — |
 | 10 | Unify the approval re-apply into `apply_lineage` | medium | yes | 6 |
 | 11 | Review-console UX: default-approve + horizontal readiness | small | no (transport/view) | 4 |
+| 12 | Reuse-first simplification pass | small | yes (byte-identical) | — |
 
 Items 1, 2, 4, 5 are independent of each other and can be parallelized. Item 3
 is the validation step for 1 and 2 and should follow them. Item 6 retires a
 known corner-cut and can land whenever. Items 7 and 8 were surfaced by item 3's
 real-file search and let the full pipeline run on real, licensed apparel data;
 item 9 would cost more of it. Item 10 is a cleanup that item 6 unlocked — it
-depends on 6 and can land whenever after it.
+depends on 6 and can land whenever after it. Item 12 is an independent craft
+cleanup that can land any time.
 
 ## Capability gaps
 
@@ -310,6 +312,33 @@ default (confirm pre-approves → the mapping costs on re-run; rejecting all the
 reusable-alias findings leaves it uncosted). (2) `carbonara/view.py`'s readiness is
 now a full-width horizontal band; `test_view.py` content assertions hold. Verified
 live in the browser. `pytest` (238) + `pre-commit` pass.
+
+### 12. Reuse-first simplification pass
+
+Four behavior-preserving cleanups found in a craft review (the reuse-first
+ladder, `carbonara-craft`). Output is byte-identical, so the existing tests pin
+each one:
+
+- `normalize.py` — `resolve_supplier` and `resolve_material` share the same
+  "best fuzzy match" block; extract one `_best_match(raw, candidates)` helper.
+  The `max(scored, key=lambda pair: (pair[0], pair[1]))` key is redundant —
+  `scored` is a list of `(ratio, name)` tuples and `max` already orders by ratio
+  then name — so it collapses to a plain `max(...)`, keeping the deterministic
+  tie-break.
+- `footprint.py` — the hand-rolled `{s: 0 for s in FootprintStatus}` plus
+  increment loop in `summarize` is `collections.Counter` (which reads 0 for an
+  absent status).
+- `view.py` — the four `cells = []; cells.append(...); "".join(cells)`
+  row-builders become `"".join(f"..." for ...)` comprehensions, matching the
+  style already in `webapp/render.py`.
+- `view.py` — the three `sum(1 for ... severity ...)` passes in `render_view`
+  are one `Counter` over the findings' severities.
+
+Data path (`normalize.py`, `footprint.py`) — must stay byte-identical; the
+determinism guard and the existing tests are the proof. **Out of scope:**
+table-driving the six normalize parse→event blocks. It is real repetition, but
+the flat blocks keep each rule's `rule_id`/`source_type`/renderer visible inline,
+which is worth more than the line count in a provenance-critical file.
 
 ### The five-tier ladder is two active tiers for weight
 
