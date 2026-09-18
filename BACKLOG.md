@@ -25,6 +25,7 @@ can land any time.
 | 8 | Material synonym/alias table | small | yes | — |
 | 9 | Expand the factor table (wool, acrylic) | small | yes (data) | — |
 | 10 | Unify the approval re-apply into `apply_lineage` | medium | yes | 6 |
+| 11 | Review-console UX: default-approve + horizontal readiness | small | no (transport/view) | 4 |
 
 Items 1, 2, 4, 5 are independent of each other and can be parallelized. Item 3
 is the validation step for 1 and 2 and should follow them. Item 6 retires a
@@ -277,6 +278,29 @@ tier's `data_lineage` `inputs` no longer duplicates the resolved `value` (the ce
 already holds it, and the drawer renders only `source_type`/`rule_id`); the ledger
 row's `method_params` are unchanged. Determinism guard passes; `pytest` (238) +
 `pre-commit` clean.
+
+### 11. Review-console UX: default-approve + horizontal readiness
+
+Two refinements to the item-4 review console (transport/view only, not the data
+path), from using it on the fixture BOM:
+
+1. **Default the review queue to all-approved.** Approving every finding one at a
+   time is tedious. On confirm, default every finding to *approved* (a "select
+   all" default) and let the reviewer *reject* the ones they don't want; keep both
+   the approve and reject controls on every row, with the current choice marked.
+   The re-run applies whatever is still approved — actionable findings (a mapping
+   with a `proposed_value`) mint a correction, the rest are a no-op status. The
+   reviewer still triggers the re-run explicitly, and can reject any row, so this
+   is a UI default, not a silent edit; the default approvals carry a `note` so the
+   ledger distinguishes a bulk default from an explicit click. Changes
+   `webapp/render.py` (always render both buttons, mark the active one) and
+   `webapp/app.py` (`_confirm` bulk-approves).
+2. **Lay the Readiness panel out horizontally.** In `carbonara/view.py` the
+   Readiness panel is the narrow left column of a two-column grid, so its stacked
+   metrics look squished. Make Readiness a full-width band at the top with its
+   metrics in a horizontal row, and the review queue full-width below. Presentation
+   only — the content (headline, split, coverage, findings-by-severity) is
+   unchanged, so the `test_view.py` content assertions still hold.
 
 ### The five-tier ladder is two active tiers for weight
 

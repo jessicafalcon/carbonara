@@ -50,6 +50,12 @@ a { color: var(--accent); }
 .panel.wide { grid-column: 1 / -1; }
 .headline { font-family: var(--sans); font-size: 34px; font-weight: 600; letter-spacing: -0.02em; }
 .headline .unit { font-size: 15px; color: var(--muted); font-family: var(--mono); }
+.readiness { display: flex; flex-wrap: wrap; gap: 18px 44px; align-items: flex-start; }
+.readiness .r-head { flex: 1 1 260px; min-width: 260px; max-width: 380px; }
+.rblock { display: flex; flex-direction: column; gap: 5px; min-width: 120px; }
+.rlabel { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.stat { font-size: 12px; color: var(--muted); }
+.stat b { color: var(--ink); font-weight: 400; }
 .range { color: var(--muted); font-size: 12px; margin-top: 2px; }
 table { width: 100%; border-collapse: collapse; }
 th { text-align: left; color: var(--muted); font-weight: 400; font-size: 11px; text-transform: uppercase;
@@ -298,37 +304,42 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
   · deterministic re-render</p>
 
 <div class="grid">
-  <section class="panel">
+  <section class="panel wide">
     <h2>Readiness</h2>
-    <div class="headline">{_n(summary.total_kgco2e)} <span class="unit">kgCO₂e</span></div>
-    <div class="range">material-stage estimate · fibre/material production only —
-      excludes yarn/fabric formation, dyeing, cut-make-trim, transport, and use (§15)</div>
-    <div class="range">uncertainty {_n(lo)} – {_n(hi)} kgCO₂e · observed vs filled input share</div>
-    <div style="margin:10px 0 4px">{_split(summary.observed_share, summary.filled_share)}</div>
-    <div class="tags">
-      <span class="tag"><b style="color:var(--observed)">{summary.observed_share * 100:.0f}%</b> observed</span>
-      <span class="tag"><b style="color:var(--filled)">{summary.filled_share * 100:.0f}%</b> filled</span>
-    </div>
-    <div class="tags" style="margin-top:14px">
-      <span class="tag">costed <b>{summary.costed_n}</b></span>
-      <span class="tag">flagged <b class="delta-up">{summary.flagged_n}</b></span>
-      <span class="tag">unmapped <b>{summary.unmapped_n}</b></span>
-      <span class="tag">no weight <b>{summary.no_weight_n}</b></span>
-    </div>
-    <div class="tags" style="margin-top:14px">
-      <span class="tag">weight coverage <b>{weighted}/{total_rows}</b></span>
-      <span class="tag">material mapped <b>{mapped}/{total_rows}</b></span>
-      <span class="tag">country resolved <b>{with_country}/{total_rows}</b></span>
-    </div>
-    <div class="tags" style="margin-top:14px">
-      <span class="tag">findings <b>{len(result.findings)}</b></span>
-      <span class="tag">high <b class="delta-up">{high}</b></span>
-      <span class="tag">medium <b>{medium}</b></span>
-      <span class="tag">low <b>{low}</b></span>
+    <div class="readiness">
+      <div class="r-head">
+        <div class="headline">{_n(summary.total_kgco2e)} <span class="unit">kgCO₂e</span></div>
+        <div class="range">material-stage estimate · fibre/material production only —
+          excludes yarn/fabric formation, dyeing, cut-make-trim, transport, and use (§15)</div>
+        <div class="range">uncertainty {_n(lo)} – {_n(hi)} kgCO₂e · observed vs filled input share</div>
+      </div>
+      <div class="rblock">
+        <span class="rlabel">input share</span>
+        <div class="split" style="margin:2px 0 3px">{_split(summary.observed_share, summary.filled_share)}</div>
+        <span class="stat"><b style="color:var(--observed)">{summary.observed_share * 100:.0f}%</b> observed ·
+          <b style="color:var(--filled)">{summary.filled_share * 100:.0f}%</b> filled</span>
+      </div>
+      <div class="rblock">
+        <span class="rlabel">lines</span>
+        <span class="stat">costed <b>{summary.costed_n}</b></span>
+        <span class="stat">flagged <b class="delta-up">{summary.flagged_n}</b></span>
+        <span class="stat">unmapped <b>{summary.unmapped_n}</b> · no weight <b>{summary.no_weight_n}</b></span>
+      </div>
+      <div class="rblock">
+        <span class="rlabel">coverage</span>
+        <span class="stat">weight <b>{weighted}/{total_rows}</b></span>
+        <span class="stat">material <b>{mapped}/{total_rows}</b></span>
+        <span class="stat">country <b>{with_country}/{total_rows}</b></span>
+      </div>
+      <div class="rblock">
+        <span class="rlabel">findings</span>
+        <span class="stat">total findings <b>{len(result.findings)}</b></span>
+        <span class="stat">high <b class="delta-up">{high}</b> · medium <b>{medium}</b> · low <b>{low}</b></span>
+      </div>
     </div>
   </section>
 
-  <section class="panel">
+  <section class="panel wide">
     <h2>Review queue · {len(result.findings)} findings</h2>
     <div class="scroll"><table><thead><tr><th>record</th><th>column</th><th>category</th>
       <th>sev</th><th>finding</th><th>proposed</th><th>status</th></tr></thead>

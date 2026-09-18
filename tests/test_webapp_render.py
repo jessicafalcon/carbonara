@@ -50,7 +50,7 @@ def test_drift_panel_shows_the_proposed_rename_and_a_confirm_action():
     assert 'action="/confirm"' in html
 
 
-def test_review_panel_offers_approve_reject_when_pending_and_status_when_decided():
+def test_review_panel_shows_both_controls_and_marks_the_active_decision():
     finding = Finding.create(
         record_id="r0065",
         column="material_normalized",
@@ -65,7 +65,10 @@ def test_review_panel_offers_approve_reject_when_pending_and_status_when_decided
     assert 'value="approve"' in pending_html and 'value="reject"' in pending_html
     assert 'action="/rerun"' in pending_html
 
+    # An approved finding keeps both buttons; the approve control is marked active.
     queue.approve(finding.finding_id, actor="reviewer", at="2026-01-01T00:00:00Z")
     decided_html = review_panel(queue)
     assert "st-approved" in decided_html
-    assert "0 pending" in decided_html
+    assert 'class="approve active"' in decided_html
+    assert 'value="reject"' in decided_html  # still offered, so the reviewer can flip
+    assert "1 approved" in decided_html
