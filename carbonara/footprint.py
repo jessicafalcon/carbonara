@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import dataclasses
 import enum
+from collections import Counter
 from collections.abc import Callable
 
 from carbonara.contract import CanonicalRecord, QualityStatus
@@ -296,9 +297,7 @@ def summarize(result: FootprintResult) -> FootprintSummary:
     costed = _costed(result)
     total = sum(_estimates(costed))
     observed_share, filled_share = _shares(costed, total)
-    by_status = {s: 0 for s in FootprintStatus}
-    for c in result.components:
-        by_status[c.status] += 1
+    by_status = Counter(c.status for c in result.components)
     return FootprintSummary(
         total_kgco2e=total,
         uncertainty_kgco2e=_range(costed),
