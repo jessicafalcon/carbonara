@@ -362,8 +362,21 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     byte-identical (the 223 prior tests confirm no drift). Approval re-apply keeps its
     own chain step; unifying it is out of scope. 3 tests added. `pytest` (226) +
     `pre-commit` + determinism guard pass. Decision recorded in BACKLOG item 6.
-  - **Next up:** item 4 (live upload→review→re-run surface, large — needs stack/design
-    decisions first) is the last backlog item; items 1–3, 5–9 done. Item 10 (unify
-    the approval re-apply into `apply_lineage`, unlocked by item 6) lands whenever.
+  - **Item 4 — live upload→review→re-run surface: at exit gate, awaiting merge.**
+    Branch `feat/upload-review-surface` (PR #22); spec
+    `specs/feat-upload-review-surface.md` + 6 steps committed. A thin web transport
+    over `pipeline.run` + `review.ReviewQueue` — no business logic, no new deps
+    (stdlib `http.server`), offline. New top-level `webapp/` package outside
+    `carbonara/` (multipart parser, `Session`, pure panel renderers reusing the
+    now-public `view.CSS` palette, and a pure `handle(…, now=…)` router); the full
+    loop is upload → drift gate + one-click mapping confirm → review queue
+    (approve/reject) → re-run rendering the footprint with the corrected cell's
+    chained lineage. `scripts/serve.py` binds `127.0.0.1` and owns the socket/clock;
+    the router reads no clock (timestamp injected at the boundary). Tests drive the
+    pure router offline (238 pytest). `/simplify` run and applied. Two deferrals
+    (spec): cross-restart persistence + auth/multi-user, and hand-editing the
+    mapping. **Merge is the user's call.**
+  - **Next up:** item 10 (unify the approval re-apply into `apply_lineage`, unlocked
+    by item 6, medium, data path) is the last backlog item — lands whenever.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._

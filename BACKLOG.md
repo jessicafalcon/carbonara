@@ -130,6 +130,19 @@ everything the page needs), so the connector stays the single source of truth an
 the surface holds no business logic. Not in the data path; keep the determinism
 in `run`, not the transport.
 
+**In progress** (`feat/upload-review-surface`). Decisions: stdlib `http.server`
+(`ThreadingHTTPServer`, server-rendered HTML, plain form POSTs) — zero new
+dependencies, offline; the transport lives in a new top-level `webapp/` package
+outside `carbonara/` (like `analytics/`), so the determinism guard's domain stays
+the connector alone; the slate-dashboard palette (`view.py`) is reused. Scope is
+the full loop (upload → drift gate + one-click mapping confirm → review queue →
+re-run with chained lineage); cross-restart persistence, auth/multi-user, and
+hand-editing the mapping are deferred. The `handle()` router reads no clock; the
+timestamp is injected at the I/O boundary (`serve.py` passes wall-clock per
+request, tests pass a fixed constant). **Deviation:** this item has a spec file
+(`specs/feat-upload-review-surface.md`) rather than only this entry — at the user's
+request, since item 4 is the largest backlog item.
+
 ### 7. Parse semicolon-delimited (European) CSVs
 
 `ingest._read_csv` reads with `csv.DictReader`'s default comma delimiter, so a
