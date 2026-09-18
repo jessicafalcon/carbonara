@@ -1,9 +1,11 @@
-canonical,code,source
-cotton,CO,Ecobalyse material list
-organic cotton,,Ecobalyse material list
-polyester,PL,Ecobalyse material list
-nylon,,Ecobalyse material list
-viscose,,Ecobalyse material list
-elastane,,Ecobalyse material list
-brass,,component hardware (fixture)
-metal,,component hardware (fixture)
+canonical,code,source,aliases
+cotton,CO,Ecobalyse material list,
+organic cotton,,Ecobalyse material list,
+polyester,PL,Ecobalyse material list,
+nylon,,Ecobalyse material list,polyamide
+viscose,,Ecobalyse material list,
+elastane,,Ecobalyse material list,
+wool,,Ecobalyse material list,
+acrylic,,Ecobalyse material list,
+brass,,component hardware (fixture),
+metal,,component hardware (fixture),

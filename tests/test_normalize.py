@@ -54,6 +54,14 @@ def test_material_typo_is_a_proposal_not_applied():
     assert resolve_material("cotton") == ("exact", "cotton")
 
 
+def test_material_synonym_resolves_but_ambiguous_label_does_not():
+    # A versioned synonym is a citable equivalence, resolved exactly.
+    assert resolve_material("polyamide") == ("exact", "nylon")
+    assert resolve_material("Polyamide") == ("exact", "nylon")  # case-insensitive
+    # A disjunctive label is not a synonym — it stays a reviewer's call, not a guess.
+    assert resolve_material("polyamide or nylon") is None
+
+
 def _source(**over: str):
     row = {
         "source_row_id": "1",

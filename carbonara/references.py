@@ -78,19 +78,28 @@ def supplier_names() -> tuple[str, ...]:
 
 @dataclasses.dataclass(slots=True, frozen=True, kw_only=True)
 class MaterialVocab:
-    """The material vocabulary: canonical names and their shorthand codes."""
+    """The material vocabulary: canonical names, shorthand codes, and full-word synonyms."""
 
     canonical: tuple[str, ...]
     code_to_canonical: dict[str, str]
+    alias_to_canonical: dict[str, str]
 
 
 @functools.cache
 def material_vocab() -> MaterialVocab:
-    """Canonical materials in file order, plus the shorthand codes (``CO → cotton``)."""
+    """Canonical materials in file order, the shorthand codes (``CO → cotton``), and
+    the versioned synonyms (``polyamide → nylon``), each lowercased for lookup."""
     rows = _read("materials_v1.csv")
+    aliases: dict[str, str] = {}
+    for row in rows:
+        for alias in row.get("aliases", "").split(";"):
+            alias = alias.strip().lower()
+            if alias:
+                aliases[alias] = row["canonical"]
     return MaterialVocab(
         canonical=tuple(row["canonical"] for row in rows),
         code_to_canonical={row["code"]: row["canonical"] for row in rows if row["code"]},
+        alias_to_canonical=aliases,
     )
 
 

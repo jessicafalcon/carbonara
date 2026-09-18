@@ -66,6 +66,16 @@ def test_detect_format_by_content_not_extension():
     assert detect_format(b"PK\x03\x04rest-of-a-zip") is SourceFormat.XLSX
 
 
+def test_semicolon_delimited_csv_is_parsed(tmp_path):
+    # A European export: semicolon-delimited, comma as the decimal separator.
+    # The comma-only reader would read this as one column; the delimiter is detected.
+    raw = b"id;weight;fibre\n1;0,5;cotton\n2;0,7;polyester\n"
+    r1, r2 = read_rows(_write(tmp_path, "eu.csv", raw))
+    assert list(r1) == ["id", "weight", "fibre"]  # three columns, not one
+    assert r1 == {"id": "1", "weight": "0,5", "fibre": "cotton"}
+    assert r2["fibre"] == "polyester"
+
+
 def test_clean_file_is_accepted_and_recorded_as_baseline(tmp_path):
     store = tmp_path / "store"
     result = admit(_write(tmp_path, "clean.csv", _clean_csv_bytes()), store)
@@ -181,6 +191,13 @@ def test_cp1252_file_is_decoded_and_encoding_recorded(tmp_path):
 def test_utf8_file_reads_as_utf8(tmp_path):
     result = admit(_write(tmp_path, "clean.csv", _clean_csv_bytes()), tmp_path / "store")
     assert result.encoding == "utf-8"
+
+
+def test_utf8_bom_is_stripped_from_the_first_column(tmp_path):
+    # A UTF-8 BOM (common from Excel) must not cling to the first column name.
+    raw = b"\xef\xbb\xbf" + b"id;fibre\n1;cotton\n"
+    [row] = read_rows(_write(tmp_path, "bom.csv", raw))
+    assert list(row) == ["id", "fibre"]  # not "﻿id"
 
 
 def test_bom_v1_duplicate_upload_is_idempotent(tmp_path):

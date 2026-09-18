@@ -40,6 +40,8 @@ _SOURCE_VERSION = "ecoinvent-3.9.1 via Ecobalyse"
 _NON_MATERIAL_STEPS = ["spinning", "fabric", "ennobling", "making", "distribution", "use", "end-of-life"]
 
 #: our canonical material -> Ecobalyse material alias (textile fibres only).
+#: `silk` is deliberately absent — Ecobalyse's textile library has no silk fibre,
+#: so it stays unmapped rather than carrying a factor from a different source.
 _FIBRES = {
     "cotton": "ei-coton",
     "organic cotton": "ei-coton-organic",
@@ -47,6 +49,8 @@ _FIBRES = {
     "nylon": "ei-pa",
     "viscose": "ei-viscose",
     "elastane": "elasthane",
+    "wool": "ei-laine-par-defaut",
+    "acrylic": "ei-acrylique",
 }
 #: hardware Ecobalyse's textile library does not cover — cited representative values.
 _HARDWARE = {
@@ -56,7 +60,18 @@ _HARDWARE = {
 _ADEME = "ADEME Base Empreinte"
 _ADEME_VERSION = "base-empreinte-2024"
 _ADEME_REF = "metal component hardware (representative) — https://base-empreinte.ademe.fr/"
-_OUTPUT_ORDER = ("cotton", "organic cotton", "polyester", "nylon", "viscose", "elastane", "brass", "metal")
+_OUTPUT_ORDER = (
+    "cotton",
+    "organic cotton",
+    "polyester",
+    "nylon",
+    "viscose",
+    "elastane",
+    "wool",
+    "acrylic",
+    "brass",
+    "metal",
+)
 
 
 def _token() -> str:

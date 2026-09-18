@@ -21,10 +21,15 @@ can land any time.
 | 4 | A live upload → review → re-run surface | large | no (wraps `run`) | — |
 | 5 | Replace icanexplain with the closed-form split | medium | no (`analytics/`) | — |
 | 6 | Use the augment lifecycle in the live pipeline | medium | yes | — |
+| 7 | Parse semicolon-delimited (European) CSVs | small | yes (ingest) | — |
+| 8 | Material synonym/alias table | small | yes | — |
+| 9 | Expand the factor table (wool, acrylic) | small | yes (data) | — |
 
 Items 1, 2, 4, 5 are independent of each other and can be parallelized. Item 3
 is the validation step for 1 and 2 and should follow them. Item 6 retires a
-known corner-cut and can land whenever.
+known corner-cut and can land whenever. Items 7 and 8 were surfaced by item 3's
+real-file search and let the full pipeline run on real, licensed apparel data;
+item 9 would cost more of it.
 
 ## Capability gaps
 
@@ -123,7 +128,58 @@ everything the page needs), so the connector stays the single source of truth an
 the surface holds no business logic. Not in the data path; keep the determinism
 in `run`, not the transport.
 
-## Simplifications
+### 7. Parse semicolon-delimited (European) CSVs
+
+`ingest._read_csv` reads with `csv.DictReader`'s default comma delimiter, so a
+semicolon-delimited file — the European convention, where the comma is the decimal
+separator — is read as a single column and the drift gate flags the whole schema.
+Item 3's search found a real, openly-licensed apparel dataset in exactly this shape
+(NPCGA — 16 464 Norwegian post-consumer garments, [Zenodo
+10.5281/zenodo.20440761](https://doi.org/10.5281/zenodo.20440761), CC BY-SA 4.0)
+with real fibre composition, weight in grams, brand, and country — unreadable only
+because of the delimiter. Detect the delimiter from the header (comma vs semicolon,
+whichever the header uses) and parse accordingly; keep it deterministic (a fixed
+header-count rule, no locale sniffing) and leave every comma file unchanged. Data
+path — the same `_read_csv` that feeds the drift gate and `read_rows`.
+
+### 8. Material synonym/alias table
+
+The material vocabulary (`references/materials_v1.csv`) resolves a value by exact
+canonical match or shorthand code (`CO`, `PL`), then a bounded fuzzy proposal — but
+it has no full-word **synonym** map, so a real fibre label like `polyamide` (the
+ISO/European name for `nylon`) resolves to nothing and its footprint is flagged
+unmapped (seen on the NPCGA data in item 7). Add a versioned synonym column to the
+vocabulary so citable one-name-to-another equivalences (`polyamide → nylon`, and
+the common fibre codes) resolve deterministically as exact reference lookups — not
+as guesses, and never for an ambiguous label. Deliberately **out of scope**: a
+disjunctive label like `"polyamide or nylon"` stays a review proposal (the reviewer
+decides, not the vocabulary); a fibre with no factor at all (`wool`, `silk`,
+`acrylic`) needs a factor added to the factor table, which is a separate,
+larger reference-expansion item, not a synonym.
+
+### 9. Expand the factor table (wool, acrylic)
+
+Item 7's NPCGA run flags common fibres the factor table does not carry — `wool`,
+`acrylic`, `silk` — as unmapped (no factor), so they are not costed. Ecobalyse's
+textile library **does** have `Laine par défaut` (wool) and `Acrylique` (acrylic),
+so add them the exact, cited way: their material ids to `scripts/fetch_factors.py`
+and a token-gated re-fetch that writes `references/material_factors_v1.csv`. Not a
+plain edit — every factor is an exact Ecobalyse `cch` value, never a guessed number
+(brief §9), so it needs the `ECOBALYSE_TOKEN` and a check that the existing eight
+values are unchanged (they are pinned by the footprint tests and the demo total).
+`silk` is **not** in Ecobalyse's textile library, so it stays unmapped until a
+citable factor from a comparable source is found — do not invent one. Once the
+factors land, add the fibres to the vocabulary (item 8) so they resolve.
+
+**Done** (`feat/semicolon-csv-reader`). `fetch_factors.py` gained the Ecobalyse
+aliases `ei-laine-par-defaut` (wool) and `ei-acrylique` (acrylic); a token-gated
+re-fetch wrote `wool` (28.9041) and `acrylic` (11.0771) into
+`material_factors_v1.csv` (and the same values into v2, which revises only
+polyester) — the pinned eight came back byte-identical, so nothing shifted. Both
+were added to `materials_v1.csv`, so the NPCGA run now costs them: 116 of 200
+garments, 157.2 kgCO₂e, with `wool` the second-largest material despite six
+garments (its factor is ~5× cotton). `silk` was **not** invented — it stays
+unmapped.
 
 ### 5. Replace icanexplain with the closed-form split
 

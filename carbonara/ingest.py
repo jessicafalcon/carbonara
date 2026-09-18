@@ -101,21 +101,41 @@ def detect_format(raw: bytes) -> SourceFormat:
 def _decode(raw: bytes) -> tuple[str, str]:
     """Decode source bytes as UTF-8, falling back to CP1252, returning (text, encoding).
 
-    Real vendor exports are often Windows-1252 / Latin-1, not UTF-8. CP1252 maps
+    Real vendor exports are often Windows-1252 / Latin-1, not UTF-8, and a UTF-8
+    file exported from Excel often carries a byte-order mark. ``utf-8-sig`` decodes
+    both plain UTF-8 and a BOM-prefixed file, stripping the BOM so it never clings
+    to the first column name; the recorded encoding stays ``utf-8``. CP1252 maps
     every byte, so a Western file never fails to decode; the encoding used is
     returned so provenance can record which one read the file.
     """
-    for encoding in ("utf-8", "cp1252"):
+    for codec, label in (("utf-8-sig", "utf-8"), ("cp1252", "cp1252")):
         try:
-            return raw.decode(encoding), encoding
+            return raw.decode(codec), label
         except UnicodeDecodeError:
             continue
     return raw.decode("cp1252", errors="replace"), "cp1252"  # unreachable: cp1252 maps all bytes
 
 
+def _detect_delimiter(text: str) -> str:
+    """Pick the CSV delimiter from the header row: semicolon or comma.
+
+    A semicolon-delimited file is the European convention (the comma is the decimal
+    separator there). The choice is a fixed header count, not locale sniffing, so it
+    is deterministic: semicolon only when it outnumbers the comma in the header,
+    else comma — leaving every ordinary comma file unchanged.
+
+    >>> _detect_delimiter("a,b,c\\n1,2,3")
+    ','
+    >>> _detect_delimiter("ID;Weight [gram];Fibre 1\\nA0001;507;cotton")
+    ';'
+    """
+    header = text.split("\n", 1)[0]
+    return ";" if header.count(";") > header.count(",") else ","
+
+
 def _read_csv(raw: bytes) -> tuple[tuple[str, ...], list[dict[str, str]], str]:
     text, encoding = _decode(raw)
-    reader = csv.DictReader(io.StringIO(text))
+    reader = csv.DictReader(io.StringIO(text), delimiter=_detect_delimiter(text))
     columns = tuple(reader.fieldnames or ())
     rows = [{key: (value or "") for key, value in row.items()} for row in reader]
     return columns, rows, encoding
