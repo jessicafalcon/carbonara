@@ -41,7 +41,7 @@ module-name = "carbonara"
 module-root = ""
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "carbonara"]
+testpaths = ["tests", "carbonara", "webapp"]
 addopts = [
   "-v",
   "--tb=short",
