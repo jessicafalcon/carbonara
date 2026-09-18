@@ -23,11 +23,13 @@ can land any time.
 | 6 | Use the augment lifecycle in the live pipeline | medium | yes | — |
 | 7 | Parse semicolon-delimited (European) CSVs | small | yes (ingest) | — |
 | 8 | Material synonym/alias table | small | yes | — |
+| 9 | Expand the factor table (wool, acrylic) | small | yes (data) | — |
 
 Items 1, 2, 4, 5 are independent of each other and can be parallelized. Item 3
 is the validation step for 1 and 2 and should follow them. Item 6 retires a
 known corner-cut and can land whenever. Items 7 and 8 were surfaced by item 3's
-real-file search and let the full pipeline run on real, licensed apparel data.
+real-file search and let the full pipeline run on real, licensed apparel data;
+item 9 would cost more of it.
 
 ## Capability gaps
 
@@ -155,7 +157,19 @@ decides, not the vocabulary); a fibre with no factor at all (`wool`, `silk`,
 `acrylic`) needs a factor added to the factor table, which is a separate,
 larger reference-expansion item, not a synonym.
 
-## Simplifications
+### 9. Expand the factor table (wool, acrylic)
+
+Item 7's NPCGA run flags common fibres the factor table does not carry — `wool`,
+`acrylic`, `silk` — as unmapped (no factor), so they are not costed. Ecobalyse's
+textile library **does** have `Laine par défaut` (wool) and `Acrylique` (acrylic),
+so add them the exact, cited way: their material ids to `scripts/fetch_factors.py`
+and a token-gated re-fetch that writes `references/material_factors_v1.csv`. Not a
+plain edit — every factor is an exact Ecobalyse `cch` value, never a guessed number
+(brief §9), so it needs the `ECOBALYSE_TOKEN` and a check that the existing eight
+values are unchanged (they are pinned by the footprint tests and the demo total).
+`silk` is **not** in Ecobalyse's textile library, so it stays unmapped until a
+citable factor from a comparable source is found — do not invent one. Once the
+factors land, add the fibres to the vocabulary (item 8) so they resolve.
 
 ### 5. Replace icanexplain with the closed-form split
 

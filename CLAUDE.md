@@ -337,9 +337,11 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     footprint (101.1 kgCO₂e over 200 real garments) from real fibre + weight data
     (`samples/npcga_subset.csv`, CC BY-SA 4.0).
   - **Workflow tweak (merged, PR #17):** run `/simplify` before opening a PR.
+  - **Item 7/8 follow-ups (also on PR #19):** a UTF-8 BOM reader (`_decode` uses
+    `utf-8-sig`) is done; the factor expansion is now **item 9** (wool/acrylic are
+    fetchable from Ecobalyse, `silk` is not — token-gated, not a fabricated value).
   - **Next up:** items 4 (live upload→review→re-run surface, large), 5 (closed-form
-    split), 6 (augment lifecycle in the live pipeline) — 4 and 5 independent, 6
-    lands whenever. Noted follow-ups from item 7/8: a UTF-8 BOM reader (`utf-8-sig`)
-    and factors for `wool`/`silk`/`acrylic`.
+    split), 6 (augment lifecycle in the live pipeline), 9 (factor expansion,
+    token-gated) — 4 and 5 independent, 6 and 9 land whenever.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
