@@ -329,7 +329,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     search found real apparel data *does* exist (NPCGA) but was blocked by format —
     which items 7 and 8 then closed. Findings in `samples/README.md`.
   - **Item 7 — parse semicolon-delimited (European) CSVs + item 8 — material
-    synonyms: at exit gate.** Branch `feat/semicolon-csv-reader` (PR #19). Item 7:
+    synonyms: done** (merged, PR #19). Branch `feat/semicolon-csv-reader`. Item 7:
     `ingest._detect_delimiter` picks `;` vs `,` from the header (deterministic),
     unlocking NPCGA. Item 8: a versioned `aliases` column resolves `polyamide →
     nylon` exactly (an ambiguous `"polyamide or nylon"` stays a review proposal).
@@ -342,8 +342,16 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     (11.1) factors fetched from Ecobalyse via `fetch_factors.py` (the pinned eight
     unchanged) and added to the vocabulary, so they now cost in the NPCGA run.
     `silk` stays unmapped — it is not in Ecobalyse's library and was not invented.
-  - **Next up:** items 4 (live upload→review→re-run surface, large), 5 (closed-form
-    split), 6 (augment lifecycle in the live pipeline) — 4 and 5 independent, 6
-    lands whenever.
+  - **Item 5 — replace icanexplain with the closed-form split: at exit gate,
+    awaiting merge.** Branch `refacto/closed-form-split` (PR #20).
+    `analytics/explain.decompose` computes both effects from the mart directly
+    (`intensity = mass_from × (factor_to − factor_from)` per material, volume/mix the
+    remainder), so reconciliation holds by arithmetic. The whole `analytics`
+    dependency group was removed (icanexplain + its ibis stack + pyarrow, only there
+    for the ibis arrow bridge) — the layer needs nothing beyond pandas + duckdb; the
+    DuckDB DAG is unchanged. `pytest` (223) + `pre-commit` pass with the deps
+    uninstalled. Decision recorded in BACKLOG item 5.
+  - **Next up:** items 4 (live upload→review→re-run surface, large) and 6 (augment
+    lifecycle in the live pipeline) — independent; 6 lands whenever.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
