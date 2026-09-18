@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import html
 import json
+from collections import Counter
 
 from carbonara.augment import lineage_history
 from carbonara.footprint import (
@@ -278,9 +279,10 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
     mapped = sum(1 for c in result.footprint.components if c.material is not None)
     with_country = sum(1 for s in result.records if s.record.factory_country_iso is not None)
     total_rows = len(result.footprint.components)
-    high = sum(1 for f in result.findings if f.severity is Severity.HIGH)
-    medium = sum(1 for f in result.findings if f.severity is Severity.MEDIUM)
-    low = sum(1 for f in result.findings if f.severity is Severity.LOW)
+    severities = Counter(f.severity for f in result.findings)
+    high = severities[Severity.HIGH]
+    medium = severities[Severity.MEDIUM]
+    low = severities[Severity.LOW]
 
     diff_panel = ""
     if diff is not None:
