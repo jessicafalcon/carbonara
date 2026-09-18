@@ -342,8 +342,8 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     (11.1) factors fetched from Ecobalyse via `fetch_factors.py` (the pinned eight
     unchanged) and added to the vocabulary, so they now cost in the NPCGA run.
     `silk` stays unmapped — it is not in Ecobalyse's library and was not invented.
-  - **Item 5 — replace icanexplain with the closed-form split: at exit gate,
-    awaiting merge.** Branch `refacto/closed-form-split` (PR #20).
+  - **Item 5 — replace icanexplain with the closed-form split: done** (merged,
+    PR #20). Branch `refacto/closed-form-split`.
     `analytics/explain.decompose` computes both effects from the mart directly
     (`intensity = mass_from × (factor_to − factor_from)` per material, volume/mix the
     remainder), so reconciliation holds by arithmetic. The whole `analytics`
@@ -351,7 +351,18 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     for the ibis arrow bridge) — the layer needs nothing beyond pandas + duckdb; the
     DuckDB DAG is unchanged. `pytest` (223) + `pre-commit` pass with the deps
     uninstalled. Decision recorded in BACKLOG item 5.
-  - **Next up:** items 4 (live upload→review→re-run surface, large) and 6 (augment
-    lifecycle in the live pipeline) — independent; 6 lands whenever.
+  - **Item 6 — use the augment lifecycle in the live pipeline: at exit gate,
+    awaiting merge.** Branch `feat/augment-in-pipeline` (PR #21). Fixed the shared
+    spine, not one call site: `apply_lineage` writes a cell's first rule as a plain
+    head Source, then chains any further rule on that cell via `augment_lineage`
+    (oldest first), so the lifecycle matches the ledger instead of clobbering (§8.1).
+    Scope decision: no live cell is touched by more than one rule today (disjoint
+    stage columns; an approved cell chains its own approval), so the change is the
+    general one — correct-by-construction for any multi-rule cell, single-rule cells
+    byte-identical (the 223 prior tests confirm no drift). Approval re-apply keeps its
+    own chain step; unifying it is out of scope. 3 tests added. `pytest` (226) +
+    `pre-commit` + determinism guard pass. Decision recorded in BACKLOG item 6.
+  - **Next up:** item 4 (live upload→review→re-run surface, large — needs stack/design
+    decisions first) is the only backlog item left; items 1–3, 5–9 done.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._

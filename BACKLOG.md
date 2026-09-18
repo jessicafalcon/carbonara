@@ -24,12 +24,14 @@ can land any time.
 | 7 | Parse semicolon-delimited (European) CSVs | small | yes (ingest) | — |
 | 8 | Material synonym/alias table | small | yes | — |
 | 9 | Expand the factor table (wool, acrylic) | small | yes (data) | — |
+| 10 | Unify the approval re-apply into `apply_lineage` | medium | yes | 6 |
 
 Items 1, 2, 4, 5 are independent of each other and can be parallelized. Item 3
 is the validation step for 1 and 2 and should follow them. Item 6 retires a
 known corner-cut and can land whenever. Items 7 and 8 were surfaced by item 3's
 real-file search and let the full pipeline run on real, licensed apparel data;
-item 9 would cost more of it.
+item 9 would cost more of it. Item 10 is a cleanup that item 6 unlocked — it
+depends on 6 and can land whenever after it.
 
 ## Capability gaps
 
@@ -216,6 +218,38 @@ form. Where a cell is legitimately touched by more than one rule, route it throu
 `augment_lineage` instead of clobbering, so the spine carries the full history and
 matches the ledger. Data path — additive and deterministic, but re-check the
 determinism guard and the lineage reproducibility tests.
+
+**Done** (`feat/augment-in-pipeline`). Fixed the mechanism rather than one call site:
+`apply_lineage` (the shared spine) now writes a cell's first rule as a plain head
+Source, then chains any further rule on that cell through `augment_lineage` (oldest
+first), so the lifecycle matches the ledger instead of the last write clobbering it.
+Scope decision: there is **no live cell touched by more than one rule today** — the
+stage columns are disjoint (normalize per column, fill only the null weights,
+footprint only `estimated_kgco2e`), and an approved cell carries only its seed event
+in the clobbering pass (its approval already chains). So the honest change is the
+general one — `apply_lineage` is correct-by-construction for any multi-rule cell,
+and a single-rule cell is byte-identical to the plain write (the 223 existing tests
+confirm no drift). The Phase-8 approval re-apply keeps its own chain step; unifying
+it into `apply_lineage` is a deeper refactor left out of scope. Three tests added
+(`tests/test_lineage.py`) prove a two-rule cell chains through `apply_lineage`, a
+single-rule cell keeps a plain head, and the chaining is reproducible; the
+determinism guard passes.
+
+### 10. Unify the approval re-apply into `apply_lineage`
+
+Item 6 made `apply_lineage` chain a cell's later rules, so the Phase-8 approval
+re-apply no longer needs its own parallel mechanism. Today `pipeline.run` keeps the
+approval events out of `lineage_events` and attaches their lineage through a
+separate `augment_lineage` loop, and `apply_review` splits each correction into a
+`seed_event` (fed to `apply_lineage`) and an `approval_event` (ledger only, chained
+after) — a special case that predates the general chaining. Route both events
+through `apply_lineage` like any other rule so its own chaining produces the same
+`normalize_material → reference_resolve` lifecycle, then drop the separate loop and
+collapse the seed/approval split in `ApplyResult`. One spine carries every cell's
+lifecycle. Data path — must stay byte-identical for the approved cell's lifecycle
+and reproduce the current `resolved_cells` and provenance drawer; re-check the
+determinism guard and the review-loop tests. A genuine simplification (removes a
+special case), not urgent — the current dual path works and is tested.
 
 ### The five-tier ladder is two active tiers for weight
 
