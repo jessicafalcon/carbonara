@@ -264,7 +264,7 @@ and reproduce the current `resolved_cells` and provenance drawer; re-check the
 determinism guard and the review-loop tests. A genuine simplification (removes a
 special case), not urgent — the current dual path works and is tested.
 
-**Done** (`refacto/unify-approval-lineage`). `apply_approvals` now returns one
+**Done** (merged, PR #23, `refacto/unify-approval-lineage`). `apply_approvals` now returns one
 ordered `events` list (each corrected cell's normalize seed before its approval)
 plus `resolved_cells`; `ApprovalChain`, the `seed_events`/`approval_events` split,
 and the parallel `augment_lineage` loop in `pipeline.run` are gone. `run` feeds a

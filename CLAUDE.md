@@ -376,8 +376,8 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     pure router offline (238 pytest). `/simplify` run and applied. Two deferrals
     (spec): cross-restart persistence + auth/multi-user, and hand-editing the
     mapping.
-  - **Item 10 — unify the approval re-apply into `apply_lineage`: at exit gate,
-    awaiting merge.** Branch `refacto/unify-approval-lineage` (PR #23); the BACKLOG
+  - **Item 10 — unify the approval re-apply into `apply_lineage`: done** (merged,
+    PR #23). Branch `refacto/unify-approval-lineage`; the BACKLOG
     item-10 entry is the spec. `apply_approvals` now returns one ordered `events`
     list (seed before approval per cell) + `resolved_cells`, dropping `ApprovalChain`,
     the seed/approval split, and the parallel `augment_lineage` loop in `run`; the
@@ -387,9 +387,11 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     unchanged (the approval tier's `data_lineage` `inputs` no longer duplicates the
     resolved `value`, which is not rendered and not in the ledger; decision in
     BACKLOG item 10). `/simplify` self-reviewed (small deletion-heavy diff), clean.
-    `pytest` (238) + `pre-commit` + determinism guard pass. **Merge is the user's
-    call.**
-  - **Backlog status:** with item 10 merged, all ten BACKLOG items (1–10) are done —
-    the §16 build and the post-project backlog are both complete.
+    `pytest` (238) + `pre-commit` + determinism guard pass.
+  - **Backlog complete.** All ten BACKLOG items (1–10) are done and merged; the §16
+    build and the post-project backlog are both finished. End-to-end verified on the
+    merged `main`: `pytest` 238 pass, `scripts/demo.py` runs upload→…→footprint
+    (77.3 kgCO₂e), `scripts/build_view.py` renders, and the live `scripts/serve.py`
+    surface drives the full upload→review→re-run loop. No open backlog work.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
