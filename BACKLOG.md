@@ -22,11 +22,12 @@ can land any time.
 | 5 | Replace icanexplain with the closed-form split | medium | no (`analytics/`) | — |
 | 6 | Use the augment lifecycle in the live pipeline | medium | yes | — |
 | 7 | Parse semicolon-delimited (European) CSVs | small | yes (ingest) | — |
+| 8 | Material synonym/alias table | small | yes | — |
 
 Items 1, 2, 4, 5 are independent of each other and can be parallelized. Item 3
 is the validation step for 1 and 2 and should follow them. Item 6 retires a
-known corner-cut and can land whenever. Item 7 was surfaced by item 3's real-file
-search and unlocks the full pipeline on real, licensed apparel data.
+known corner-cut and can land whenever. Items 7 and 8 were surfaced by item 3's
+real-file search and let the full pipeline run on real, licensed apparel data.
 
 ## Capability gaps
 
@@ -138,6 +139,21 @@ because of the delimiter. Detect the delimiter from the header (comma vs semicol
 whichever the header uses) and parse accordingly; keep it deterministic (a fixed
 header-count rule, no locale sniffing) and leave every comma file unchanged. Data
 path — the same `_read_csv` that feeds the drift gate and `read_rows`.
+
+### 8. Material synonym/alias table
+
+The material vocabulary (`references/materials_v1.csv`) resolves a value by exact
+canonical match or shorthand code (`CO`, `PL`), then a bounded fuzzy proposal — but
+it has no full-word **synonym** map, so a real fibre label like `polyamide` (the
+ISO/European name for `nylon`) resolves to nothing and its footprint is flagged
+unmapped (seen on the NPCGA data in item 7). Add a versioned synonym column to the
+vocabulary so citable one-name-to-another equivalences (`polyamide → nylon`, and
+the common fibre codes) resolve deterministically as exact reference lookups — not
+as guesses, and never for an ambiguous label. Deliberately **out of scope**: a
+disjunctive label like `"polyamide or nylon"` stays a review proposal (the reviewer
+decides, not the vocabulary); a fibre with no factor at all (`wool`, `silk`,
+`acrylic`) needs a factor added to the factor table, which is a separate,
+larger reference-expansion item, not a synonym.
 
 ## Simplifications
 
