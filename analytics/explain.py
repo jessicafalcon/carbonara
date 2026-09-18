@@ -77,9 +77,8 @@ def decompose(mart: pd.DataFrame, *, period_from: str = "v1", period_to: str = "
     with ``mass_kg`` (count) and ``factor`` (fact). Returns per-material and total
     intensity (factor) and volume/mix (mass) effects, with a reconciliation residual.
     """
-    frame = mart[mart[_PERIOD].isin((period_from, period_to))]
-    before = frame[frame[_PERIOD] == period_from].set_index(_GROUP)[["mass_kg", "factor"]]
-    after = frame[frame[_PERIOD] == period_to].set_index(_GROUP)[["mass_kg", "factor"]]
+    before = mart[mart[_PERIOD] == period_from].set_index(_GROUP)[["mass_kg", "factor"]]
+    after = mart[mart[_PERIOD] == period_to].set_index(_GROUP)[["mass_kg", "factor"]]
     materials = before.index.union(after.index).sort_values()
 
     mass_from = before["mass_kg"].reindex(materials, fill_value=0.0)
