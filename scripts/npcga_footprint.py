@@ -34,20 +34,19 @@ def _bom_rows(npcga: list[dict[str, str]]) -> list[dict[str, str]]:
     """Map NPCGA's real columns to the BOM contract — the reviewer's mapping step."""
     rows: list[dict[str, str]] = []
     for position, source in enumerate(npcga):
-        clean = {key.lstrip("﻿"): value for key, value in source.items()}  # the file carries a BOM
-        grams = clean.get("Weight [gram]", "").strip()
-        garment_id = clean.get("ID (AXXXX)", "")
+        grams = source.get("Weight [gram]", "").strip()
+        garment_id = source.get("ID (AXXXX)", "")
         rows.append(
             {
                 "source_row_id": str(position),
                 "style_id": garment_id,
                 "sku": garment_id,
                 "component": "garment",
-                "material": clean.get("Fibre 1 Layer 1", ""),
+                "material": source.get("Fibre 1 Layer 1", ""),
                 "composition": "",
                 "net_weight": f"{grams} g" if grams else "",  # the column header declares the unit
-                "supplier": clean.get("Company/brand", ""),
-                "country": clean.get("Made in", ""),
+                "supplier": source.get("Company/brand", ""),
+                "country": source.get("Made in", ""),
                 "order_date": "",
                 "quantity": "",
                 "unit_price": "",

@@ -193,6 +193,13 @@ def test_utf8_file_reads_as_utf8(tmp_path):
     assert result.encoding == "utf-8"
 
 
+def test_utf8_bom_is_stripped_from_the_first_column(tmp_path):
+    # A UTF-8 BOM (common from Excel) must not cling to the first column name.
+    raw = b"\xef\xbb\xbf" + b"id;fibre\n1;cotton\n"
+    [row] = read_rows(_write(tmp_path, "bom.csv", raw))
+    assert list(row) == ["id", "fibre"]  # not "﻿id"
+
+
 def test_bom_v1_duplicate_upload_is_idempotent(tmp_path):
     store = tmp_path / "store"
     admit(_BOM_V1, store)
