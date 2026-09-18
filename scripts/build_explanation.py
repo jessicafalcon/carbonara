@@ -1,7 +1,7 @@
 """Build and print the v1→v2 footprint explanation, and write it as an artifact.
 
 Runs both vintages through the connector, builds the production-weighted mart via
-the DuckDB SQL DAG, decomposes the change with icanexplain, and checks the
+the DuckDB SQL DAG, decomposes the change in closed form, and checks the
 explanation: it reconciles to the observed delta, the intensity effect sits on the
 planted factor bump alone, and it agrees with the planted ground-truth
 decomposition. Writes a JSON artifact (not committed) and prints a short summary.

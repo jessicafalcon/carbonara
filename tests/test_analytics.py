@@ -68,7 +68,7 @@ def test_mart_is_one_row_per_vintage_material_with_the_mix_shift() -> None:
     assert "organic cotton" not in set(mart.loc[mart["vintage"] == "v1", "material"])
 
 
-# --- icanexplain decomposition ----------------------------------------------
+# --- closed-form decomposition ----------------------------------------------
 
 
 def test_decomposition_reconciles_to_the_observed_delta() -> None:

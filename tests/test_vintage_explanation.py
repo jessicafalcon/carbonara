@@ -3,7 +3,7 @@ ground-truth-validated explanation.
 
 Walks the whole journey in one place: generate the two vintages deterministically,
 run both through the connector, build the production-weighted mart via the DuckDB
-SQL DAG, decompose the v1→v2 change with icanexplain, and confirm it reconciles to
+SQL DAG, decompose the v1→v2 change in closed form, and confirm it reconciles to
 the observed delta and matches the planted ground truth — all byte-reproducible.
 """
 

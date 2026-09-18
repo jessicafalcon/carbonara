@@ -1,23 +1,25 @@
-"""Decompose the v1→v2 change in the production-weighted footprint (icanexplain).
+"""Decompose the v1→v2 change in the production-weighted footprint (closed form).
 
 The mart's catalog total ``F = Σ mass_kg × factor`` moves between vintages for two
-reasons, and icanexplain's ``SumExplainer`` splits the change into exactly those:
-with ``count = mass_kg`` and ``fact = factor``, the **intensity** effect (its
-``inner``) is the change in emission factor and the **volume/mix** effect (its
-``mix``) is the change in production mass and its material composition (brief §9).
-The two contributions reconcile to the observed delta by construction; a
+reasons, and the decomposition splits the change into exactly those. For each
+material the **intensity** effect is the emission-factor change weighted by the
+before-period mass, ``mass_from × (factor_to − factor_from)``; the **volume/mix**
+effect is the rest of that material's footprint delta — the change in production
+mass and material composition (brief §9). The two sum to the material's observed
+delta by construction, so they reconcile to the total delta exactly; the
 reconciliation residual records that it holds.
 
-icanexplain runs through ibis; ibis's duckdb backend pins an old duckdb, so we
-pin its deterministic pandas backend here (the connector runs a newer duckdb).
+This is the standard sum decomposition — intensity weighted by the before-period
+count — computed directly from the mart. It replaces the icanexplain/ibis
+dependency, whose ``SumExplainer`` produced the same split by construction (see
+BACKLOG item 5): the closed form is ``intensity_from_factor_change`` summed over
+materials, with the remainder as volume/mix.
 """
 
 from __future__ import annotations
 
 import dataclasses
 
-import ibis
-import icanexplain as ice
 import pandas as pd
 
 __all__ = ["Decomposition", "decompose", "intensity_from_factor_change"]
@@ -57,20 +59,15 @@ def intensity_from_factor_change(
 ) -> float:
     """The exact intensity effect for one material: ``mass_from × (factor_to − factor_from)``.
 
-    icanexplain weights the intensity (inner) effect by the before-period count, so
-    this closed form equals that material's ``intensity_effect`` exactly — a check
-    that ties the number to the known factor change (brief §9).
+    The intensity (inner) effect is weighted by the before-period mass, so this
+    closed form is that material's ``intensity_effect`` — a check that ties the
+    number to the known factor change (brief §9).
     """
     rows = mart.set_index([_PERIOD, _GROUP])
     mass_from = float(rows.loc[(period_from, material), "mass_kg"])
     factor_from = float(rows.loc[(period_from, material), "factor"])
     factor_to = float(rows.loc[(period_to, material), "factor"])
     return mass_from * (factor_to - factor_from)
-
-
-def _use_pandas_backend() -> None:
-    """Pin ibis to its pandas backend (its duckdb backend pins duckdb<1.2)."""
-    ibis.set_backend(ibis.pandas.connect({}))
 
 
 def decompose(mart: pd.DataFrame, *, period_from: str = "v1", period_to: str = "v2") -> Decomposition:
@@ -80,22 +77,37 @@ def decompose(mart: pd.DataFrame, *, period_from: str = "v1", period_to: str = "
     with ``mass_kg`` (count) and ``factor`` (fact). Returns per-material and total
     intensity (factor) and volume/mix (mass) effects, with a reconciliation residual.
     """
-    _use_pandas_backend()
     frame = mart[mart[_PERIOD].isin((period_from, period_to))]
-    explanation = ice.SumExplainer(fact="factor", period=_PERIOD, group=_GROUP, count="mass_kg")(frame)
+    before = frame[frame[_PERIOD] == period_from].set_index(_GROUP)[["mass_kg", "factor"]]
+    after = frame[frame[_PERIOD] == period_to].set_index(_GROUP)[["mass_kg", "factor"]]
+    materials = before.index.union(after.index).sort_values()
 
-    by_material = (
-        explanation.reset_index()
-        .rename(columns={"inner": "intensity_effect", "mix": "volume_mix_effect"})
-        .loc[:, [_GROUP, "intensity_effect", "volume_mix_effect"]]
-        .sort_values(_GROUP)
-        .reset_index(drop=True)
+    mass_from = before["mass_kg"].reindex(materials, fill_value=0.0)
+    mass_to = after["mass_kg"].reindex(materials, fill_value=0.0)
+    factor_from = before["factor"].reindex(materials)
+    factor_to = after["factor"].reindex(materials)
+
+    footprint_from = (mass_from * factor_from).fillna(0.0)
+    footprint_to = (mass_to * factor_to).fillna(0.0)
+    delta = footprint_to - footprint_from
+    # Intensity is the factor change on the before-period mass; volume/mix is the
+    # remainder of the delta. A material new in the after period (mass_from == 0) or
+    # absent from it (no factor_to) has an undefined factor difference but zero mass
+    # weight there, so ``fillna(0.0)`` puts its whole delta on volume/mix.
+    intensity = (mass_from * (factor_to - factor_from)).fillna(0.0)
+    volume_mix = delta - intensity
+
+    by_material = pd.DataFrame(
+        {
+            _GROUP: materials,
+            "intensity_effect": intensity.to_numpy(),
+            "volume_mix_effect": volume_mix.to_numpy(),
+        }
     )
 
-    totals = frame.assign(footprint=frame["mass_kg"] * frame["factor"]).groupby(_PERIOD)["footprint"].sum()
-    f_from, f_to = float(totals.get(period_from, 0.0)), float(totals.get(period_to, 0.0))
-    intensity = float(by_material["intensity_effect"].sum())
-    volume_mix = float(by_material["volume_mix_effect"].sum())
+    f_from, f_to = float(footprint_from.sum()), float(footprint_to.sum())
+    intensity_effect = float(intensity.sum())
+    volume_mix_effect = float(volume_mix.sum())
     observed_delta = f_to - f_from
 
     return Decomposition(
@@ -104,8 +116,8 @@ def decompose(mart: pd.DataFrame, *, period_from: str = "v1", period_to: str = "
         f_from=f_from,
         f_to=f_to,
         observed_delta=observed_delta,
-        intensity_effect=intensity,
-        volume_mix_effect=volume_mix,
-        residual=observed_delta - (intensity + volume_mix),
+        intensity_effect=intensity_effect,
+        volume_mix_effect=volume_mix_effect,
+        residual=observed_delta - (intensity_effect + volume_mix_effect),
         by_material=by_material,
     )
