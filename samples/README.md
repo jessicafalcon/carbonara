@@ -40,8 +40,32 @@ uv run python scripts/real_file_exercise.py
   guessing; `parse_date` returns null for the year-only `period` values. Every
   real value produced a clean result or an honest null/flag — no exceptions.
 
-The full fill → footprint path is deliberately not exercised: this file has no
-per-component weights, suppliers, or SKUs, and no public per-component apparel BOM
-exists to stand in for one. The drift gate is exactly the safety net for that —
-it stops here.
+The full fill → footprint path is not exercised on this file: a fibre-import
+table has no per-item weights, suppliers, or SKUs. The drift gate is exactly the
+safety net for that — it stops here.
+
+### Why this file, and not a real apparel BOM
+
+A search for a genuinely public apparel file with per-item **material and weight**
+turned up two near-misses, both instructive and neither committable here:
+
+- **A brand catalog export** (a Shopify product CSV) is the right *format* — real
+  vendor, per-variant grams, price, SKU, multi-row variants — but it is
+  *product*-level: material lives in the free-text description, not a column.
+  Handed one under a best-effort mapping, the connector stops honestly rather than
+  guessing: `materialize` raises `SourceSchemaError: missing required column(s)
+  ['source_row_id', 'material']`. (Its repository states no reuse license.)
+- **A real garment dataset** — NPCGA, 16 464 Norwegian post-consumer garments
+  ([Zenodo 10.5281/zenodo.20440761](https://doi.org/10.5281/zenodo.20440761),
+  CC BY-SA 4.0) — *does* carry real fibre composition (`cotton 78% / polyester
+  21%`), weight in grams, brand, and country of origin. The block is format, not
+  content: it is **semicolon-delimited** (the European convention, where the comma
+  is the decimal separator), and the connector's reader is comma-only, so the
+  drift gate sees one column and flags it.
+
+So real, openly-licensed apparel data with materials and weights exists; the
+remaining gaps are format (a `;`-delimited reader) and granularity
+(component-level composition), not availability. The public-domain, comma-delimited
+trade table stays the committed sample; the search result is recorded here so the
+limitation is neither overstated nor left unexamined.
 
