@@ -21,10 +21,12 @@ can land any time.
 | 4 | A live upload → review → re-run surface | large | no (wraps `run`) | — |
 | 5 | Replace icanexplain with the closed-form split | medium | no (`analytics/`) | — |
 | 6 | Use the augment lifecycle in the live pipeline | medium | yes | — |
+| 7 | Parse semicolon-delimited (European) CSVs | small | yes (ingest) | — |
 
 Items 1, 2, 4, 5 are independent of each other and can be parallelized. Item 3
 is the validation step for 1 and 2 and should follow them. Item 6 retires a
-known corner-cut and can land whenever.
+known corner-cut and can land whenever. Item 7 was surfaced by item 3's real-file
+search and unlocks the full pipeline on real, licensed apparel data.
 
 ## Capability gaps
 
@@ -122,6 +124,20 @@ thin wrapper over `pipeline.run` and `review.ReviewQueue` (both already return
 everything the page needs), so the connector stays the single source of truth and
 the surface holds no business logic. Not in the data path; keep the determinism
 in `run`, not the transport.
+
+### 7. Parse semicolon-delimited (European) CSVs
+
+`ingest._read_csv` reads with `csv.DictReader`'s default comma delimiter, so a
+semicolon-delimited file — the European convention, where the comma is the decimal
+separator — is read as a single column and the drift gate flags the whole schema.
+Item 3's search found a real, openly-licensed apparel dataset in exactly this shape
+(NPCGA — 16 464 Norwegian post-consumer garments, [Zenodo
+10.5281/zenodo.20440761](https://doi.org/10.5281/zenodo.20440761), CC BY-SA 4.0)
+with real fibre composition, weight in grams, brand, and country — unreadable only
+because of the delimiter. Detect the delimiter from the header (comma vs semicolon,
+whichever the header uses) and parse accordingly; keep it deterministic (a fixed
+header-count rule, no locale sniffing) and leave every comma file unchanged. Data
+path — the same `_read_csv` that feeds the drift gate and `read_rows`.
 
 ## Simplifications
 
