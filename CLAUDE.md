@@ -392,8 +392,8 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     finished. End-to-end verified on `main`: `pytest` 238 pass, `scripts/demo.py`
     runs upload→…→footprint (77.3 kgCO₂e), `scripts/build_view.py` renders, and the
     live `scripts/serve.py` surface drives the full upload→review→re-run loop.
-  - **Item 11 — review-console UX (default-approve + horizontal readiness): at exit
-    gate, awaiting merge.** Branch `feat/console-ux-fixes` (PR #24); BACKLOG item-11
+  - **Item 11 — review-console UX (default-approve + horizontal readiness): done**
+    (merged, PR #24). Branch `feat/console-ux-fixes`; BACKLOG item-11
     entry is the spec. Transport/view only, not the data path. (1) The console's
     review queue defaults every finding to approved on confirm (`webapp/app.py`
     `_confirm`); both controls stay on every row with the active one marked
@@ -403,6 +403,9 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     (was squeezed to min-content by the wide queue table in a `1fr` grid). Webapp
     loop tests updated for the new default; `test_view.py` content assertions hold.
     Verified live in the browser. `/simplify` self-reviewed, clean. `pytest` (238) +
-    `pre-commit` pass. **Merge is the user's call.**
+    `pre-commit` pass.
+  - **No open backlog work.** Items 1–11 all done and merged; the §16 build and the
+    backlog are complete. Next work would be net-new (e.g. §11 upstream lift, or a
+    deferred item-4 enhancement), added to BACKLOG.md first.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._

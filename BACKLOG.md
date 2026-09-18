@@ -302,6 +302,15 @@ path), from using it on the fixture BOM:
    only — the content (headline, split, coverage, findings-by-severity) is
    unchanged, so the `test_view.py` content assertions still hold.
 
+**Done** (merged, PR #24, `feat/console-ux-fixes`). Both fixes shipped. (1) On
+confirm the console defaults every finding to approved (`webapp/app.py`), both
+controls stay on every row with the active one marked (`webapp/render.py`); default
+approvals carry a `note` marking a bulk default. Loop tests updated for the new
+default (confirm pre-approves → the mapping costs on re-run; rejecting all the
+reusable-alias findings leaves it uncosted). (2) `carbonara/view.py`'s readiness is
+now a full-width horizontal band; `test_view.py` content assertions hold. Verified
+live in the browser. `pytest` (238) + `pre-commit` pass.
+
 ### The five-tier ladder is two active tiers for weight
 
 The fill ladder is documented as five tiers, but a missing weight only ever
