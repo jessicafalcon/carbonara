@@ -340,6 +340,15 @@ table-driving the six normalize parse→event blocks. It is real repetition, but
 the flat blocks keep each rule's `rule_id`/`source_type`/renderer visible inline,
 which is worth more than the line count in a provenance-critical file.
 
+**Done** (merged, PR #25, `refacto/reuse-first-cleanup`). All four cleanups
+shipped as described, output byte-identical (the 238 tests are unchanged and
+green). `_best_match` reuses `_ratio` and drops the no-op `max` key; `summarize`
+and `render_view` use `collections.Counter`; the four `view` row-builders became
+per-row helpers joined by a generator (`webapp/render.py`'s pattern). `/simplify`
+found one nit — the extracted helpers took single-letter params — fixed by naming
+them. The normalize table-drive stayed out of scope. `pytest` (238) +
+`pre-commit` + determinism guard pass.
+
 ### The five-tier ladder is two active tiers for weight
 
 The fill ladder is documented as five tiers, but a missing weight only ever

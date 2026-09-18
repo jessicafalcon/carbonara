@@ -404,10 +404,10 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     loop tests updated for the new default; `test_view.py` content assertions hold.
     Verified live in the browser. `/simplify` self-reviewed, clean. `pytest` (238) +
     `pre-commit` pass.
-  - **Item 12 — reuse-first simplification pass: at exit gate, awaiting merge**
-    (PR #25). Branch `refacto/reuse-first-cleanup`; BACKLOG item-12 entry is the
-    spec. Four behavior-preserving cleanups, byte-identical output (the 238 tests
-    pin them): `normalize` gains one `_best_match` helper reused by
+  - **Item 12 — reuse-first simplification pass: done** (merged, PR #25). Branch
+    `refacto/reuse-first-cleanup`; BACKLOG item-12 entry is the spec. Four
+    behavior-preserving cleanups, byte-identical output (the 238 tests pin them):
+    `normalize` gains one `_best_match` helper reused by
     `resolve_supplier`/`resolve_material` (and drops the redundant `max` key, a
     no-op on `(ratio, name)` tuples); `footprint.summarize` counts statuses with
     `collections.Counter`; `view`'s four row-builders use per-row helpers joined by
@@ -416,9 +416,9 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     in the item): table-driving the six `normalize_records` blocks — the flat blocks
     keep each rule's id/source_type/renderer inline, worth more than the line count.
     `/simplify` run (one finding, single-letter helper params, fixed). `pytest`
-    (238) + `pre-commit` + determinism guard pass. **Merge is the user's call.**
-  - **No other open backlog work.** Items 1–11 done and merged; item 12 above is at
-    its exit gate. Further work would be net-new (e.g. §11 upstream lift), added to
-    BACKLOG.md first.
+    (238) + `pre-commit` + determinism guard pass.
+  - **No open backlog work.** Items 1–12 all done and merged; the §16 build and the
+    backlog are complete. Further work would be net-new (e.g. §11 upstream lift),
+    added to BACKLOG.md first.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
