@@ -6,6 +6,7 @@ import dataclasses
 import datetime
 import difflib
 import re
+from collections.abc import Iterable
 
 from carbonara.materialize import SourceRecord
 from carbonara.references import country_iso, material_vocab, supplier_names
@@ -122,6 +123,11 @@ def _ratio(a: str, b: str) -> float:
     return difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
 
+def _best_match(raw: str, candidates: Iterable[str]) -> tuple[float, str]:
+    """Highest-ratio candidate, ties broken by name so the choice is deterministic."""
+    return max((_ratio(raw, name), name) for name in candidates)
+
+
 def resolve_country(raw: str) -> str | None:
     """Resolve a country name to its ISO-3166 alpha-2 code, or ``None``.
 
@@ -143,8 +149,7 @@ def resolve_supplier(raw: str) -> tuple[str, float] | None:
     >>> resolve_supplier("Golden Thread Company")[0]
     'Golden Thread'
     """
-    scored = [(_ratio(raw, name), name) for name in supplier_names()]
-    ratio, name = max(scored, key=lambda pair: (pair[0], pair[1]))
+    ratio, name = _best_match(raw, supplier_names())
     return (name, ratio) if ratio >= _SUPPLIER_THRESHOLD else None
 
 
@@ -170,8 +175,7 @@ def resolve_material(raw: str) -> tuple[str, str] | None:
     # resolves exactly like a canonical name — not a fuzzy guess.
     if normalized in vocab.alias_to_canonical:
         return ("exact", vocab.alias_to_canonical[normalized])
-    scored = [(_ratio(raw, name), name) for name in vocab.canonical]
-    ratio, name = max(scored, key=lambda pair: (pair[0], pair[1]))
+    ratio, name = _best_match(raw, vocab.canonical)
     return ("proposal", name) if ratio >= _MATERIAL_PROPOSAL_THRESHOLD else None
 
 
