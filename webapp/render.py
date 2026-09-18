@@ -13,7 +13,7 @@ import html
 
 from carbonara.ingest import IngestResult, IngestStatus
 from carbonara.review import ReviewItem, ReviewQueue, ReviewStatus
-from carbonara.view import _CSS as _PALETTE  # the one palette source (slate dashboard)
+from carbonara.view import CSS as _PALETTE  # the one palette source (slate dashboard)
 
 __all__ = ["drift_panel", "page", "review_panel", "upload_form"]
 

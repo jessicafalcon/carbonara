@@ -11,6 +11,7 @@ URL. Stop with Ctrl-C.
 
 from __future__ import annotations
 
+import datetime
 import pathlib
 import sys
 import tempfile
@@ -31,7 +32,10 @@ class _Handler(BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length") or 0)
         body = self.rfile.read(length) if length else b""
         path = self.path.split("?", 1)[0]
-        response = handle(method, path, self.session, content_type=self.headers.get("Content-Type", ""), body=body)
+        now = datetime.datetime.now(datetime.UTC).isoformat()  # the boundary owns the clock, not the router
+        response = handle(
+            method, path, self.session, now=now, content_type=self.headers.get("Content-Type", ""), body=body
+        )
         payload = response.body.encode("utf-8")
         self.send_response(response.status)
         self.send_header("Content-Type", response.content_type)

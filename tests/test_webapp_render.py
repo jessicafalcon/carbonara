@@ -8,28 +8,21 @@ from carbonara.ingest import IngestResult, IngestStatus, SourceFormat
 from carbonara.review import ReviewQueue
 from carbonara.rules import AnomalyCategory, Finding, Severity
 from carbonara.source_schema import MappingProposal
+from tests.webapp_multipart import CONTENT_TYPE, multipart_body
 from webapp.multipart import parse_multipart
 from webapp.render import drift_panel, review_panel, upload_form
-
-_BOUNDARY = "X-BOUND"
-
-
-def _multipart_body(parts: list[tuple[bytes, bytes]]) -> bytes:
-    """Assemble a multipart/form-data body from (disposition-header, content) parts."""
-    chunks = [b"--" + _BOUNDARY.encode() + b"\r\n" + head + b"\r\n\r\n" + content + b"\r\n" for head, content in parts]
-    return b"".join(chunks) + b"--" + _BOUNDARY.encode() + b"--\r\n"
 
 
 def test_parse_multipart_splits_file_and_field_and_preserves_bytes():
     # A CSV with an embedded comma and an internal newline must survive byte-for-byte.
     csv = b'id,note\r\n1,"a,b"\r\n2,plain\r\n'
-    body = _multipart_body(
+    body = multipart_body(
         [
             (b'Content-Disposition: form-data; name="file"; filename="bom.csv"', csv),
             (b'Content-Disposition: form-data; name="action"', b"admit"),
         ]
     )
-    fields, files = parse_multipart(f"multipart/form-data; boundary={_BOUNDARY}", body)
+    fields, files = parse_multipart(CONTENT_TYPE, body)
     assert fields == {"action": "admit"}
     assert files["file"] == ("bom.csv", csv)
 

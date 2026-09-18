@@ -13,25 +13,20 @@ import pathlib
 import urllib.parse
 
 from carbonara.rules import AnomalyCategory
+from tests.webapp_multipart import CONTENT_TYPE, upload_body
 from webapp.app import handle
 from webapp.session import Session
 
 _ROOT = pathlib.Path(__file__).resolve().parent.parent
 _BOM_V1 = _ROOT / "fixtures" / "bom_v1.csv"
-_BOUNDARY = "X-BOUND"
-_CT = f"multipart/form-data; boundary={_BOUNDARY}"
+_AT = "2026-01-01T00:00:00Z"  # a fixed injected timestamp keeps the tests deterministic
 _FOCUS = "r0065"
-
-
-def _upload_body(raw: bytes) -> bytes:
-    head = b'Content-Disposition: form-data; name="file"; filename="bom_v1.csv"'
-    return b"--" + _BOUNDARY.encode() + b"\r\n" + head + b"\r\n\r\n" + raw + b"\r\n--" + _BOUNDARY.encode() + b"--\r\n"
 
 
 def _uploaded_and_confirmed(tmp_path) -> Session:
     session = Session(store_root=tmp_path)
-    handle("POST", "/upload", session, content_type=_CT, body=_upload_body(_BOM_V1.read_bytes()))
-    handle("POST", "/confirm", session)
+    handle("POST", "/upload", session, now=_AT, content_type=CONTENT_TYPE, body=upload_body(_BOM_V1.read_bytes()))
+    handle("POST", "/confirm", session, now=_AT)
     return session
 
 
@@ -54,7 +49,7 @@ def _focus_mapping_finding_id(session: Session) -> str:
 
 def test_empty_approvals_leaves_the_typo_uncosted(tmp_path):
     session = _uploaded_and_confirmed(tmp_path)
-    result = handle("POST", "/rerun", session)
+    result = handle("POST", "/rerun", session, now=_AT)
     assert "catalog footprint" in result.body
     assert _FOCUS not in _trace(result.body)  # unresolved material is not costed
 
@@ -63,9 +58,9 @@ def test_approving_the_mapping_resolves_and_chains_the_cell(tmp_path):
     session = _uploaded_and_confirmed(tmp_path)
     finding_id = _focus_mapping_finding_id(session)
     body = urllib.parse.urlencode({"finding_id": finding_id, "action": "approve"}).encode()
-    handle("POST", "/decide", session, body=body)
+    handle("POST", "/decide", session, now=_AT, body=body)
 
-    result = handle("POST", "/rerun", session)
+    result = handle("POST", "/rerun", session, now=_AT)
     trace = _trace(result.body)
     assert _FOCUS in trace  # now costed
     assert trace[_FOCUS]["material"] == "organic cotton"
@@ -79,7 +74,7 @@ def test_rerun_is_byte_identical_on_the_same_decisions(tmp_path):
     session = _uploaded_and_confirmed(tmp_path)
     finding_id = _focus_mapping_finding_id(session)
     body = urllib.parse.urlencode({"finding_id": finding_id, "action": "approve"}).encode()
-    handle("POST", "/decide", session, body=body)
-    first = handle("POST", "/rerun", session).body
-    second = handle("POST", "/rerun", session).body
+    handle("POST", "/decide", session, now=_AT, body=body)
+    first = handle("POST", "/rerun", session, now=_AT).body
+    second = handle("POST", "/rerun", session, now=_AT).body
     assert first == second

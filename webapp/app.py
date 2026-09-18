@@ -1,9 +1,11 @@
-"""The pure request router for the review console: (request, session) -> Response.
+"""The request router for the review console: (request, session, now) -> Response.
 
-``handle`` is a pure function of the request and the session — no socket, no clock
-(the run/decision timestamps are injected constants), no network. It writes the
-upload to the session's store and calls ``carbonara`` functions; it holds no
-business logic of its own. ``scripts/serve.py`` is the only part that binds a port.
+``handle`` is deterministic given the session's store and the injected ``now``
+timestamp — it reads no clock and binds no socket; it writes the upload into the
+session's store, calls ``carbonara`` functions, and renders their results. It holds
+no business logic of its own. The timestamp policy lives at the I/O boundary that
+owns the clock — ``scripts/serve.py`` passes wall-clock, the tests pass a fixed
+constant — mirroring why ``pipeline.run`` refuses to read the clock itself (§8.2).
 """
 
 from __future__ import annotations
@@ -21,11 +23,8 @@ from webapp.multipart import parse_multipart
 from webapp.render import drift_panel, page, review_panel, upload_form
 from webapp.session import Session
 
-__all__ = ["CREATED_AT", "DECIDED_AT", "Response", "handle"]
+__all__ = ["Response", "handle"]
 
-#: Injected, never wall-clock — the same file + decisions render byte-identically (§8.2).
-CREATED_AT = "2026-01-01T00:00:00Z"
-DECIDED_AT = "2026-01-01T00:00:00Z"
 _ACTOR = "reviewer"
 
 
@@ -38,25 +37,28 @@ class Response:
     content_type: str = "text/html; charset=utf-8"
 
 
-def handle(method: str, path: str, session: Session, *, content_type: str = "", body: bytes = b"") -> Response:
+def handle(
+    method: str, path: str, session: Session, *, now: str, content_type: str = "", body: bytes = b""
+) -> Response:
     """Route one request to the connector and render the resulting panel.
 
-    ``GET /`` shows the current step (upload form, drift gate, or queue). The POST
-    routes each advance the loop and return the next panel directly: ``/upload``
-    admits the file, ``/confirm`` runs the pipeline and builds the queue,
-    ``/decide`` records one approve/reject, ``/rerun`` re-runs with the approvals
-    and renders the footprint, ``/reset`` clears the session.
+    ``now`` is the injected timestamp for this request — the run's ``created_at``
+    and a decision's ``at``. ``GET /`` shows the current step (upload form, drift
+    gate, or queue). The POST routes each advance the loop and return the next panel
+    directly: ``/upload`` admits the file, ``/confirm`` runs the pipeline and builds
+    the queue, ``/decide`` records one approve/reject, ``/rerun`` re-runs with the
+    approvals and renders the footprint, ``/reset`` clears the session.
     """
     if method == "GET" and path == "/":
         return _current(session)
     if method == "POST" and path == "/upload":
         return _upload(session, content_type, body)
     if method == "POST" and path == "/confirm":
-        return _confirm(session)
+        return _confirm(session, now)
     if method == "POST" and path == "/decide":
-        return _decide(session, body)
+        return _decide(session, body, now)
     if method == "POST" and path == "/rerun":
-        return _rerun(session)
+        return _rerun(session, now)
     if method == "POST" and path == "/reset":
         session.reset()
         return _current(session)
@@ -83,24 +85,23 @@ def _upload(session: Session, content_type: str, body: bytes) -> Response:
     session.reset()
     result = admit(stored, session.store_root, rerun=True)
     session.raw = raw
-    session.content_hash = result.content_hash
     session.ingest = result
+    _, session.rows, _ = read_source(raw, result.source_format)  # parse once; confirm/rerun reuse it
     return _current(session)
 
 
-def _confirm(session: Session) -> Response:
-    if session.raw is None or session.ingest is None:
+def _confirm(session: Session, now: str) -> Response:
+    if session.ingest is None or session.rows is None:
         return _current(session)
     proposal = session.ingest.mapping_proposal
     mapping = dict(proposal.renames) if proposal else {}
-    _, rows, _ = read_source(session.raw, session.ingest.source_format)
-    result = run(rows, mapping, content_hash=session.content_hash or "", created_at=CREATED_AT)
+    result = run(session.rows, mapping, content_hash=session.ingest.content_hash, created_at=now)
     session.mapping = mapping
     session.queue = ReviewQueue(result.findings)
     return _current(session)
 
 
-def _decide(session: Session, body: bytes) -> Response:
+def _decide(session: Session, body: bytes, now: str) -> Response:
     if session.queue is None:
         return _current(session)
     form = urllib.parse.parse_qs(body.decode("utf-8"))
@@ -108,19 +109,18 @@ def _decide(session: Session, body: bytes) -> Response:
     action = form.get("action", [""])[0]
     if finding_id and action in ("approve", "reject"):
         decide = session.queue.approve if action == "approve" else session.queue.reject
-        decide(finding_id, actor=_ACTOR, at=DECIDED_AT)
+        decide(finding_id, actor=_ACTOR, at=now)
     return _current(session)
 
 
-def _rerun(session: Session) -> Response:
-    if session.raw is None or session.ingest is None or session.queue is None:
+def _rerun(session: Session, now: str) -> Response:
+    if session.ingest is None or session.rows is None or session.queue is None:
         return _current(session)
-    _, rows, _ = read_source(session.raw, session.ingest.source_format)
     result = run(
-        rows,
+        session.rows,
         session.mapping or {},
-        content_hash=session.content_hash or "",
-        created_at=CREATED_AT,
+        content_hash=session.ingest.content_hash,
+        created_at=now,
         approvals=applications_from(session.queue),
     )
     return Response(status=200, body=render_view(result, title="carbonara"))

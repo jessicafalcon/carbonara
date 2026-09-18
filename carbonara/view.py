@@ -24,10 +24,11 @@ from carbonara.footprint import (
 from carbonara.pipeline import PipelineResult
 from carbonara.rules import Severity
 
-__all__ = ["render_view"]
+__all__ = ["CSS", "render_view"]
 
 # Slate-dashboard palette (data/dev tool, not an editorial page — carbonara-craft).
-_CSS = """
+# Public so the review-console transport (webapp/) renders in the same palette.
+CSS = """
 :root {
   --bg: #1b2129; --panel: #232c37; --line: #313d4a; --ink: #e7edf3;
   --muted: #8fa3b4; --accent: #20c4a8; --flag: #f87171; --observed: #20c4a8; --filled: #eab308;
@@ -289,7 +290,7 @@ def render_view(result: PipelineResult, *, diff: FactorDiff | None = None, title
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{_esc(title)} · footprint</title>
-<style>{_CSS}</style>
+<style>{CSS}</style>
 </head><body>
 <h1>{_esc(title)} — catalog footprint</h1>
 <p class="sig">run <b>{_esc(result.run_id)}</b> · ruleset <b>{_esc(result.ruleset_version)}</b>

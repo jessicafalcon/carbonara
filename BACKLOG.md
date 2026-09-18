@@ -137,8 +137,9 @@ outside `carbonara/` (like `analytics/`), so the determinism guard's domain stay
 the connector alone; the slate-dashboard palette (`view.py`) is reused. Scope is
 the full loop (upload → drift gate + one-click mapping confirm → review queue →
 re-run with chained lineage); cross-restart persistence, auth/multi-user, and
-hand-editing the mapping are deferred. Tests drive a pure `handle()` router with no
-socket and a fixed injected `created_at`. **Deviation:** this item has a spec file
+hand-editing the mapping are deferred. The `handle()` router reads no clock; the
+timestamp is injected at the I/O boundary (`serve.py` passes wall-clock per
+request, tests pass a fixed constant). **Deviation:** this item has a spec file
 (`specs/feat-upload-review-surface.md`) rather than only this entry — at the user's
 request, since item 4 is the largest backlog item.
 

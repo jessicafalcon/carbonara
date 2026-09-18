@@ -43,10 +43,15 @@ in `run`, not the transport (carbonara-correctness).
 - **Styling: reuse the slate-dashboard palette.** The same tokens as
   `carbonara/view.py` (slate bg, teal accent, Space Grotesk), so the new panels read
   as one tool — one palette source, not a second look.
-- **Reproducibility: inject a fixed `created_at` (and review `at`).** Like the
-  existing scripts, the surface passes a constant timestamp into `run` and the
-  review decisions, so the same file + same decisions render byte-identically and
-  the tests are deterministic. No clock read anywhere.
+- **Reproducibility: the timestamp is injected at the I/O boundary.** `handle`
+  takes a `now` for the run's `created_at` and a decision's `at`; it reads no clock.
+  `scripts/serve.py` (which already owns the socket) passes wall-clock per request,
+  so a live reviewer's provenance carries the real time; the tests pass a fixed
+  constant for determinism. `render_view` does not render `created_at`, so a live
+  re-run of the same file and decisions is byte-identical regardless of the clock —
+  the byte-identical property comes from `run_id` (content hash + versions), not
+  from freezing the timestamp. This mirrors why `run` refuses to read the clock:
+  the timestamp *policy* belongs at the boundary, not in the pure router.
 
 ## Approach
 

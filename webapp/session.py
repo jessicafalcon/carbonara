@@ -19,11 +19,16 @@ __all__ = ["Session"]
 
 @dataclasses.dataclass(slots=True)
 class Session:
-    """What one loop has produced so far; ``None`` fields are steps not yet taken."""
+    """What one loop has produced so far; ``None`` fields are steps not yet taken.
+
+    ``rows`` caches the parsed source once at upload so ``confirm`` and each
+    ``rerun`` reuse it rather than re-parsing the bytes; the content hash lives on
+    ``ingest`` and is read from there, not duplicated here.
+    """
 
     store_root: pathlib.Path
     raw: bytes | None = None
-    content_hash: str | None = None
+    rows: list[dict[str, str]] | None = None
     ingest: IngestResult | None = None
     mapping: dict[str, str] | None = None
     queue: ReviewQueue | None = None
@@ -31,7 +36,7 @@ class Session:
     def reset(self) -> None:
         """Drop everything but the store root, so the next upload starts clean."""
         self.raw = None
-        self.content_hash = None
+        self.rows = None
         self.ingest = None
         self.mapping = None
         self.queue = None
