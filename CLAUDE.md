@@ -329,7 +329,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     search found real apparel data *does* exist (NPCGA) but was blocked by format —
     which items 7 and 8 then closed. Findings in `samples/README.md`.
   - **Item 7 — parse semicolon-delimited (European) CSVs + item 8 — material
-    synonyms: at exit gate.** Branch `feat/semicolon-csv-reader` (PR #19). Item 7:
+    synonyms: done** (merged, PR #19). Branch `feat/semicolon-csv-reader`. Item 7:
     `ingest._detect_delimiter` picks `;` vs `,` from the header (deterministic),
     unlocking NPCGA. Item 8: a versioned `aliases` column resolves `polyamide →
     nylon` exactly (an ambiguous `"polyamide or nylon"` stays a review proposal).
