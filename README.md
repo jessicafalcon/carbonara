@@ -171,6 +171,20 @@ fill → footprint → provenance trace) over the fixture BOM:
 uv run python scripts/demo.py
 ```
 
+## Review console (live)
+
+The same loop as a small local web surface: upload a CSV or XLSX, see the
+schema-drift decision, confirm the proposed mapping, approve or reject each finding
+in the review queue, and re-run to the footprint with the corrected cell's chained
+lineage in its provenance drawer. It is a thin transport over `pipeline.run` and
+`review.ReviewQueue` — no business logic, no new dependencies (stdlib
+`http.server`), offline. Determinism and provenance stay in the connector; the run
+timestamp is injected, so the same file and decisions render byte-identically.
+
+```sh
+uv run python scripts/serve.py         # serves http://127.0.0.1:8000 (add a port to change it)
+```
+
 ## Limitations
 
 The connector is deliberate about what it asserts and what it does not (brief §15):
@@ -202,6 +216,7 @@ cd carbonara && uv sync                # install pinned deps + dev tools
 
 uv run python scripts/demo.py          # the narrated five-minute walkthrough
 uv run python scripts/build_view.py    # writes build/view.html — open it in a browser
+uv run python scripts/serve.py         # the live review console at http://127.0.0.1:8000
 ```
 
 ## Local development
