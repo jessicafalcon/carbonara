@@ -85,6 +85,32 @@ footprint claim, purely to prove the drift gate and normalizers survive real
 mess. Keep it out of the QA suite (no ground truth); it is an exercise, not a
 determinism fixture.
 
+**Done** (`feat/real-file-exercise`). The file is a real U.S. textile-import table
+(`samples/us_textile_imports_by_fiber.csv`, USDA ERS from Census/Commerce trade
+data — a quoted field with an embedded comma), run by
+`scripts/real_file_exercise.py`. It lives in `scripts/`/`samples/`, so pytest never
+collects it — out of the QA suite, as required. Findings: ingest parses the
+quoted-comma CSV; the drift gate returns `review_required` with no mapping (no
+column matches the BOM contract), so a real non-BOM file is stopped, not processed;
+`resolve_material` resolves `Cotton → cotton` and flags `Wool`/`Silk`/`Linen`/
+`Synthetic` (not in the vocabulary) instead of guessing; `parse_date` nulls the
+year-only periods — no crashes. Decision: the file is aggregate statistics with no
+per-item weights/suppliers/SKUs, so the exercise proves the **drift gate + field
+normalizers** survive real mess but does not exercise the full fill→footprint path —
+the gate is the safety net that stops exactly this. Chosen file is USDA ERS
+(published from Census data) because the strict-Census OTEXA tables are not served
+as a direct CSV.
+
+A follow-up search for a real apparel file with per-item **material and weight**
+found that such data exists and is openly licensed but is blocked by format, not
+availability (recorded in `samples/README.md`): a Shopify brand-catalog export is
+product-level with material only in free text (`materialize` names the missing
+`material`), and NPCGA — 16 464 Norwegian post-consumer garments (Zenodo
+`10.5281/zenodo.20440761`, CC BY-SA 4.0) — carries real fibre composition, grams,
+brand, and country but is **semicolon-delimited**, which the connector's comma-only
+reader cannot parse. A `;`-delimited (European) CSV reader is the natural next item
+that would let the full pipeline run on real, licensed apparel data.
+
 ### 4. A live upload → review → re-run surface
 
 The brief describes "a thin, clean full-stack surface"; the shipped artifact is a

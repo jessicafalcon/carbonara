@@ -315,9 +315,23 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
   order in its table). Backlog items follow the
   [Backlog items](#backlog-items-post-16-work) workflow: one branch + one PR each,
   the backlog entry as the spec, decisions recorded in `BACKLOG.md`.
-  - **Next up:** item 1 — lift `category` into the contract (small, data path, no
-    deps). Then 2 (parse XLSX), 3 (run a real messy file, gated on 1+2), 4 (live
-    upload→review→re-run surface), 5 (closed-form split), 6 (augment lifecycle in
-    the live pipeline).
+  - **Item 1 — category into the contract: done** (merged, PR #15). Required `str`
+    field resolved in `materialize` (`derive_category`), parallel to `record_id`;
+    both `_category` splits deleted; `fill`/`footprint` read `record.category`.
+  - **Item 2 — parse XLSX: done** (merged, PR #16). `ingest._read_xlsx` (openpyxl,
+    not `pandas.read_excel`) converts each cell to the CSV-path string faithfully;
+    `read_rows`/`read_source` are the shared readers; `openpyxl` is the one new dep.
+  - **Item 3 — run a real messy file end to end: at exit gate.** Branch
+    `feat/real-file-exercise`. A real U.S. textile-import CSV
+    (`samples/us_textile_imports_by_fiber.csv`, USDA ERS / Census trade data) runs
+    through `scripts/real_file_exercise.py`: the drift gate refuses the non-BOM
+    shape for review and the normalizers resolve/flag its real values without
+    crashing. Exercise only — kept out of the QA suite (no ground truth, lives in
+    `scripts/`). The full fill→footprint path is not exercised (no per-component
+    columns; no public BOM to stand in), which the findings note states.
+  - **Workflow tweak (PR #17, open):** run `/simplify` before opening a PR.
+  - **Next up:** items 4 (live upload→review→re-run surface, large), 5 (closed-form
+    split), 6 (augment lifecycle in the live pipeline) — 4 and 5 independent, 6
+    lands whenever.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
