@@ -264,6 +264,20 @@ and reproduce the current `resolved_cells` and provenance drawer; re-check the
 determinism guard and the review-loop tests. A genuine simplification (removes a
 special case), not urgent — the current dual path works and is tested.
 
+**Done** (`refacto/unify-approval-lineage`). `apply_approvals` now returns one
+ordered `events` list (each corrected cell's normalize seed before its approval)
+plus `resolved_cells`; `ApprovalChain`, the `seed_events`/`approval_events` split,
+and the parallel `augment_lineage` loop in `pipeline.run` are gone. `run` feeds a
+single event list to both the ledger and `apply_lineage`, whose item-6 chaining
+writes the seed as the head Source and chains the approval — the same path any
+multi-rule cell takes — so the `normalize_material → reference_resolve` lifecycle,
+`resolved_cells`, the ledger, and the rendered drawer are unchanged (the pipeline,
+view, and review-loop tests confirm it). One deliberate behavior note: the approval
+tier's `data_lineage` `inputs` no longer duplicates the resolved `value` (the cell
+already holds it, and the drawer renders only `source_type`/`rule_id`); the ledger
+row's `method_params` are unchanged. Determinism guard passes; `pytest` (238) +
+`pre-commit` clean.
+
 ### The five-tier ladder is two active tiers for weight
 
 The fill ladder is documented as five tiers, but a missing weight only ever
