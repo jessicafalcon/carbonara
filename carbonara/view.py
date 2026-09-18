@@ -157,15 +157,15 @@ def _split(observed: float, filled: float) -> str:
     )
 
 
-def _material_row(b: Breakdown, total: float) -> str:
-    share = b.total_kgco2e / total if total else 0.0
+def _material_row(breakdown: Breakdown, total: float) -> str:
+    share = breakdown.total_kgco2e / total if total else 0.0
     return (
-        f"<tr><td>{_esc(b.key)}</td>"
-        f'<td class="num">{_n(b.total_kgco2e)}</td>'
+        f"<tr><td>{_esc(breakdown.key)}</td>"
+        f'<td class="num">{_n(breakdown.total_kgco2e)}</td>'
         f'<td style="width:120px">{_bar(share)}</td>'
         f'<td class="num">{share * 100:.1f}%</td>'
-        f'<td style="width:110px">{_split(b.observed_share, b.filled_share)}</td>'
-        f'<td class="num">{b.costed_n}</td></tr>'
+        f'<td style="width:110px">{_split(breakdown.observed_share, breakdown.filled_share)}</td>'
+        f'<td class="num">{breakdown.costed_n}</td></tr>'
     )
 
 
@@ -173,13 +173,13 @@ def _material_rows(breakdowns: list[Breakdown], total: float) -> str:
     return "".join(_material_row(b, total) for b in breakdowns)
 
 
-def _diff_row(r: FactorDiffRow) -> str:
-    cls = "delta-up" if r.delta_kgco2e > 0 else "delta-down"
+def _diff_row(row: FactorDiffRow) -> str:
+    cls = "delta-up" if row.delta_kgco2e > 0 else "delta-down"
     return (
-        f"<tr><td>{_esc(r.material)}</td>"
-        f'<td class="num">{_n(r.factor_from, 2)} → {_n(r.factor_to, 2)}</td>'
-        f'<td class="num">{_n(r.total_from)} → {_n(r.total_to)}</td>'
-        f'<td class="num {cls}">{"+" if r.delta_kgco2e >= 0 else ""}{_n(r.delta_kgco2e)}</td></tr>'
+        f"<tr><td>{_esc(row.material)}</td>"
+        f'<td class="num">{_n(row.factor_from, 2)} → {_n(row.factor_to, 2)}</td>'
+        f'<td class="num">{_n(row.total_from)} → {_n(row.total_to)}</td>'
+        f'<td class="num {cls}">{"+" if row.delta_kgco2e >= 0 else ""}{_n(row.delta_kgco2e)}</td></tr>'
     )
 
 
@@ -187,14 +187,14 @@ def _diff_rows(diff: FactorDiff) -> str:
     return "".join(_diff_row(r) for r in diff.rows)
 
 
-def _component_row(c: ComponentFootprint) -> str:
-    badge = "flagged" if c.status is FootprintStatus.FLAGGED else c.weight_source
+def _component_row(component: ComponentFootprint) -> str:
+    badge = "flagged" if component.status is FootprintStatus.FLAGGED else component.weight_source
     return (
-        f"<tr><td>{_esc(c.style_id)}</td><td>{_esc(c.component)}</td><td>{_esc(c.material)}</td>"
-        f'<td class="num">{_n(c.weight_g or 0.0, 0)} g <span class="badge {badge}">{badge}</span></td>'
-        f'<td class="num">{_n(c.estimated_kgco2e or 0.0, 3)}</td>'
-        f'<td class="num">{_esc(c.factor_source_version)}</td>'
-        f'<td><button class="trace" onclick="openTrace(\'{_esc(c.record_id)}\')">trace ▸</button></td></tr>'
+        f"<tr><td>{_esc(component.style_id)}</td><td>{_esc(component.component)}</td><td>{_esc(component.material)}</td>"
+        f'<td class="num">{_n(component.weight_g or 0.0, 0)} g <span class="badge {badge}">{badge}</span></td>'
+        f'<td class="num">{_n(component.estimated_kgco2e or 0.0, 3)}</td>'
+        f'<td class="num">{_esc(component.factor_source_version)}</td>'
+        f'<td><button class="trace" onclick="openTrace(\'{_esc(component.record_id)}\')">trace ▸</button></td></tr>'
     )
 
 
