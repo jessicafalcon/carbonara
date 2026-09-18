@@ -351,8 +351,8 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     for the ibis arrow bridge) — the layer needs nothing beyond pandas + duckdb; the
     DuckDB DAG is unchanged. `pytest` (223) + `pre-commit` pass with the deps
     uninstalled. Decision recorded in BACKLOG item 5.
-  - **Item 6 — use the augment lifecycle in the live pipeline: at exit gate,
-    awaiting merge.** Branch `feat/augment-in-pipeline` (PR #21). Fixed the shared
+  - **Item 6 — use the augment lifecycle in the live pipeline: done** (merged,
+    PR #21). Branch `feat/augment-in-pipeline`. Fixed the shared
     spine, not one call site: `apply_lineage` writes a cell's first rule as a plain
     head Source, then chains any further rule on that cell via `augment_lineage`
     (oldest first), so the lifecycle matches the ledger instead of clobbering (§8.1).
@@ -363,6 +363,7 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     own chain step; unifying it is out of scope. 3 tests added. `pytest` (226) +
     `pre-commit` + determinism guard pass. Decision recorded in BACKLOG item 6.
   - **Next up:** item 4 (live upload→review→re-run surface, large — needs stack/design
-    decisions first) is the only backlog item left; items 1–3, 5–9 done.
+    decisions first) is the last backlog item; items 1–3, 5–9 done. Item 10 (unify
+    the approval re-apply into `apply_lineage`, unlocked by item 6) lands whenever.
 
 _Update after every PR and merge (rule above): phase or backlog item, branch, open PR, next step._
