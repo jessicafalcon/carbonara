@@ -342,8 +342,8 @@ Effort: run Opus 4.8 at **xhigh** for this project's coding/agentic work.
     (11.1) factors fetched from Ecobalyse via `fetch_factors.py` (the pinned eight
     unchanged) and added to the vocabulary, so they now cost in the NPCGA run.
     `silk` stays unmapped — it is not in Ecobalyse's library and was not invented.
-  - **Item 5 — replace icanexplain with the closed-form split: at exit gate,
-    awaiting merge.** Branch `refacto/closed-form-split` (PR #20).
+  - **Item 5 — replace icanexplain with the closed-form split: done** (merged,
+    PR #20). Branch `refacto/closed-form-split`.
     `analytics/explain.decompose` computes both effects from the mart directly
     (`intensity = mass_from × (factor_to − factor_from)` per material, volume/mix the
     remainder), so reconciliation holds by arithmetic. The whole `analytics`
