@@ -217,6 +217,22 @@ form. Where a cell is legitimately touched by more than one rule, route it throu
 matches the ledger. Data path — additive and deterministic, but re-check the
 determinism guard and the lineage reproducibility tests.
 
+**Done** (`feat/augment-in-pipeline`). Fixed the mechanism rather than one call site:
+`apply_lineage` (the shared spine) now writes a cell's first rule as a plain head
+Source, then chains any further rule on that cell through `augment_lineage` (oldest
+first), so the lifecycle matches the ledger instead of the last write clobbering it.
+Scope decision: there is **no live cell touched by more than one rule today** — the
+stage columns are disjoint (normalize per column, fill only the null weights,
+footprint only `estimated_kgco2e`), and an approved cell carries only its seed event
+in the clobbering pass (its approval already chains). So the honest change is the
+general one — `apply_lineage` is correct-by-construction for any multi-rule cell,
+and a single-rule cell is byte-identical to the plain write (the 223 existing tests
+confirm no drift). The Phase-8 approval re-apply keeps its own chain step; unifying
+it into `apply_lineage` is a deeper refactor left out of scope. Three tests added
+(`tests/test_lineage.py`) prove a two-rule cell chains through `apply_lineage`, a
+single-rule cell keeps a plain head, and the chaining is reproducible; the
+determinism guard passes.
+
 ### The five-tier ladder is two active tiers for weight
 
 The fill ladder is documented as five tiers, but a missing weight only ever

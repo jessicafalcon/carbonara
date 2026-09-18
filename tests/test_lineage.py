@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+import pandas as pd
+
+from carbonara.augment import lineage_history
 from carbonara.fill import fill_weights
 from carbonara.lineage import apply_lineage, to_frame
 from carbonara.materialize import materialize
 from carbonara.normalize import normalize_records
+from carbonara.rules import RuleEvent, SourceType
 
 
 def _row(row_id: str, **over: str) -> dict[str, str]:
@@ -55,4 +59,60 @@ def test_lineage_is_deterministic():
     rows.append(_row("99", net_weight=""))
     first, _ = _pipeline(rows)
     second, _ = _pipeline(rows)
+    assert first["data_lineage"].astype(str).tolist() == second["data_lineage"].astype(str).tolist()
+
+
+# --- a cell touched by more than one rule chains, rather than clobbering (§8.1) ---
+
+
+def _two_rule_events(record_id: str, column: str) -> list[RuleEvent]:
+    """Two rules on one cell, oldest first: a grouped-median fill then a confirm."""
+    return [
+        RuleEvent.create(
+            record_id=record_id,
+            column=column,
+            rule_id="weight_median",
+            rule_version="v1",
+            source_type=SourceType.GROUPED_MEDIAN,
+            value_before="",
+            value_after="150",
+        ),
+        RuleEvent.create(
+            record_id=record_id,
+            column=column,
+            rule_id="weight_confirm",
+            rule_version="v1",
+            source_type=SourceType.REFERENCE_RESOLVE,
+            value_before="150",
+            value_after="150",
+        ),
+    ]
+
+
+def test_apply_lineage_chains_a_cell_touched_by_two_rules():
+    frame = pd.DataFrame({"record_id": ["r0001"], "component_weight_g": [150.0]})
+    events = _two_rule_events("r0001", "component_weight_g")
+    head = apply_lineage(frame, events).iloc[0]["data_lineage"]["component_weight_g"]
+
+    assert head["source_type"] == "reference_resolve"  # the head is the latest rule
+    # The spine's lifecycle carries both rules, oldest first, matching the ledger events.
+    assert [h["rule_id"] for h in lineage_history(head)] == [e.rule_id for e in events]
+    assert [h["source_type"] for h in lineage_history(head)] == ["grouped_median", "reference_resolve"]
+
+
+def test_apply_lineage_single_rule_cell_keeps_a_plain_head():
+    # One rule per cell (every live cell today) stays a plain Source, no lifecycle list.
+    frame = pd.DataFrame({"record_id": ["r0001"], "component_weight_g": [150.0]})
+    head = apply_lineage(frame, _two_rule_events("r0001", "component_weight_g")[:1]).iloc[0]["data_lineage"][
+        "component_weight_g"
+    ]
+    assert head["source_type"] == "grouped_median"
+    assert lineage_history(head) == []
+
+
+def test_apply_lineage_chaining_is_deterministic():
+    frame = pd.DataFrame({"record_id": ["r0001", "r0002"], "component_weight_g": [150.0, 148.0]})
+    events = _two_rule_events("r0001", "component_weight_g") + _two_rule_events("r0002", "component_weight_g")
+    first = apply_lineage(frame, events)
+    second = apply_lineage(frame, events)
     assert first["data_lineage"].astype(str).tolist() == second["data_lineage"].astype(str).tolist()
