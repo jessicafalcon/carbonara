@@ -66,6 +66,16 @@ def test_detect_format_by_content_not_extension():
     assert detect_format(b"PK\x03\x04rest-of-a-zip") is SourceFormat.XLSX
 
 
+def test_semicolon_delimited_csv_is_parsed(tmp_path):
+    # A European export: semicolon-delimited, comma as the decimal separator.
+    # The comma-only reader would read this as one column; the delimiter is detected.
+    raw = b"id;weight;fibre\n1;0,5;cotton\n2;0,7;polyester\n"
+    r1, r2 = read_rows(_write(tmp_path, "eu.csv", raw))
+    assert list(r1) == ["id", "weight", "fibre"]  # three columns, not one
+    assert r1 == {"id": "1", "weight": "0,5", "fibre": "cotton"}
+    assert r2["fibre"] == "polyester"
+
+
 def test_clean_file_is_accepted_and_recorded_as_baseline(tmp_path):
     store = tmp_path / "store"
     result = admit(_write(tmp_path, "clean.csv", _clean_csv_bytes()), store)

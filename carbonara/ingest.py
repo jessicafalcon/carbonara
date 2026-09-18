@@ -113,9 +113,26 @@ def _decode(raw: bytes) -> tuple[str, str]:
     return raw.decode("cp1252", errors="replace"), "cp1252"  # unreachable: cp1252 maps all bytes
 
 
+def _detect_delimiter(text: str) -> str:
+    """Pick the CSV delimiter from the header row: semicolon or comma.
+
+    A semicolon-delimited file is the European convention (the comma is the decimal
+    separator there). The choice is a fixed header count, not locale sniffing, so it
+    is deterministic: semicolon only when it outnumbers the comma in the header,
+    else comma — leaving every ordinary comma file unchanged.
+
+    >>> _detect_delimiter("a,b,c\\n1,2,3")
+    ','
+    >>> _detect_delimiter("ID;Weight [gram];Fibre 1\\nA0001;507;cotton")
+    ';'
+    """
+    header = text.split("\n", 1)[0]
+    return ";" if header.count(";") > header.count(",") else ","
+
+
 def _read_csv(raw: bytes) -> tuple[tuple[str, ...], list[dict[str, str]], str]:
     text, encoding = _decode(raw)
-    reader = csv.DictReader(io.StringIO(text))
+    reader = csv.DictReader(io.StringIO(text), delimiter=_detect_delimiter(text))
     columns = tuple(reader.fieldnames or ())
     rows = [{key: (value or "") for key, value in row.items()} for row in reader]
     return columns, rows, encoding
